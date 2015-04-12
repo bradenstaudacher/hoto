@@ -1,7 +1,8 @@
 class Square < ActiveRecord::Base
   belongs_to :game
   
-  # @square =  
+  LEFT = -1
+  RIGHT = 1
   
   def get_coord(x)
     # @square = ????
@@ -13,45 +14,49 @@ class Square < ActiveRecord::Base
   end
 
   def bloom(x)
+    # all_squares_adjacent_to
      # set current square's .height to 0
      # set adjacent square .height += 1    
   end
 
-  def topple_left(coord)
+  def topple_left
     #num_squares_to_attack = current_square.height 
     #set the current square's .height to 0
     #which direction is the topple in?
     #numSquares
   end
 
-  def topple_right(coord)
-    @square.height = 0 if valid_move
-    right_adj(coord)
+  def topple_right
+    return false unless valid_move
+      num_squares = height 
+      update(height: 0)
+      binding.pry
+      self.right_adj
   end
 
-  def topple_up(coord)
+  def topple_up
   end
 
-  def topple_down(coord)
+  def topple_down
+  end
+  
+  def get_adj(xdirection)
+    get_square_from_coord([x + xdirection, y])
+  end
+  
+  def right_adj
+      get_square_from_coord([x+1, y])
   end
 
-  def left_adj(coord)
-      [coord[0]-1, coord[1]]
+  def top_adj
+      get_square_from_coord([x, y-1])
   end
 
-  def right_adj(coord)
-      [coord[0]+1, coord[1]]
+  def bottom_adj
+      get_square_from_coord([x, y+1])
   end
 
-  def top_adj(coord)
-      [coord[0], coord[1]-1]
-  end
-
-  def bottom_adj(coord)
-      [coord[0], coord[1]+1]
-  end
-
-  def all_adj(coord)
+  def all_squares_adjacent_to
       arr = []
       arr << left_adj(coord)
       arr << right_adj(coord)
@@ -64,17 +69,14 @@ class Square < ActiveRecord::Base
       get_square_from_coord(coord).height > 0
   end
   
-  def offboard?(coord)
+  def off_board?(coord)
+    coord[0] > 5 || coord[0] < 1 || coord[1] > 5 || coord > 1 
     # coord not on board
   end
 
-
   def valid_move(from, to)
-    valid_move = true
-    valid_move = false if !(all_adj(from).include? to)
-    valid_move = false if occupied?(to)
-    #valid_move = false if offboard?(to)
-    valid_move
+     true
+     false if !(all_squares_adjacent_to(from).include? to) || occupied?(to) || off_board?(to)
   end
-
+  
 end
