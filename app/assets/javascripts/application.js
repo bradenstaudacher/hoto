@@ -14,3 +14,16 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+   console.log('Hotooooooo!');
+
+
+$(function(){
+
+console.log('heyinside')
+    $('td').on('click',function(){
+      console.log(this);
+    })
+  
+})
+
