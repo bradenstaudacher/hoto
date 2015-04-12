@@ -13,10 +13,13 @@ class Square < ActiveRecord::Base
     Square.where(x: arr[0]).where(y: arr[1])[0]
   end
 
-  def bloom(x)
-    # all_squares_adjacent_to
-     # set current square's .height to 0
-     # set adjacent square .height += 1    
+  def bloom
+    update(height: 0)
+    
+    all_squares_adjacent_to.each do |square|
+      square.height += 1
+      square.save
+    end
   end
 
   def topple_left
@@ -44,6 +47,10 @@ class Square < ActiveRecord::Base
     get_square_from_coord([x + xdirection, y])
   end
   
+  def left_adj
+    get_square_from_coord([x-1, y])
+  end
+  
   def right_adj
       get_square_from_coord([x+1, y])
   end
@@ -58,14 +65,14 @@ class Square < ActiveRecord::Base
 
   def all_squares_adjacent_to
       arr = []
-      arr << left_adj(coord)
-      arr << right_adj(coord)
-      arr << top_adj(coord)
-      arr << bottom_adj(coord)
+      arr << left_adj
+      arr << right_adj
+      arr << top_adj
+      arr << bottom_adj
       arr
   end
 
-  def occupied?(coord)
+  def occupied?
       get_square_from_coord(coord).height > 0
   end
   

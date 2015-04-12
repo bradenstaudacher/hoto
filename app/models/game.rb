@@ -10,4 +10,9 @@ class Game < ActiveRecord::Base
     ['x','x','x','x','x']
   ] 
 
+ def board
+  Square.all.each do |square|
+  
+ end
+
 end
