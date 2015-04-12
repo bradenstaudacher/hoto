@@ -3,10 +3,11 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-h1 {
+#hoto-title {
   margin: auto;
   text-align: center;
     width: 30%;
+    font-size: 3em;
 }
 
 table {
@@ -15,7 +16,8 @@ table {
 }
 
 #game-board {
-  margin-top: 50px;
+  margin: 50px auto 0;
+  width: 25%;
 }
 
 tr{
@@ -40,3 +42,19 @@ td {
   background: white;
 }
 
+.action-button {
+  border: solid 1px orange;
+  width: 88px;
+  padding: 5px;
+  margin: 16px 5px;
+  float: left;
+  background: orange;
+  color: white;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+#button-container {
+    margin: auto;
+    width: 30%;
+}
