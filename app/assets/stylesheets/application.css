@@ -11,3 +11,25 @@
  *= require_self
  *= require_tree .
  */
+
+
+/*shitty styles below*/
+
+h1 {
+  margin: auto;
+  text-align: center;
+    width: 30%;
+}
+
+table {
+  width: 300px;
+  margin: auto;
+}
+
+#game-board {
+  margin-top: 50px;
+}
+
+tr{
+  margin-top: 5px;
+}
