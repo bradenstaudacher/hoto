@@ -34,14 +34,13 @@ class Square < ActiveRecord::Base
       end
     end
   end
-  
+
   def topple_left
     if valid_move(left_adj)
       num_squares_affected = height
       update(height: 0)
       next_square = get_square_from_coord([x-1, y])
       while num_squares_affected > 0
-        binding.pry
         next_square.height += 1
         next_square.save
         next_square = get_square_from_coord([next_square.x-1, next_square.y])
