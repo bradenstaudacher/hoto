@@ -50,16 +50,17 @@ class Square < ActiveRecord::Base
   end
 
   def topple_up
+    puts "method called"
     if valid_move(top_adj)
+      puts "valid move"
       num_squares_affected = height
       update(height: 0)
       next_square = get_square_from_coord([x, y-1])
       while num_squares_affected > 0
-        binding.pry
+        puts "in loop"
         next_square.height += 1
         next_square.save
         next_square = get_square_from_coord([next_square.x, next_square.y-1])
-        binding.pry
         num_squares_affected -= 1
       end
     end
@@ -115,13 +116,13 @@ class Square < ActiveRecord::Base
   end
   
   def off_board?(coord)
-    coord[0] > 5 || coord[0] < 1 || coord[1] > 5 || coord[1] > 1 
-    # coord not on board
+    binding.pry
+    coord[0] > 5 || coord[0] < 1 || coord[1] > 5 || coord[1] < 1 
   end
 
   def valid_move(to)
-     # true
-    return false if !(all_squares_adjacent_to.include? to) || occupied?([to.x, to.y]) || off_board?([to.x, to.y])
+
+    return false if off_board?([to.x, to.y]) || !(all_squares_adjacent_to.include? to) || occupied?([to.x, to.y])  || height < 2
     true 
   end
   
