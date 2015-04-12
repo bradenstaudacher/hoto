@@ -1,4 +1,6 @@
 Hoto::Application.routes.draw do
+  resources :squares
+
   get "game/index"
   root to:  'game#index'
   # The priority is based upon order of creation: first created -> highest priority.

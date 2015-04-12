@@ -1,0 +1,25 @@
+<h1>Listing squares</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @squares.each do |square| %>
+      <tr>
+        <td><%= link_to 'Show', square %></td>
+        <td><%= link_to 'Edit', edit_square_path(square) %></td>
+        <td><%= link_to 'Destroy', square, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Square', new_square_path %>
