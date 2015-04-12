@@ -1,11 +1,15 @@
 class Square < ActiveRecord::Base
-  belongs_to :game
-  
-  LEFT = -1
-  RIGHT = 1
-  
-  def get_coord(x)
-    [@square.x, @square.y]
+  belongs_to :game  
+
+  class << self
+    def place
+      self.height += 1
+      self.save
+    end
+    
+    def occupied?
+      self.height > 0
+    end
   end
     
   def get_square_from_coord(arr)
@@ -79,10 +83,6 @@ class Square < ActiveRecord::Base
     end
   end
   
-  def get_adj(xdirection)
-    get_square_from_coord([x + xdirection, y])
-  end
-  
   def left_adj
     get_square_from_coord([x-1, y])
   end
@@ -107,10 +107,6 @@ class Square < ActiveRecord::Base
       arr << bottom_adj
       arr
   end
-
-  def occupied?(coord)
-      get_square_from_coord(coord).height > 0
-  end
   
   def off_board?(coord)
     coord[0] > 5 || coord[0] < 1 || coord[1] > 5 || coord[1] < 1 
@@ -118,7 +114,7 @@ class Square < ActiveRecord::Base
 
   def valid_move(to)
 
-    return false if off_board?([to.x, to.y]) || !(all_squares_adjacent_to.include? to) || occupied?([to.x, to.y])  || height < 2
+    return false if off_board?([to.x, to.y]) || !(all_squares_adjacent_to.include? to) || occupied?(to)  || height < 2
     true 
   end
   
