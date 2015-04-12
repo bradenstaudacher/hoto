@@ -10,5 +10,4 @@ class Game < ActiveRecord::Base
     ['x','x','x','x','x']
   ] 
 
-
 end
