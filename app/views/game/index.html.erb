@@ -1,5 +1,15 @@
 <h1>Game#index</h1>
 <p>Find me in app/views/game/index.html.erb</p>
   <% @board.each do |row|  %>
-  <p><%= row  %></p>
+  <!-- <p><%= row  %></p> -->
+
+  <table>
+  <tr>
+    <td><%= row[0] %></td>
+    <td><%= row[1] %></td> 
+    <td><%= row[2] %></td> 
+    <td><%= row[3] %></td> 
+    <td><%= row[4] %></td> 
+  </tr>
+</table>
   <% end %>
