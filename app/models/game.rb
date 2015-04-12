@@ -6,7 +6,7 @@ class Game < ActiveRecord::Base
     def board
       board = []
       # Square.all.each do |square|
-      #   board << square.height
+      #   board << square
       # end
       # board
 
@@ -17,15 +17,15 @@ class Game < ActiveRecord::Base
       row5 = []
       Square.all.each do |square, index|
         if row1.length < 5
-          row1 << square.height
+          row1 << square
         elsif row2.length < 5
-          row2 << square.height
+          row2 << square
         elsif row3.length < 5
-          row3 << square.height
+          row3 << square
         elsif row4.length < 5
-          row4 << square.height
+          row4 << square
         else 
-          row5 << square.height
+          row5 << square
         end
       end
       board << row1 << row2 << row3 << row4 << row5

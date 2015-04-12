@@ -1,15 +1,47 @@
+
 <h1>¡¡¡¡¡¡Hoto!!!!</h1>
 
   <table id='game-board'>
 
-  <% @board.each do |row|  %>
-
   <tr>
-    <td><%= row[0] %></td>
-    <td><%= row[1] %></td> 
-    <td><%= row[2] %></td> 
-    <td><%= row[3] %></td> 
-    <td><%= row[4] %></td> 
+<% @board.each do |row|          %>
+
+
+
+  <% row.each do |square| %>
+<%        if square.colour == 'red'      %>
+
+            <td class='red'>
+<%=         square.height             %>
+            </td>
+
+<%        elsif square.colour == 'blue'      %>
+       
+            <td class='blue'>
+<%=         square.height             %>
+            </td>
+
+<%        else                               %>
+       
+            <td class='normal'>
+<%=         square.height             %>
+            </td>
+<%  end                                       %>
+
+<%    end %>
   </tr>
-  <% end %>
+<% end %>
+
 </table>
+<!-- 
+counter = 1
+
+while counter <= 5 
+  i = 1
+  while i <= 5
+    Square.create(x: counter, y: i, height: 0)
+    i += 1
+  end
+  counter += 1
+end
+ -->

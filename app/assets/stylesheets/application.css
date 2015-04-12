@@ -33,3 +33,11 @@ table {
 tr{
   margin-top: 5px;
 }
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
