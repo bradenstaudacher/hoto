@@ -22,7 +22,8 @@ $(function(){
 
 console.log('heyinside')
     $('td').on('click',function(){
-      console.log(this);
+      $('td').removeClass('active');
+      $(this).addClass('active');
     })
   
 })
