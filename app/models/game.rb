@@ -2,19 +2,14 @@ class Game < ActiveRecord::Base
   has_many :squares
   has_and_belongs_to_many :players
   
-  # BOARD = [
-  #   ['x','x','x','x','x'],
-  #   ['x','x','x','x','x'],
-  #   ['x','x','x','x','x'],
-  #   ['x','x','x','x','x'],
-  #   ['x','x','x','x','x']
-  # ] 
-
-
   class << self 
-
     def board
       board = []
+      # Square.all.each do |square|
+      #   board << square.height
+      # end
+      # board
+
       row1 = []
       row2 = []
       row3 = []
@@ -35,8 +30,5 @@ class Game < ActiveRecord::Base
       end
       board << row1 << row2 << row3 << row4 << row5
     end
-
-    # BOARD = board
-
   end
 end
