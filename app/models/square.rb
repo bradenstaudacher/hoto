@@ -1,7 +1,6 @@
 class Square < ActiveRecord::Base
-  belongs_to :game  
+  belongs_to :game
 
-  class << self
     def place
       self.height += 1
       self.save
@@ -10,11 +9,6 @@ class Square < ActiveRecord::Base
     def occupied?
       self.height > 0
     end
-  end
-    
-  def get_square_from_coord(arr)
-    Square.where(x: arr[0]).where(y: arr[1])[0]
-  end
 
   def bloom
     update(height: 0)
@@ -113,9 +107,12 @@ class Square < ActiveRecord::Base
   end
 
   def valid_move(to)
-
     return false if off_board?([to.x, to.y]) || !(all_squares_adjacent_to.include? to) || occupied?(to)  || height < 2
     true 
   end
-  
+  class << self
+    def get_square_from_coord(arr)
+      Square.where(x: arr[0]).where(y: arr[1])[0]
+    end
+  end  
 end
