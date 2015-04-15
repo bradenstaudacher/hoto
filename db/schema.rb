@@ -11,10 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150412045747) do
+ActiveRecord::Schema.define(version: 20150414235702) do
 
   create_table "games", force: true do |t|
-    t.string   "turnstate"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -40,6 +39,9 @@ ActiveRecord::Schema.define(version: 20150412045747) do
     t.integer  "height"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "game_id"
   end
+
+  add_index "squares", ["game_id"], name: "index_squares_on_game_id"
 
 end
