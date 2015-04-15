@@ -2,19 +2,22 @@ class Square < ActiveRecord::Base
   belongs_to :game
 
   def place
-    self.height += 1
-    self.save
+    height += 1
+    save
   end
   
   def occupied?
-    self.height > 0
+    height > 0
   end
 
   def bloom
     update(height: 0)
-    all_squares_adjacent_to.each do |square|
-      square.height += 1
-      square.save
+    all_squares_adjacent_to.each do |coord|
+      if !Square.offboard?(coord)
+        square = get_square_from_coord(coord)
+        square.height += 1
+        square.save
+      end
     end
   end
 
@@ -75,4 +78,6 @@ class Square < ActiveRecord::Base
       Square.where(x: coord[0]).where(y: coord[1])[0]
     end
   end
+
+
 end
