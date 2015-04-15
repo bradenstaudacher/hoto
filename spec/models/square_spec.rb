@@ -29,7 +29,9 @@ RSpec.describe Square, type: :model do
     expect(@square25).to eq(Square.find(25))
   end
 
-  it "can topple off the board with height 2" do
+  ############## TOPPLE LEFT #########################
+
+  it "can topple left off the board with height 2" do
     @topplesquare = Square.find(7)
     @topplesquare.update(height: 2)
     expect(@topplesquare.height).to eq(2)
@@ -38,9 +40,10 @@ RSpec.describe Square, type: :model do
     expect(Square.find(2).height).to eq(1)
   end
 
-  it "can topple off the board with height 3" do
+  it "can topple left off the board with height 3" do
     @topplesquare = Square.find(7)
     @topplesquare.update(height: 3)
+
     expect(@topplesquare.height).to eq(3)
     @topplesquare.topple(Square::LEFT)
     expect(Square.find(7).height).to eq(0)
@@ -52,13 +55,139 @@ RSpec.describe Square, type: :model do
     @topplesquare.update(height: 3)
     @topplesquare2 = Square.find(11)
     @topplesquare2.update(height: 2)
+
     expect(@topplesquare.height).to eq(3)
     expect(@topplesquare2.height).to eq(2)
     @topplesquare.topple(Square::LEFT)
     expect(Square.find(21).height).to eq(0)
-    expect(Square.find(11).height).to eq(3)
     expect(Square.find(16).height).to eq(1)
+    expect(Square.find(11).height).to eq(3)
     expect(Square.find(6).height).to eq(1)
   end
+
+    ############## TOPPLE RIGHT #########################
+
+  it "can topple left off the board with height 2" do
+    @topplesquare = Square.find(17)
+    @topplesquare.update(height: 2)
+    expect(@topplesquare.height).to eq(2)
+    @topplesquare.topple(Square::RIGHT)
+    expect(Square.find(17).height).to eq(0)
+    expect(Square.find(22).height).to eq(1)
+  end
+
+  it "can topple left off the board with height 3" do
+    @topplesquare = Square.find(17)
+    @topplesquare.update(height: 3)
+
+    expect(@topplesquare.height).to eq(3)
+    @topplesquare.topple(Square::RIGHT)
+    expect(Square.find(17).height).to eq(0)
+    expect(Square.find(22).height).to eq(1)
+  end
+
+  it "can topple onto a square that has height" do
+    @topplesquare = Square.find(1)
+    @topplesquare.update(height: 3)
+    @topplesquare2 = Square.find(11)
+    @topplesquare2.update(height: 2)
+
+    expect(@topplesquare.height).to eq(3)
+    expect(@topplesquare2.height).to eq(2)
+    @topplesquare.topple(Square::RIGHT)
+    expect(Square.find(1).height).to eq(0)
+    expect(Square.find(6).height).to eq(1)
+    expect(Square.find(11).height).to eq(3)
+    expect(Square.find(16).height).to eq(1)
+  end
+
+    ############## TOPPLE UP #########################
+
+  it "can topple left off the board with height 2" do
+    @topplesquare = Square.find(17)
+    @topplesquare.update(height: 2)
+    expect(@topplesquare.height).to eq(2)
+    @topplesquare.topple(Square::UP)
+    expect(Square.find(17).height).to eq(0)
+    expect(Square.find(16).height).to eq(1)
+  end
+
+  it "can topple left off the board with height 3" do
+    @topplesquare = Square.find(17)
+    @topplesquare.update(height: 3)
+
+    expect(@topplesquare.height).to eq(3)
+    @topplesquare.topple(Square::UP)
+    expect(Square.find(17).height).to eq(0)
+    expect(Square.find(16).height).to eq(1)
+  end
+
+  it "can topple onto a square that has height" do
+    @topplesquare = Square.find(15)
+    @topplesquare.update(height: 3)
+    @topplesquare2 = Square.find(13)
+    @topplesquare2.update(height: 2)
+
+    expect(@topplesquare.height).to eq(3)
+    expect(@topplesquare2.height).to eq(2)
+    @topplesquare.topple(Square::UP)
+    expect(Square.find(15).height).to eq(0)
+    expect(Square.find(14).height).to eq(1)
+    expect(Square.find(13).height).to eq(3)
+    expect(Square.find(12).height).to eq(1)
+  end
+
+    ############## TOPPLE DOWN #########################
+
+  it "can topple left off the board with height 2" do
+    @topplesquare = Square.find(14)
+    @topplesquare.update(height: 2)
+    expect(@topplesquare.height).to eq(2)
+    @topplesquare.topple(Square::DOWN)
+    expect(Square.find(14).height).to eq(0)
+    expect(Square.find(15).height).to eq(1)
+  end
+
+  it "can topple left off the board with height 3" do
+    @topplesquare = Square.find(14)
+    @topplesquare.update(height: 3)
+
+    expect(@topplesquare.height).to eq(3)
+    @topplesquare.topple(Square::DOWN)
+    expect(Square.find(14).height).to eq(0)
+    expect(Square.find(15).height).to eq(1)
+  end
+
+  it "can topple onto a square that has height" do
+    @topplesquare = Square.find(11)
+    @topplesquare.update(height: 3)
+    @topplesquare2 = Square.find(13)
+    @topplesquare2.update(height: 2)
+
+    expect(@topplesquare.height).to eq(3)
+    expect(@topplesquare2.height).to eq(2)
+    @topplesquare.topple(Square::DOWN)
+    expect(Square.find(11).height).to eq(0)
+    expect(Square.find(12).height).to eq(1)
+    expect(Square.find(13).height).to eq(3)
+    expect(Square.find(14).height).to eq(1)
+  end
+
+  # it "can topple on another square and auto-bloom it" do
+  #   @topplesquare = Square.find(11)
+  #   @topplesquare.update(height: 2)
+  #   @topplesquare2 = Square.find(13)
+  #   @topplesquare2.update(height: 3)
+
+  #   expect(@topplesquare.height).to eq(2)
+  #   expect(@topplesquare2.height).to eq(3)
+  #   @topplesquare.topple(Square::DOWN)
+  #   expect(Square.find(11).height).to eq(0)
+  #   expect(Square.find(13).height).to eq(0)
+  #   expect(Square.find(12).height).to eq(1)
+  #   expect(Square.find(8).height).to eq(1)
+  #   expect(Square.find(14).height).to eq(1)
+  #   expect(Square.find(18).height).to eq(1)
+  # end
 
 end
