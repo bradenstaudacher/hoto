@@ -1,14 +1,14 @@
 class Square < ActiveRecord::Base
   belongs_to :game
 
-    def place
-      self.height += 1
-      self.save
-    end
-    
-    def occupied?
-      self.height > 0
-    end
+  def place
+    self.height += 1
+    self.save
+  end
+  
+  def occupied?
+    self.height > 0
+  end
 
   def bloom
     update(height: 0)
@@ -22,28 +22,52 @@ class Square < ActiveRecord::Base
     if valid_move(right_adj)
       num_squares_affected = height
       update(height: 0)
-      next_square = get_square_from_coord([x+1, y])
+      next_square = Square.get_square_from_coord([x+1, y])
       while num_squares_affected > 0
         next_square.height += 1
         next_square.save
-        next_square = get_square_from_coord([next_square.x+1, next_square.y])
+        next_square = Square.get_square_from_coord([next_square.x+1, next_square.y])
         num_squares_affected -= 1
       end
     end
   end
 
+  # def topple_left
+  #   if valid_move(left_adj)
+  #     num_squares_affected = height
+  #     update(height: 0)
+
+  #     next_square = Square.get_square_from_coord([x-1, y])
+
+  #     while num_squares_affected > 0 && !Square.offboard?([x-1, y])
+  #       next_square.height += 1
+  #       next_square.save
+  #       next_square = Square.get_square_from_coord([next_square.x-1, next_square.y])
+  #       num_squares_affected -= 1
+  #     end
+  #   end
+  # end
+
   def topple_left
-    if valid_move(left_adj)
+    return false unless valid_move(left_adj)
+      
       num_squares_affected = height
       update(height: 0)
-      next_square = get_square_from_coord([x-1, y])
-      while num_squares_affected > 0
-        next_square.height += 1
-        next_square.save
-        next_square = get_square_from_coord([next_square.x-1, next_square.y])
-        num_squares_affected -= 1
+
+      coords_affected = []
+      counter = 1
+      while counter <= num_squares_affected
+        coords_affected << [x - counter, y]
+        counter += 1 
       end
-    end
+      coords_affected.select! do |coord|
+        !Square.offboard?(coord)
+      end
+      coords_affected.each do |coord|
+        square = Square.get_square_from_coord(coord)
+        square.height += 1
+        square.save
+      end
   end
 
   def topple_up
@@ -52,12 +76,12 @@ class Square < ActiveRecord::Base
       puts "valid move"
       num_squares_affected = height
       update(height: 0)
-      next_square = get_square_from_coord([x, y-1])
+      next_square = Square.get_square_from_coord([x, y-1])
       while num_squares_affected > 0
         puts "in loop"
         next_square.height += 1
         next_square.save
-        next_square = get_square_from_coord([next_square.x, next_square.y-1])
+        next_square = Square.get_square_from_coord([next_square.x, next_square.y-1])
         num_squares_affected -= 1
       end
     end
@@ -67,30 +91,30 @@ class Square < ActiveRecord::Base
     if valid_move(bottom_adj)
       num_squares_affected = height
       update(height: 0)
-      next_square = get_square_from_coord([x, y+1])
+      next_square = Square.get_square_from_coord([x, y+1])
       while num_squares_affected > 0
         next_square.height += 1
         next_square.save
-        next_square = get_square_from_coord([next_square.x, next_square.y+1])
+        next_square = Square.get_square_from_coord([next_square.x, next_square.y+1])
         num_squares_affected -= 1
       end
     end
   end
   
   def left_adj
-    get_square_from_coord([x-1, y])
+    [x-1, y]
   end
   
   def right_adj
-      get_square_from_coord([x+1, y])
+      Square.get_square_from_coord([x+1, y])
   end
 
   def top_adj
-      get_square_from_coord([x, y-1])
+      Square.get_square_from_coord([x, y-1])
   end
 
   def bottom_adj
-      get_square_from_coord([x, y+1])
+      Square.get_square_from_coord([x, y+1])
   end
 
   def all_squares_adjacent_to
@@ -101,18 +125,22 @@ class Square < ActiveRecord::Base
       arr << bottom_adj
       arr
   end
-  
-  def off_board?(coord)
-    coord[0] > 5 || coord[0] < 1 || coord[1] > 5 || coord[1] < 1 
-  end
 
   def valid_move(to)
-    return false if off_board?([to.x, to.y]) || !(all_squares_adjacent_to.include? to) || occupied?(to)  || height < 2
+    square = Square.get_square_from_coord(to)
+    return false if !(all_squares_adjacent_to.include? to) || Square.offboard?(to) || square.occupied?  || height < 2
     true 
   end
+
+  
   class << self
-    def get_square_from_coord(arr)
-      Square.where(x: arr[0]).where(y: arr[1])[0]
+    def offboard?(coord)
+      coord[0] > 5 || coord[0] < 1 || coord[1] > 5 || coord[1] < 1 
     end
-  end  
+    # DOESNT DO ANYTHING USEFUL RIGHT NOW
+
+    def get_square_from_coord(coord)
+      Square.where(x: coord[0]).where(y: coord[1])[0]
+    end
+  end
 end
