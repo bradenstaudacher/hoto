@@ -22,6 +22,7 @@ class Square < ActiveRecord::Base
   RIGHT = [1, 0]
   UP = [0, -1]
   DOWN = [0, 1]
+  ALLDIR = [LEFT, RIGHT, UP, DOWN]
 
   def topple(direction)
     return false unless valid_move([x + direction[0], y + direction[1]])
@@ -45,35 +46,16 @@ class Square < ActiveRecord::Base
       end
   end
 
-  
-  
-  def left_adj
-    [x-1, y]
+  def adj(direction)
+    [x + direction[0], y + direction[1]]
   end
   
-  def left_adj
-    [x-1, y]
-  end
-
-  def right_adj
-      Square.get_square_from_coord([x+1, y])
-  end
-
-  def top_adj
-      Square.get_square_from_coord([x, y-1])
-  end
-
-  def bottom_adj
-      Square.get_square_from_coord([x, y+1])
-  end
-
   def all_squares_adjacent_to
-      arr = []
-      arr << left_adj
-      arr << right_adj
-      arr << top_adj
-      arr << bottom_adj
-      arr
+    arr = []
+    ALLDIR.each do |direction|
+      arr << adj(direction)
+    end
+    arr
   end
 
   def valid_move(to)
