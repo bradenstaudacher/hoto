@@ -18,38 +18,13 @@ class Square < ActiveRecord::Base
     end
   end
 
-  def topple_right
-    if valid_move(right_adj)
-      num_squares_affected = height
-      update(height: 0)
-      next_square = Square.get_square_from_coord([x+1, y])
-      while num_squares_affected > 0
-        next_square.height += 1
-        next_square.save
-        next_square = Square.get_square_from_coord([next_square.x+1, next_square.y])
-        num_squares_affected -= 1
-      end
-    end
-  end
+  LEFT = [-1, 0]
+  RIGHT = [1, 0]
+  UP = [0, -1]
+  DOWN = [0, 1]
 
-  # def topple_left
-  #   if valid_move(left_adj)
-  #     num_squares_affected = height
-  #     update(height: 0)
-
-  #     next_square = Square.get_square_from_coord([x-1, y])
-
-  #     while num_squares_affected > 0 && !Square.offboard?([x-1, y])
-  #       next_square.height += 1
-  #       next_square.save
-  #       next_square = Square.get_square_from_coord([next_square.x-1, next_square.y])
-  #       num_squares_affected -= 1
-  #     end
-  #   end
-  # end
-
-  def topple_left
-    return false unless valid_move(left_adj)
+  def topple(direction)
+    return false unless valid_move([x + direction[0], y + direction[1]])
       
       num_squares_affected = height
       update(height: 0)
@@ -57,7 +32,7 @@ class Square < ActiveRecord::Base
       coords_affected = []
       counter = 1
       while counter <= num_squares_affected
-        coords_affected << [x - counter, y]
+        coords_affected << [x + direction[0] * counter, y + direction[1] * counter]
         counter += 1 
       end
       coords_affected.select! do |coord|
@@ -70,41 +45,16 @@ class Square < ActiveRecord::Base
       end
   end
 
-  def topple_up
-    puts "method called"
-    if valid_move(top_adj)
-      puts "valid move"
-      num_squares_affected = height
-      update(height: 0)
-      next_square = Square.get_square_from_coord([x, y-1])
-      while num_squares_affected > 0
-        puts "in loop"
-        next_square.height += 1
-        next_square.save
-        next_square = Square.get_square_from_coord([next_square.x, next_square.y-1])
-        num_squares_affected -= 1
-      end
-    end
-  end
-
-  def topple_down
-    if valid_move(bottom_adj)
-      num_squares_affected = height
-      update(height: 0)
-      next_square = Square.get_square_from_coord([x, y+1])
-      while num_squares_affected > 0
-        next_square.height += 1
-        next_square.save
-        next_square = Square.get_square_from_coord([next_square.x, next_square.y+1])
-        num_squares_affected -= 1
-      end
-    end
-  end
+  
   
   def left_adj
     [x-1, y]
   end
   
+  def left_adj
+    [x-1, y]
+  end
+
   def right_adj
       Square.get_square_from_coord([x+1, y])
   end

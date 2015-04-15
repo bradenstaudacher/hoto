@@ -33,7 +33,7 @@ RSpec.describe Square, type: :model do
     @topplesquare = Square.find(7)
     @topplesquare.update(height: 2)
     expect(@topplesquare.height).to eq(2)
-    @topplesquare.topple_left
+    @topplesquare.topple(Square::LEFT)
     expect(Square.find(7).height).to eq(0)
     expect(Square.find(2).height).to eq(1)
   end
@@ -42,7 +42,7 @@ RSpec.describe Square, type: :model do
     @topplesquare = Square.find(7)
     @topplesquare.update(height: 3)
     expect(@topplesquare.height).to eq(3)
-    @topplesquare.topple_left
+    @topplesquare.topple(Square::LEFT)
     expect(Square.find(7).height).to eq(0)
     expect(Square.find(2).height).to eq(1)
   end
@@ -54,7 +54,7 @@ RSpec.describe Square, type: :model do
     @topplesquare2.update(height: 2)
     expect(@topplesquare.height).to eq(3)
     expect(@topplesquare2.height).to eq(2)
-    @topplesquare.topple_left
+    @topplesquare.topple(Square::LEFT)
     expect(Square.find(21).height).to eq(0)
     expect(Square.find(11).height).to eq(3)
     expect(Square.find(16).height).to eq(1)
