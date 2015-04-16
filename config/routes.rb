@@ -3,7 +3,7 @@ Hoto::Application.routes.draw do
 
   resources :squares
 
-  resources :games
+  resources :games 
   
   get "game/index"
   root to:  'game#index'
