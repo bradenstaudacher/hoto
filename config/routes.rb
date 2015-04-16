@@ -1,5 +1,5 @@
 Hoto::Application.routes.draw do
-  resources :players
+  resources :users
 
   resources :squares
 
