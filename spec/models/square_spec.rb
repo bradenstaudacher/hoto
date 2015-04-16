@@ -233,6 +233,20 @@ RSpec.describe Square, type: :model do
   end
 
   ############### PLACE #################
+  
+  it "cannot be placed on an empty square with enemy colour" do
+    @topplesquare = Square.find(8)
+    @topplesquare.update(colour: "black")
+    @topplesquare.place("white")
+    expect(@topplesquare.height).to eq(0)
+  end
+
+  it "can be placed on an empty square with no colour" do
+    @topplesquare = Square.find(8)
+    @topplesquare.update(colour: "empty")
+    @topplesquare.place("white")
+    expect(@topplesquare.height).to eq(1)
+  end
 
   it "can be placed on an empty square of same colour" do
     @topplesquare = Square.find(8)
