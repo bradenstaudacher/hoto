@@ -2,8 +2,11 @@ class Square < ActiveRecord::Base
   belongs_to :game
 
   def place
-    height += 1
-    save
+    self.height += 1
+    self.save
+    if self.bloomable?
+      self.bloom
+    end
   end
   
   def occupied?
@@ -17,8 +20,15 @@ class Square < ActiveRecord::Base
         square = Square.get_square_from_coord(coord)
         square.height += 1
         square.save
+        if square.bloomable?
+          square.bloom
+        end
       end
     end
+  end
+
+  def bloomable?
+    height == 4
   end
 
   LEFT = [-1, 0]
@@ -46,6 +56,9 @@ class Square < ActiveRecord::Base
         square = Square.get_square_from_coord(coord)
         square.height += 1
         square.save
+        if square.bloomable?
+          square.bloom
+        end
       end
   end
 

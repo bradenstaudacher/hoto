@@ -175,6 +175,12 @@ RSpec.describe Square, type: :model do
 
   ################## BLOOM ########################
 
+  it "can check if a piece is bloomable" do
+    @topplesquare = Square.find(13)
+    @topplesquare.update(height: 4)
+    expect(@topplesquare.bloomable?).to eq(true)
+  end
+
   it "can distribute pieces to all 4 sides" do
     @topplesquare = Square.find(13)
     @topplesquare.update(height: 4)
@@ -186,21 +192,81 @@ RSpec.describe Square, type: :model do
     expect(Square.find(18).height).to eq(1)
   end
 
-  # it "can topple on another square and auto-bloom it" do
-  #   @topplesquare = Square.find(11)
-  #   @topplesquare.update(height: 2)
-  #   @topplesquare2 = Square.find(13)
-  #   @topplesquare2.update(height: 3)
 
-  #   expect(@topplesquare.height).to eq(2)
-  #   expect(@topplesquare2.height).to eq(3)
-  #   @topplesquare.topple(Square::DOWN)
-  #   expect(Square.find(11).height).to eq(0)
-  #   expect(Square.find(13).height).to eq(0)
-  #   expect(Square.find(12).height).to eq(1)
-  #   expect(Square.find(8).height).to eq(1)
-  #   expect(Square.find(14).height).to eq(1)
-  #   expect(Square.find(18).height).to eq(1)
-  # end
+  it "can topple on another square and auto-bloom it" do
+    @topplesquare = Square.find(11)
+    @topplesquare.update(height: 2)
+    @topplesquare2 = Square.find(13)
+    @topplesquare2.update(height: 3)
+
+    expect(@topplesquare.height).to eq(2)
+    expect(@topplesquare2.height).to eq(3)
+    @topplesquare.topple(Square::DOWN)
+    expect(Square.find(11).height).to eq(0)
+    expect(Square.find(13).height).to eq(0)
+    expect(Square.find(12).height).to eq(2)
+    expect(Square.find(8).height).to eq(1)
+    expect(Square.find(14).height).to eq(1)
+    expect(Square.find(18).height).to eq(1)
+  end
+
+  it "can bloom and trigger another bloom" do
+    @topplesquare = Square.find(11)
+    @topplesquare.update(height: 2)
+    @topplesquare2 = Square.find(13)
+    @topplesquare2.update(height: 3)
+    @topplesquare3 = Square.find(18)
+    @topplesquare3.update(height: 3)
+
+    expect(@topplesquare.height).to eq(2)
+    expect(@topplesquare2.height).to eq(3)
+    @topplesquare.topple(Square::DOWN)
+    expect(Square.find(11).height).to eq(0)
+    expect(Square.find(13).height).to eq(1)
+    expect(Square.find(12).height).to eq(2)
+    expect(Square.find(8).height).to eq(1)
+    expect(Square.find(14).height).to eq(1)
+    expect(Square.find(18).height).to eq(0)
+    expect(Square.find(17).height).to eq(1)
+    expect(Square.find(19).height).to eq(1)
+    expect(Square.find(23).height).to eq(1)
+  end
+
+  ############### PLACE #################
+
+  it "can be placed on an empty square" do
+    @topplesquare = Square.find(8)
+    @topplesquare.place
+    expect(@topplesquare.height).to eq(1)
+  end
+
+  it "can be placed on a square with height 1" do
+    @topplesquare = Square.find(8)
+    @topplesquare.update(height: 1)
+    @topplesquare.place
+    expect(@topplesquare.height).to eq(2)
+  end
+
+  it "can be placed on a square with height 2" do
+    @topplesquare = Square.find(8)
+    @topplesquare.update(height: 2)
+    @topplesquare.place
+    expect(@topplesquare.height).to eq(3)
+  end
+
+  it "can be placed on a square with height 3 and it blooms" do
+    @topplesquare = Square.find(8)
+    @topplesquare.update(height: 3)
+    @topplesquare.place
+    expect(@topplesquare.height).to eq(0)
+    @topplesquare2 = Square.find(3)
+    @topplesquare3 = Square.find(7)
+    @topplesquare4 = Square.find(13)
+    @topplesquare5 = Square.find(9)
+    expect(@topplesquare2.height).to eq(1)
+    expect(@topplesquare3.height).to eq(1)
+    expect(@topplesquare4.height).to eq(1)
+    expect(@topplesquare5.height).to eq(1)
+  end
 
 end
