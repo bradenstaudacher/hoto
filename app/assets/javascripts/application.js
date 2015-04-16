@@ -29,9 +29,6 @@ console.log('heyinside')
     $('#place-button').on('click', function(){
       console.log('clicked', $(this).text());
     })
-    $('#bloom-button').on('click', function(){
-      console.log('clicked', $(this).text());
-    })
     $('#topple-button').on('click', function(){
       console.log('clicked', $(this).text());
     })
