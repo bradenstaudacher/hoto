@@ -24,12 +24,10 @@ console.log('heyinside')
     $('td').on('click',function(){
       $('td').removeClass('active');
       $(this).addClass('active');
+      // $(this)
     })
 
     $('#place-button').on('click', function(){
-      console.log('clicked', $(this).text());
-    })
-    $('#bloom-button').on('click', function(){
       console.log('clicked', $(this).text());
     })
     $('#topple-button').on('click', function(){
