@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414235702) do
+ActiveRecord::Schema.define(version: 20150416183115) do
 
   create_table "games", force: true do |t|
     t.string   "turnstate"
@@ -19,18 +19,11 @@ ActiveRecord::Schema.define(version: 20150414235702) do
     t.datetime "updated_at"
   end
 
-  create_table "games_players", force: true do |t|
+  create_table "games_users", force: true do |t|
     t.integer "games_id"
-    t.integer "players_id"
-  end
-
-  create_table "players", force: true do |t|
-    t.string   "name"
-    t.string   "colour"
-    t.integer  "games_played"
-    t.integer  "games_won"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "users_id"
+    t.string  "colour"
+    t.integer "previous_rating"
   end
 
   create_table "squares", force: true do |t|
@@ -44,5 +37,14 @@ ActiveRecord::Schema.define(version: 20150414235702) do
   end
 
   add_index "squares", ["game_id"], name: "index_squares_on_game_id"
+
+  create_table "users", force: true do |t|
+    t.string   "name"
+    t.string   "colour"
+    t.integer  "games_played"
+    t.integer  "games_won"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
