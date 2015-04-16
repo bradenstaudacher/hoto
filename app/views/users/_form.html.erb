@@ -10,8 +10,21 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
+  <div>
+    <%= f.label "name", "Username" %><br>
+    <%= f.text_field "name" %>
   </div>
+  <div>
+    <%= f.label "email" %><br>
+    <%= f.text_field "email" %>
+  </div>
+  <div>
+    <%= f.label "password" %><br>
+    <%= f.password_field "password" %>
+  </div>
+  <div>
+    <%= f.label "password_confirmation" %><br>
+    <%= f.password_field "password_confirmation" %>
+  </div>
+  <div><%= f.submit "Submit" %></div>
 <% end %>
