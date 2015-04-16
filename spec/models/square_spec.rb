@@ -173,6 +173,19 @@ RSpec.describe Square, type: :model do
     expect(Square.find(14).height).to eq(1)
   end
 
+  ################## BLOOM ########################
+
+  it "can distribute pieces to all 4 sides" do
+    @topplesquare = Square.find(13)
+    @topplesquare.update(height: 4)
+    @topplesquare.bloom
+    expect(@topplesquare.height).to eq(0)
+    expect(Square.find(12).height).to eq(1)
+    expect(Square.find(8).height).to eq(1)
+    expect(Square.find(14).height).to eq(1)
+    expect(Square.find(18).height).to eq(1)
+  end
+
   # it "can topple on another square and auto-bloom it" do
   #   @topplesquare = Square.find(11)
   #   @topplesquare.update(height: 2)

@@ -14,7 +14,7 @@ class Square < ActiveRecord::Base
     update(height: 0)
     all_squares_adjacent_to.each do |coord|
       if !Square.offboard?(coord)
-        square = get_square_from_coord(coord)
+        square = Square.get_square_from_coord(coord)
         square.height += 1
         square.save
       end
