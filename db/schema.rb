@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150416185247) do
+ActiveRecord::Schema.define(version: 20150416190608) do
 
   create_table "games", force: true do |t|
     t.string   "turnstate"
@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 20150416185247) do
   end
 
   create_table "games_users", force: true do |t|
-    t.integer "games_id"
-    t.integer "users_id"
+    t.integer "game_id"
+    t.integer "user_id"
     t.string  "colour"
     t.integer "previous_rating"
   end
