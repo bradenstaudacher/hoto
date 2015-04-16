@@ -233,31 +233,49 @@ RSpec.describe Square, type: :model do
   end
 
   ############### PLACE #################
-
-  it "can be placed on an empty square" do
+  
+  it "cannot be placed on an empty square with enemy colour" do
     @topplesquare = Square.find(8)
-    @topplesquare.place
+    @topplesquare.update(colour: "black")
+    @topplesquare.place("white")
+    expect(@topplesquare.height).to eq(0)
+  end
+
+  it "can be placed on an empty square with no colour" do
+    @topplesquare = Square.find(8)
+    @topplesquare.update(colour: "empty")
+    @topplesquare.place("white")
     expect(@topplesquare.height).to eq(1)
   end
 
-  it "can be placed on a square with height 1" do
+  it "can be placed on an empty square of same colour" do
+    @topplesquare = Square.find(8)
+    @topplesquare.update(colour: "white")
+    @topplesquare.place("white")
+    expect(@topplesquare.height).to eq(1)
+  end
+
+  it "can be placed on a square with height 1 of same colour" do
     @topplesquare = Square.find(8)
     @topplesquare.update(height: 1)
-    @topplesquare.place
+    @topplesquare.update(colour: "white")
+    @topplesquare.place("white")
     expect(@topplesquare.height).to eq(2)
   end
 
-  it "can be placed on a square with height 2" do
+  it "can be placed on a square with height 2 of same colour" do
     @topplesquare = Square.find(8)
     @topplesquare.update(height: 2)
-    @topplesquare.place
+    @topplesquare.update(colour: "white")
+    @topplesquare.place("white")
     expect(@topplesquare.height).to eq(3)
   end
 
-  it "can be placed on a square with height 3 and it blooms" do
+  it "can be placed on a square with height 3 of same colour and it blooms" do
     @topplesquare = Square.find(8)
     @topplesquare.update(height: 3)
-    @topplesquare.place
+    @topplesquare.update(colour: "white")
+    @topplesquare.place("white")
     expect(@topplesquare.height).to eq(0)
     @topplesquare2 = Square.find(3)
     @topplesquare3 = Square.find(7)
