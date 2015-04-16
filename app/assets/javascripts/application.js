@@ -24,7 +24,9 @@ console.log('heyinside')
     $('td').on('click',function(){
       $('td').removeClass('active');
       $(this).addClass('active');
+      console.log($(this).attr('id'));
       // $(this)
+      // square = Square.find($(this).attr('id'));
     })
 
     $('#place-button').on('click', function(){
