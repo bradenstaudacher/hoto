@@ -1,11 +1,14 @@
 Hoto::Application.routes.draw do
+  get "rules/show"
   get "sessions/new"
   get "sessions/create"
   resources :users
 
   resources :squares
 
-  resources :games 
+  resources :games
+
+  resources :rules
 
   resources :sessions, only: [:new, :create, :destroy]
   
