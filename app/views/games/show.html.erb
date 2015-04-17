@@ -1,32 +1,31 @@
 
+<script>var currentGame = <%= params[:id] %> </script>
 <h1 id='hoto-title'>¡¡¡¡¡¡Hoto!!!!</h1>
 
   <table id='game-board'>
 
-<% array_of_square_ids = [1,6,11,16,21,2,7,12,17,22,3,8,13,18,23,4,9,14,19,24,5,10,15,20,25] %>
-<% counter = 0 %>
+<% #array_of_square_ids = [1,6,11,16,21,2,7,12,17,22,3,8,13,18,23,4,9,14,19,24,5,10,15,20,25] %>
+<% counter = 1 %>
   <tr>
 <% @board.each do |row|          %>
 
-
-
   <% row.each do |square| %>
-  <% square_id = array_of_square_ids[counter] %>
+  <% square_id = counter %>
 <%        if square.colour == 'red'      %>
 
-            <td class='red' id=<%= square_id %>>
+            <td class='red' data-id=<%= square_id %>>
 <%=         square.height             %>
             </td>
 
 <%        elsif square.colour == 'blue'      %>
        
-            <td class='blue' id=<%= square_id %> >
+            <td class='blue' data-id=<%= square_id %> >
 <%=         square.height             %>
             </td>
 
 <%        else                               %>
        
-            <td class='normal' id=<%= square_id %> >
+            <td class='normal' data-id=<%= square_id %> >
 <%=         square.height             %>
             </td>
 <%  end                                       %>
@@ -43,3 +42,4 @@
 <!-- this p is here to give the container some filling, because everything else is floated -->
   <p>&nbsp </p>
 </div>
+

@@ -5,8 +5,10 @@ Hoto::Application.routes.draw do
 
   resources :games
   
+
   get "game/index"
-  root to:  'game#index'
+  root to:  'games#index'
+  post "games/:id/place" => 'games#place'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
