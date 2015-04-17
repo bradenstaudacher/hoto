@@ -12,8 +12,10 @@ Hoto::Application.routes.draw do
 
   resources :sessions, only: [:new, :create, :destroy]
   
-  get "games/index"
+  get "game/index"
   root to:  'games#index'
+  post "games/:id/place" => 'games#place'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

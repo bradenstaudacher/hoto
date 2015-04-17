@@ -62,6 +62,18 @@ class GamesController < ApplicationController
     end
   end
 
+  def place 
+    puts params[:squareId]
+    square_id = params[:squareId]
+    @current_square = Square.find(square_id)
+    puts @current_square
+    @current_square.place('white')
+    # console.log(square_id)
+    # Square.find(square_id)
+
+    @square = Square.all
+    render json: @square
+  end
   # DELETE /games/1
   # DELETE /games/1.json
   def destroy

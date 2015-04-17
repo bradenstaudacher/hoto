@@ -24,7 +24,20 @@ console.log('heyinside')
     $('td').on('click',function(){
       $('td').removeClass('active');
       $(this).addClass('active');
-      console.log($(this).attr('id'));
+      var dataId = ($(this).attr('data-id'));
+
+      $.ajax({
+        url: '/games/' + currentGame + '/place',
+        method: 'POST',
+        data: { squareId: dataId },
+        success: function(x) {
+          console.log('get succes' + x);
+
+        },
+        failure: function(x){
+          console.log('failure')
+        }
+      })
       // $(this)
       // square = Square.find($(this).attr('id'));
     })
