@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  # GET /users/1
+  # GET /users/1 
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
@@ -64,9 +64,12 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
+    @user = User.find(params[:id])
+
     @user.destroy
+    session[:user_id] = nil
     respond_to do |format|
-      format.html { redirect_to users_url }
+      format.html { redirect_to games_path }
       format.json { head :no_content }
     end
   end

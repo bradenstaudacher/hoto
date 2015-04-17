@@ -3,6 +3,6 @@
 <% if current_user  == @user %>
   <%= link_to "Edit profile", edit_user_path(current_user)%>
 
-  <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
 <%= link_to 'Back', users_path %>
