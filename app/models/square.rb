@@ -2,10 +2,7 @@ class Square < ActiveRecord::Base
   belongs_to :game
 
   def place(player_colour)
-    puts 'hidy ho'
-    binding.pry
     if (player_colour == colour) || (colour == "empty")
-      binding.pry
       self.height += 1
       self.save
       if self.bloomable?
