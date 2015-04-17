@@ -1,11 +1,13 @@
 class Square < ActiveRecord::Base
   belongs_to :game
 
-  def place
-    self.height += 1
-    self.save
-    if self.bloomable?
-      self.bloom
+  def place(colour)
+    if (colour == self.colour) || (self.colour == "empty")
+      self.height += 1
+      self.save
+      if self.bloomable?
+        self.bloom
+      end
     end
   end
   
