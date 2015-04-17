@@ -17,11 +17,13 @@ class Square < ActiveRecord::Base
   end
 
   def bloom
+    square_colour = colour
     update(height: 0)
     all_squares_adjacent_to.each do |coord|
       if !Square.offboard?(coord)
         square = Square.get_square_from_coord(coord)
         square.height += 1
+        square.colour = square_colour
         square.save
         if square.bloomable?
           square.bloom
@@ -43,6 +45,7 @@ class Square < ActiveRecord::Base
   def topple(direction)
     return false unless valid_move([x + direction[0], y + direction[1]])
       
+      square_colour = colour
       num_squares_affected = height
       update(height: 0)
 
@@ -58,6 +61,7 @@ class Square < ActiveRecord::Base
       coords_affected.each do |coord|
         square = Square.get_square_from_coord(coord)
         square.height += 1
+        square.colour = square_colour
         square.save
         if square.bloomable?
           square.bloom
