@@ -64,8 +64,13 @@ class GamesController < ApplicationController
 
   def place 
     puts params[:squareId]
-    # @current_square = Square.find(:squareId)
-    # puts @current_square
+    square_id = params[:squareId]
+    @current_square = Square.find(square_id)
+    puts @current_square
+    @current_square.place('white')
+    # console.log(square_id)
+    # Square.find(square_id)
+
     @square = Square.all
     render json: @square
   end

@@ -2,6 +2,7 @@ class Square < ActiveRecord::Base
   belongs_to :game
 
   def place(colour)
+    puts 'hidy ho'
     if (colour == self.colour) || (self.colour == "empty")
       self.height += 1
       self.save
