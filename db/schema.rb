@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150416190608) do
+ActiveRecord::Schema.define(version: 20150417004120) do
 
   create_table "games", force: true do |t|
     t.string   "turnstate"
@@ -45,9 +45,9 @@ ActiveRecord::Schema.define(version: 20150416190608) do
     t.integer  "games_won"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "password"
     t.string   "email"
     t.integer  "current_rating"
+    t.string   "password_digest"
   end
 
 end
