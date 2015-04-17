@@ -1,0 +1,14 @@
+<h1>Listing users</h1>
+
+<table>
+
+  <tbody>
+    <% @games.each do |game| %>
+      <tr>
+        <td><%= link_to game.id, game %>  </td>
+
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
