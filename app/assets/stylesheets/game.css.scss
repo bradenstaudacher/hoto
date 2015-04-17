@@ -24,12 +24,24 @@ tr{
   margin-top: 5px;
 }
 
-.red {
-  color: red;
+.black span {
+  background-color: black;
+  color: white;
 }
 
-.blue {
-  color: blue;
+.white span{
+  background-color: white;
+  color: black;
+}
+
+.normal span {
+  color: yellow;
+}
+.pieces {
+  display: block;
+  width: 15px;
+  margin: auto;
+  border-radius: 50%;
 }
 
 td {

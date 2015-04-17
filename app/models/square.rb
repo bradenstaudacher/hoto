@@ -4,6 +4,7 @@ class Square < ActiveRecord::Base
   def place(player_colour)
     if (player_colour == colour) || (colour == "empty")
       self.height += 1
+      self.colour = player_colour
       self.save
       if self.bloomable?
         self.bloom

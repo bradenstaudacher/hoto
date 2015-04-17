@@ -11,23 +11,25 @@
 
   <% row.each do |square| %>
   <% square_id = counter %>
-<%        if square.colour == 'red'      %>
+<%        if square.colour == 'black'      %>
 
-            <td class='red' data-id=<%= square_id %>>
+            <td class='black' data-id=<%= square_id %>><span class="pieces">
 <%=         square.height             %>
-            </td>
+            </span></td>
 
-<%        elsif square.colour == 'blue'      %>
+<%        elsif square.colour == 'white'      %>
        
-            <td class='blue' data-id=<%= square_id %> >
+            <td class='white' data-id=<%= square_id %> >
+            <span class="pieces">
 <%=         square.height             %>
-            </td>
+            </span></td>
 
 <%        else                               %>
        
             <td class='normal' data-id=<%= square_id %> >
+            <span class="pieces">
 <%=         square.height             %>
-            </td>
+            </span></td>
 <%  end                                       %>
 <% counter += 1 %>
 <%    end %>
