@@ -14,7 +14,7 @@ counter = 1
 while counter <= 5
   i = 1
   while i <= 5
-    Square.create(x: counter, y: i, height: 0, game_id: 1, colour: 'empty')
+    Square.create(x: i, y: counter, height: 0, game_id: 1, colour: 'empty')
     i += 1
   end
   counter += 1
