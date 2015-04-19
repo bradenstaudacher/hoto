@@ -21,15 +21,15 @@
 $(function(){
 
 console.log('heyinside')
-    $('td').on('click',function(){
-      $('td').removeClass('active');
+    $('.game-square').on('click',function(){
+      $('.game-square').removeClass('active');
       $(this).addClass('active');
       var dataId = ($(this).attr('data-id'));
 
       $.ajax({
         url: '/games/' + currentGame + '/place',
         method: 'POST',
-        data: { squareId: dataId },
+        data: { squareId: dataId }, 
         success: function(x) {
           console.log('get succes' + x);
 
