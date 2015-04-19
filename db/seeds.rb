@@ -25,6 +25,11 @@ game_id_counter = 1
     end
     counter += 1
   end
+  Game.find(game_id_counter).users << User.first
+  Game.find(game_id_counter).users << User.last
 
   game_id_counter += 1
 end
+
+
+

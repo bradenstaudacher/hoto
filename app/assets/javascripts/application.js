@@ -42,7 +42,7 @@ console.log('heyinside')
       // square = Square.find($(this).attr('id'));
     })
 
-    $('#place-button').on('click', function(){
+    $('#end-turn-button').on('click', function(){
       console.log('clicked', $(this).text());
     })
     $('#topple-button').on('click', function(){
