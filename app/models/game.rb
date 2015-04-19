@@ -1,6 +1,11 @@
 class Game < ActiveRecord::Base
   has_many :squares
   has_and_belongs_to_many :users
+
+    def get_square_from_coord(coord)
+      # binding.pry
+      Square.where(x: coord[0]).where(y: coord[1]).where(game_id: id)
+    end
   
   class << self 
     def board id

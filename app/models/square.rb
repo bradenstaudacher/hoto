@@ -21,7 +21,7 @@ class Square < ActiveRecord::Base
     update(height: 0)
     all_squares_adjacent_to.each do |coord|
       if !Square.offboard?(coord)
-        square = Square.get_square_from_coord(coord)
+        square = game.get_square_from_coord(coord)[0]
         square.height += 1
         square.colour = square_colour
         square.save
@@ -92,11 +92,13 @@ class Square < ActiveRecord::Base
     def offboard?(coord)
       coord[0] > 5 || coord[0] < 1 || coord[1] > 5 || coord[1] < 1 
     end
-    # DOESNT DO ANYTHING USEFUL RIGHT NOW
 
-    def get_square_from_coord(coord)
-      Square.where(x: coord[0]).where(y: coord[1])[0]
-    end
+
+    # def get_square_from_coord(coord)
+    #   # binding.pry
+    #   id_for_this_game = params[:id].to_i
+    #   Square.where(x: coord[0]).where(y: coord[1]).where(game_id: )
+    # end
   end
 
 
