@@ -10,6 +10,10 @@ Hoto::Application.routes.draw do
 
   resources :rules
 
+  namespace :admin do
+    resources :users
+  end
+
   resources :sessions, only: [:new, :create, :destroy]
   
   get "game/index"
