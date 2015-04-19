@@ -1,8 +1,7 @@
 // Place all the styles related to the game controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-$row-width: 50%;
+$game-square-background: grey;
 #hoto-title {
   margin: auto;
   text-align: center;
@@ -21,10 +20,13 @@ table {
   tr {
     height: 8em;
   }
-}
-
-tr{
-  margin-top: 5px;
+  td {
+    background: $game-square-background;
+    text-align: center;
+  }
+  .active {
+    background: lightgrey;
+  }
 }
 
 .black span {
@@ -49,15 +51,7 @@ tr{
   border-radius: 50%;
 }
 
-td {
-  background: grey;
-  text-align: center;
 
-}
-
-.active {
-  background: white;
-}
 
 .action-button {
   border: solid 1px orange;
