@@ -19,3 +19,19 @@ while counter <= 5
   end
   counter += 1
 end
+
+
+Game.create(turnstate: "black", active: true)
+
+counter = 1
+
+while counter <= 5
+  i = 1
+  while i <= 5
+    Square.create(x: i, y: counter, height: 0, game_id: 2, colour: 'empty')
+    i += 1
+  end
+  counter += 1
+end
+
+
