@@ -57,12 +57,12 @@ class GamesController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
+        format.json { render json: @game.errors, status: :unprocessable_entity } 
       end
     end
   end
 
-  def place 
+  def click_to_place 
     puts params[:squareId]
     square_id = params[:squareId].to_i
     puts "this is the params id in place " + params[:id]
