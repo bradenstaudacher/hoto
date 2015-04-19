@@ -6,32 +6,22 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+game_id_counter = 1
 
-Game.create(turnstate: "white", active: true)
+7.times do 
+  
+  Game.create(turnstate: "white", active: true)
 
-counter = 1
+  counter = 1
 
-while counter <= 5
-  i = 1
-  while i <= 5
-    Square.create(x: i, y: counter, height: 0, game_id: 1, colour: 'empty')
-    i += 1
+  while counter <= 5
+    i = 1
+    while i <= 5
+      Square.create(x: i, y: counter, height: 0, game_id: game_id_counter, colour: 'empty')
+      i += 1
+    end
+    counter += 1
   end
-  counter += 1
+
+  game_id_counter += 1
 end
-
-
-Game.create(turnstate: "black", active: true)
-
-counter = 1
-
-while counter <= 5
-  i = 1
-  while i <= 5
-    Square.create(x: i, y: counter, height: 0, game_id: 2, colour: 'empty')
-    i += 1
-  end
-  counter += 1
-end
-
-
