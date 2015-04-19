@@ -59,7 +59,7 @@ class Square < ActiveRecord::Base
         !Square.offboard?(coord)
       end
       coords_affected.each do |coord|
-        square = Square.get_square_from_coord(coord)
+        square = game.get_square_from_coord(coord)
         square.height += 1
         square.colour = square_colour
         square.save
@@ -82,7 +82,7 @@ class Square < ActiveRecord::Base
   end
 
   def valid_move(to)
-    square = Square.get_square_from_coord(to)
+    square = game.get_square_from_coord(to)
     return false if !(all_squares_adjacent_to.include? to) || Square.offboard?(to) || square.occupied?  || height < 2
     true 
   end
@@ -92,13 +92,6 @@ class Square < ActiveRecord::Base
     def offboard?(coord)
       coord[0] > 5 || coord[0] < 1 || coord[1] > 5 || coord[1] < 1 
     end
-
-
-    # def get_square_from_coord(coord)
-    #   # binding.pry
-    #   id_for_this_game = params[:id].to_i
-    #   Square.where(x: coord[0]).where(y: coord[1]).where(game_id: )
-    # end
   end
 
 
