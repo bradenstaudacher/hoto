@@ -19,7 +19,7 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.json
   def show
-    @board = Game.board
+    @board = Game.board params[:id]
     @squares = Square.all.to_json
   end
 

@@ -3,7 +3,7 @@ class Game < ActiveRecord::Base
   has_and_belongs_to_many :users
   
   class << self 
-    def board
+    def board id
       board = []
       # Square.all.each do |square|
       #   board << square
@@ -15,7 +15,9 @@ class Game < ActiveRecord::Base
       row3 = []
       row4 = []
       row5 = []
-      Square.all.each do |square, index|
+
+      squares = Square.where(game_id: id)
+      squares.each do |square, index|
         if row1.length < 5
           row1 << square
         elsif row2.length < 5
