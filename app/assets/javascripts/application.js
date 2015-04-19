@@ -15,38 +15,41 @@
 //= require turbolinks
 //= require_tree .
 
-   console.log('Hotooooooo!');
 
   
 function doTheGame(){
 
-console.log('heyinside')
+console.log('inside doTheGame in application.js')
+
     $('.game-square').on('click',function(){
-      $('.game-square').removeClass('active');
-      $(this).addClass('active');
-      var dataId = ($(this).attr('data-id'));
+      if (currentUser !== 0){
 
-      $.ajax({
-        url: '/games/' + currentGame + '/place',
-        method: 'POST',
-        data: { squareId: dataId }, 
-        success: function(x) {
-          console.log('ajax post was successful');
+        $('.game-square').removeClass('active');
+        $(this).addClass('active');
+        var dataId = ($(this).attr('data-id'));
 
-        },
-        failure: function(x){
-          console.log('ajax post failed')
-        }
+        $.ajax({
+          url: '/games/' + currentGame + '/place',
+          method: 'POST',
+          data: { squareId: dataId }, 
+          success: function(x) {
+            console.log('ajax post was successful');
+
+          },
+          failure: function(x){
+            console.log('ajax post failed')
+          }
+        })
+        // $(this)
+        // square = Square.find($(this).attr('id'));
+
+      $('#end-turn-button').on('click', function(){
+        console.log('clicked', $(this).text());
       })
-      // $(this)
-      // square = Square.find($(this).attr('id'));
-    })
-
-    $('#end-turn-button').on('click', function(){
-      console.log('clicked', $(this).text());
-    })
-    $('#topple-button').on('click', function(){
-      console.log('clicked', $(this).text());
-    })
+      $('#topple-button').on('click', function(){
+        console.log('clicked', $(this).text());
+      })
+    }
+  });
 }
 
