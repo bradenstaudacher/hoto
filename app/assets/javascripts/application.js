@@ -25,17 +25,17 @@ console.log('heyinside')
       $('.game-square').removeClass('active');
       $(this).addClass('active');
       var dataId = ($(this).attr('data-id'));
-      debugger
+
       $.ajax({
         url: '/games/' + currentGame + '/place',
         method: 'POST',
         data: { squareId: dataId }, 
         success: function(x) {
-          console.log('get succes' + x);
+          console.log('ajax post was successful');
 
         },
         failure: function(x){
-          console.log('failure')
+          console.log('ajax post failed')
         }
       })
       // $(this)

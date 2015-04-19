@@ -64,10 +64,16 @@ class GamesController < ApplicationController
 
   def place 
     puts params[:squareId]
-    square_id = params[:squareId]
-    @current_square = Square.find(square_id)
-    puts @current_square
+    square_id = params[:squareId].to_i
+    puts "this is the params id in place " + params[:id]
+    # @current_square.where(squares game id is 1 and the squares id is square_id)
+    @the_right_game = Game.find(params[:id])
+    # puts "this is the right game #{@the_right_game[0].height }"   
+    @current_square = @the_right_game.squares[square_id - 1]
+    # puts " this is the current square #{@current_square.height}"
+ 
     @current_square.place('white')
+
     # console.log(square_id)
     # Square.find(square_id)
 

@@ -1,3 +1,2 @@
-$(function(){
-  console.log("daniel");
-});
+// $(function(){
+// });
