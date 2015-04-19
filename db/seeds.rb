@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+User.create(name: "bigdog", games_played: 0, games_won: 0, email: "big@dog.com", current_rating: 0, password: "testes", password_confirmation: "testes")
 game_id_counter = 1
 
 7.times do 
