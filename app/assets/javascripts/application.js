@@ -17,15 +17,15 @@
 
    console.log('Hotooooooo!');
 
-
-$(function(){
+  
+function doTheGame(){
 
 console.log('heyinside')
     $('.game-square').on('click',function(){
       $('.game-square').removeClass('active');
       $(this).addClass('active');
       var dataId = ($(this).attr('data-id'));
-
+      debugger
       $.ajax({
         url: '/games/' + currentGame + '/place',
         method: 'POST',
@@ -48,10 +48,5 @@ console.log('heyinside')
     $('#topple-button').on('click', function(){
       console.log('clicked', $(this).text());
     })
-
-
-
-  
-
-})
+}
 
