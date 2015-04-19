@@ -19,6 +19,7 @@ class Square < ActiveRecord::Base
   def bloom
     square_colour = colour
     update(height: 0)
+    update(colour: 'empty')
     all_squares_adjacent_to.each do |coord|
       if !Square.offboard?(coord)
         square = game.get_square_from_coord(coord)[0]
