@@ -23,7 +23,7 @@ console.log('inside doTheGame in application.js')
 
     $('.game-square').on('click',function(){
 // debugger
-      if (currentUser !== 0){
+      if ((currentUser !== 0) && (currentTurnstate === currentUserColour)) {
 
         $('.game-square').removeClass('active');
         $(this).addClass('active');

@@ -1,9 +1,9 @@
 <!-- to-do -->
 <script>
-var currentGame = <%= params[:id] %> 
-var currentTurnstate = "<%= Game.find(params[:id]).turnstate %>"
-var currentUser = <%= session[:user_id]  || 0 %> 
-var currentUserColor = "<%= GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour %>"
+var currentGame = "<%= @id %>"
+var currentTurnstate = "<%= @turnstate %>"
+var currentUser = <%= session[:user_id]  || 0 %>
+var currentUserColour = "<%= @current_colour %>" 
 </script>
 
 

@@ -21,6 +21,14 @@ class GamesController < ApplicationController
   def show
     @board = Game.board params[:id]
     @squares = Square.all.to_json
+
+    @id = params[:id]
+    @turnstate = Game.find(params[:id]).turnstate
+    if session[:user_id]
+      @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
+    else
+      @current_colour = "empty"
+    end
   end
 
   # GET /games/new
@@ -66,13 +74,20 @@ class GamesController < ApplicationController
     puts params[:squareId]
     square_id = params[:squareId].to_i
     puts "this is the params id in place " + params[:id]
-    # @current_square.where(squares game id is 1 and the squares id is square_id)
+
     @the_right_game = Game.find(params[:id])
-    # puts "this is the right game #{@the_right_game[0].height }"   
+
     @current_square = @the_right_game.squares[square_id - 1]
-    # puts " this is the current square #{@current_square.height}"
+
     @current_square.place(@the_right_game.turnstate)
-    # console.log(square_id)
+    if @the_right_game.turnstate == "white"
+      @the_right_game.turnstate = "black"
+      @the_right_game.save
+    else
+      @the_right_game.turnstate = "white"
+      @the_right_game.save
+    end
+
     # Square.find(square_id)
 
     @square = Square.all
