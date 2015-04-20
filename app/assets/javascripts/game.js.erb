@@ -1,0 +1,7 @@
+$(function(){
+    $('#create-game-button').on('click',function(){
+      console.log("Inside the game maker");
+      $.ajax({ url: '/games', type: 'POST'});
+      console.log("After ajax");
+    });
+});
