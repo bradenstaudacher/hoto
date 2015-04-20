@@ -16,14 +16,7 @@ class Game < ActiveRecord::Base
         game.turnstate = "white"
         game.save
       end
-      30.times do
-        puts game.phase
-      end
-
-      game.phase = 'topple'
-      30.times do
-        puts game.phase
-      end
+      game.phase = 'place'
     end
 
 
