@@ -1,11 +1,20 @@
+<!-- to-do -->
+<script>
+var currentGame = "<%= @id %>"
+var currentTurnstate = "<%= @turnstate %>"
+var currentUser = <%= session[:user_id]  || 0 %>
+var currentUserColour = "<%= @current_colour %>" 
+</script>
 
-<script>var currentGame = <%= params[:id] %> </script>
+
 <h1 id='hoto-title'>¡¡¡¡¡¡Hoto!!!!</h1>
 
   <table id='game-board'>
 
 <% #array_of_square_ids = [1,6,11,16,21,2,7,12,17,22,3,8,13,18,23,4,9,14,19,24,5,10,15,20,25] %>
+
 <% counter = 1 %>
+
   <tr>
 <% @board.each do |row|          %>
 
@@ -13,20 +22,20 @@
   <% square_id = counter %>
 <%        if square.colour == 'black'      %>
 
-            <td class='black' data-id=<%= square_id %>><span class="pieces">
+            <td class='black game-square' data-id=<%= square_id %>><span class="pieces">
 <%=         square.height             %>
             </span></td>
 
 <%        elsif square.colour == 'white'      %>
        
-            <td class='white' data-id=<%= square_id %> >
+            <td class='white game-square' data-id=<%= square_id %> >
             <span class="pieces">
 <%=         square.height             %>
             </span></td>
 
 <%        else                               %>
        
-            <td class='normal' data-id=<%= square_id %> >
+            <td class='normal game-square' data-id=<%= square_id %> >
             <span class="pieces">
 <%=         square.height             %>
             </span></td>
@@ -39,9 +48,10 @@
 </table>
 
 <div id='button-container'>
-  <h1 class='action-button' id='place-button'>place</h1>
+  <h1 class='action-button' id='end-turn-button'>end turn</h1>
   <h1 class='action-button' id='topple-button'>topple</h1>
 <!-- this p is here to give the container some filling, because everything else is floated -->
   <p>&nbsp </p>
 </div>
 
+<script>  doTheGame() </script>

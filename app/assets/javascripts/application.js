@@ -15,43 +15,42 @@
 //= require turbolinks
 //= require_tree .
 
-   console.log('Hotooooooo!');
-
-
-$(function(){
-
-console.log('heyinside')
-    $('td').on('click',function(){
-      $('td').removeClass('active');
-      $(this).addClass('active');
-      var dataId = ($(this).attr('data-id'));
-
-      $.ajax({
-        url: '/games/' + currentGame + '/place',
-        method: 'POST',
-        data: { squareId: dataId },
-        success: function(x) {
-          console.log('get succes' + x);
-
-        },
-        failure: function(x){
-          console.log('failure')
-        }
-      })
-      // $(this)
-      // square = Square.find($(this).attr('id'));
-    })
-
-    $('#place-button').on('click', function(){
-      console.log('clicked', $(this).text());
-    })
-    $('#topple-button').on('click', function(){
-      console.log('clicked', $(this).text());
-    })
-
-
 
   
+function doTheGame(){
 
-})
+console.log('inside doTheGame in application.js')
+
+    $('.game-square').on('click',function(){
+// debugger
+      if ((currentUser !== 0) && (currentTurnstate === currentUserColour)) {
+
+        $('.game-square').removeClass('active');
+        $(this).addClass('active');
+        var dataId = ($(this).attr('data-id'));
+
+        $.ajax({
+          url: '/games/' + currentGame + '/place',
+          method: 'POST',
+          data: { squareId: dataId }, 
+          success: function(x) {
+            console.log('ajax post was successful');
+
+          },
+          failure: function(x){
+            console.log('ajax post failed')
+          }
+        })
+        // $(this)
+        // square = Square.find($(this).attr('id'));
+
+      $('#end-turn-button').on('click', function(){
+        console.log('clicked', $(this).text());
+      })
+      $('#topple-button').on('click', function(){
+        console.log('clicked', $(this).text());
+      })
+    }
+  });
+}
 

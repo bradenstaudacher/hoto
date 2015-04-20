@@ -19,8 +19,16 @@ class GamesController < ApplicationController
   # GET /games/1
   # GET /games/1.json
   def show
-    @board = Game.board
+    @board = Game.board params[:id]
     @squares = Square.all.to_json
+
+    @id = params[:id]
+    @turnstate = Game.find(params[:id]).turnstate
+    if session[:user_id]
+      @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
+    else
+      @current_colour = "empty"
+    end
   end
 
   # GET /games/new
@@ -57,18 +65,29 @@ class GamesController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
+        format.json { render json: @game.errors, status: :unprocessable_entity } 
       end
     end
   end
 
-  def place 
+  def click_to_place 
     puts params[:squareId]
-    square_id = params[:squareId]
-    @current_square = Square.find(square_id)
-    puts @current_square
-    @current_square.place('white')
-    # console.log(square_id)
+    square_id = params[:squareId].to_i
+    puts "this is the params id in place " + params[:id]
+
+    @the_right_game = Game.find(params[:id])
+
+    @current_square = @the_right_game.squares[square_id - 1]
+
+    @current_square.place(@the_right_game.turnstate)
+    if @the_right_game.turnstate == "white"
+      @the_right_game.turnstate = "black"
+      @the_right_game.save
+    else
+      @the_right_game.turnstate = "white"
+      @the_right_game.save
+    end
+
     # Square.find(square_id)
 
     @square = Square.all
