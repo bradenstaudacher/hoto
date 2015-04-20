@@ -24,6 +24,7 @@ class GamesController < ApplicationController
 
     @id = params[:id]
     @turnstate = Game.find(params[:id]).turnstate
+    @phase = Game.find(params[:id]).phase
     if session[:user_id]
       @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
     else

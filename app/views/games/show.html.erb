@@ -6,8 +6,10 @@ var currentUser = <%= session[:user_id]  || 0 %>
 var currentUserColour = "<%= @current_colour %>" 
 </script>
 
+<div>
+   <p>it is <%= @turnstate  %>'s turn to <%=@phase  %></p>
 
-<h1 id='hoto-title'>¡¡¡¡¡¡Hoto!!!!</h1>
+</div>
 
   <table id='game-board'>
 
@@ -46,6 +48,9 @@ var currentUserColour = "<%= @current_colour %>"
 <% end %>
 
 </table>
+
+
+
 
 <div id='button-container'>
   <h1 class='action-button' id='end-turn-button'>end turn</h1>
