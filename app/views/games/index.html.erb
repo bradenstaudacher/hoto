@@ -8,6 +8,9 @@
     <% @games.each do |game| %>
       <tr>
         <td><%= link_to game.id, game %>  </td>
+        <% game.users.each do |user| %>
+          <td><%= user.name %>  </td> 
+        <% end %>
 
 
       </tr>
