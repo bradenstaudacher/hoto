@@ -44,12 +44,10 @@ class GamesController < ApplicationController
   # POST /games.json
   def create
     @player_id = session[:user_id]
-    puts "THIS IS THE PLAYER ID"
-    puts @player_id
-    puts @player_id.inspect
     if @player_id
       @game = Game.create(turnstate: "white", active: true)
       GamesUser.create_assoc(@game.id, @player_id)
+      Game.make_squares(@game.id)
     end
     # @game = Game.new(game_params)
 
