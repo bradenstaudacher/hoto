@@ -46,7 +46,7 @@ class GamesController < ApplicationController
     @player_id = session[:user_id]
     if @player_id
       @game = Game.create(turnstate: "white", active: true)
-      GamesUser.create_assoc(@game.id, @player_id)
+      GamesUser.create_assoc_white(@game.id, @player_id)
       Game.make_squares(@game.id)
     end
     # @game = Game.new(game_params)
@@ -61,6 +61,11 @@ class GamesController < ApplicationController
     #   end
     # end
   end
+
+  def join
+    @player_id = session[:user_id]
+  end
+
 
   # PATCH/PUT /games/1
   # PATCH/PUT /games/1.json

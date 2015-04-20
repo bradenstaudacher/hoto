@@ -8,11 +8,16 @@
     <% @games.each do |game| %>
       <tr>
         <td><%= link_to game.id, game %>  </td>
-        <% game.users.each do |user| %>
-          <td><%= user.name %>  </td> 
+        <% if game.users.count == 2 %>
+          <% game.users.each do |user| %>
+            <td><%= user.name %>  </td> 
+          <% end %>
+        <% else %>
+          <% game.users.each do |user| %>
+            <td><%= user.name %>  </td> 
+          <% end %>
+          <td><button>Join</button></td>
         <% end %>
-
-
       </tr>
     <% end %>
   </tbody>
