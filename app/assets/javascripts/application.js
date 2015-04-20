@@ -22,7 +22,7 @@ function doTheGame(){
 console.log('inside doTheGame in application.js')
 
     $('.game-square').on('click',function(){
-debugger
+// debugger
       if (currentUser !== 0){
 
         $('.game-square').removeClass('active');

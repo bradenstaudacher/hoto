@@ -1,9 +1,10 @@
 <!-- to-do -->
-<script>var currentGame = <%= params[:id] %> </script>
-<script>var currentTurnstate = "<%= Game.find(params[:id]).turnstate %>" </script>
-
-<script>var currentUser = <%= session[:user_id]  || 0 %> </script>
-<script>var currentUserColor = "<%= GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour %>"  </script>
+<script>
+var currentGame = <%= params[:id] %> 
+var currentTurnstate = "<%= Game.find(params[:id]).turnstate %>"
+var currentUser = <%= session[:user_id]  || 0 %> 
+var currentUserColor = "<%= GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour %>"
+</script>
 
 
 <h1 id='hoto-title'>¡¡¡¡¡¡Hoto!!!!</h1>
