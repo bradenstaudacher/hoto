@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417004120) do
+ActiveRecord::Schema.define(version: 20150420214922) do
 
   create_table "games", force: true do |t|
     t.string   "turnstate"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "active"
+    t.string   "phase"
   end
 
   create_table "games_users", force: true do |t|
