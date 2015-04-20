@@ -37,5 +37,20 @@ class Game < ActiveRecord::Base
       end
       board << row1 << row2 << row3 << row4 << row5
     end
+
+    def make_squares(game_id)
+      counter = 1
+      while counter <= 5
+        i = 1
+        while i <= 5
+          puts "i done did make a square!!"
+          Square.create(x: i, y: counter, height: 0, game_id: game_id, colour: 'empty')
+          i += 1
+        end
+        counter += 1
+      end
+    end
+
+
   end
 end
