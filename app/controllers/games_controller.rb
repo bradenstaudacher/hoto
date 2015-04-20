@@ -71,9 +71,7 @@ class GamesController < ApplicationController
     # puts "this is the right game #{@the_right_game[0].height }"   
     @current_square = @the_right_game.squares[square_id - 1]
     # puts " this is the current square #{@current_square.height}"
- 
-    @current_square.place('white')
-
+    @current_square.place(@the_right_game.turnstate)
     # console.log(square_id)
     # Square.find(square_id)
 
