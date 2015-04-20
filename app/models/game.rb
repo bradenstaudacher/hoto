@@ -7,13 +7,22 @@ class Game < ActiveRecord::Base
       Square.where(x: coord[0]).where(y: coord[1]).where(game_id: id)
     end
   
-    def switch_turnstate
-      if @the_right_game.turnstate == "white"
-        @the_right_game.turnstate = "black"
-        @the_right_game.save
+    def switch_turnstate game
+      
+      if game.turnstate == "white"
+        game.turnstate = "black"
+        game.save
       else
-        @the_right_game.turnstate = "white"
-        @the_right_game.save
+        game.turnstate = "white"
+        game.save
+      end
+      30.times do
+        puts game.phase
+      end
+
+      game.phase = 'topple'
+      30.times do
+        puts game.phase
       end
     end
 

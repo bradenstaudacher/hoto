@@ -88,14 +88,8 @@ class GamesController < ApplicationController
     @current_square = @the_right_game.squares[square_id - 1]
 
     @current_square.place(@the_right_game.turnstate)
-    if @the_right_game.turnstate == "white"
-      @the_right_game.turnstate = "black"
-      @the_right_game.save
-    else
-      @the_right_game.turnstate = "white"
-      @the_right_game.save
-    end
-    # @the_right_game.switch_turnstate
+ 
+    @the_right_game.switch_turnstate(@the_right_game)
     # Square.find(square_id)
 
     @square = Square.all
