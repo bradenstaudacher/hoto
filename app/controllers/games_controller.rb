@@ -43,17 +43,18 @@ class GamesController < ApplicationController
   # POST /games
   # POST /games.json
   def create
-    @game = Game.new(game_params)
+    @game = Game.create(turnstate: "white", active: true)
+    # @game = Game.new(game_params)
 
-    respond_to do |format|
-      if @game.save
-        format.html { redirect_to @game, notice: 'game was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @game }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+    #   if @game.save
+    #     format.html { redirect_to @game, notice: 'game was successfully created.' }
+    #     format.json { render action: 'show', status: :created, location: @game }
+    #   else
+    #     format.html { render action: 'new' }
+    #     format.json { render json: @game.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /games/1
@@ -93,6 +94,7 @@ class GamesController < ApplicationController
     @square = Square.all
     render json: @square
   end
+
   # DELETE /games/1
   # DELETE /games/1.json
   def destroy
