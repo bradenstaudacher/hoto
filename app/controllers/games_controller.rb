@@ -94,7 +94,7 @@ class GamesController < ApplicationController
       @the_right_game.turnstate = "white"
       @the_right_game.save
     end
-
+    # @the_right_game.switch_turnstate
     # Square.find(square_id)
 
     @square = Square.all

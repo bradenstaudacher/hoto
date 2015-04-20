@@ -16,14 +16,15 @@
 //= require_tree .
 
 
-  
+  //to-do    can we refactor these methods to all go to one route which triggers a method calling method that calls the correct method based on some params or the db?? 
+
 function doTheGame(){
 
 console.log('inside doTheGame in application.js')
 
     $('.game-square').on('click',function(){
-// check currentPhase
-      if ((currentUser !== 0) && (currentTurnstate === currentUserColour)) {
+
+      if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "place") {
 
         $('.game-square').removeClass('active');
         $(this).addClass('active');

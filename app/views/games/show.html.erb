@@ -4,11 +4,11 @@ var currentGame = "<%= @id %>"
 var currentTurnstate = "<%= @turnstate %>"
 var currentUser = <%= session[:user_id]  || 0 %>
 var currentUserColour = "<%= @current_colour %>" 
+var currentPhase = "<%= @phase %>"
 </script>
 
 <div>
    <p>it is <%= @turnstate  %>'s turn to <%=@phase  %></p>
-
 </div>
 
   <table id='game-board'>
