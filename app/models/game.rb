@@ -8,15 +8,13 @@ class Game < ActiveRecord::Base
     end
   
     def switch_turnstate
-
-    if @the_right_game.turnstate == "white"
-      @the_right_game.turnstate = "black"
-      @the_right_game.save
-    else
-      @the_right_game.turnstate = "white"
-      @the_right_game.save
-    end
-      
+      if @the_right_game.turnstate == "white"
+        @the_right_game.turnstate = "black"
+        @the_right_game.save
+      else
+        @the_right_game.turnstate = "white"
+        @the_right_game.save
+      end
     end
 
 
