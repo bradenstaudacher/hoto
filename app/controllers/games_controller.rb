@@ -44,6 +44,18 @@ class GamesController < ApplicationController
   # POST /games.json
   def create
     @game = Game.create(turnstate: "white", active: true)
+    @player_id = session[:user_id]
+    puts "THIS IS THE PLAYERS ID"
+    puts @player_id
+    puts "THIS IS THE GAME ID"
+    puts @game.id
+    puts Game.find(@game.id)
+    Game.find(@game.id).users << User.find(@player_id)
+    @join = GamesUser.where(game_id: @game.id).where(user_id: @player_id)[0]
+    puts "HERE IS THE JOIN"
+    puts @join
+    @join.colour = 'white'
+    @join.save
     # @game = Game.new(game_params)
 
     # respond_to do |format|
