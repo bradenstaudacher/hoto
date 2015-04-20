@@ -24,8 +24,17 @@ class GamesController < ApplicationController
 
     @id = params[:id]
     @turnstate = Game.find(params[:id]).turnstate
+    # NEED TO CHECK THE PLAYER IS NOT ALREADY IN AN ASSOCIATION
+    # NEED TO ADD ASSOC
+
     if session[:user_id]
-      @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
+      if GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0]
+        @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
+      else
+        GamesUser.create_assoc_black(Game.find(@id), session[:user_id])
+        @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
+      end
+
     else
       @current_colour = "empty"
     end
@@ -62,9 +71,6 @@ class GamesController < ApplicationController
     # end
   end
 
-  def join
-    @player_id = session[:user_id]
-  end
 
 
   # PATCH/PUT /games/1

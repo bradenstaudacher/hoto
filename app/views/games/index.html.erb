@@ -7,17 +7,20 @@
   <tbody id="game-list">
     <% @games.each do |game| %>
       <tr>
+
         <td><%= link_to game.id, game %>  </td>
         <% if game.users.count == 2 %>
           <% game.users.each do |user| %>
             <td><%= user.name %>  </td> 
-          <% end %>
+          <% end %> 
+
         <% else %>
           <% game.users.each do |user| %>
             <td><%= user.name %>  </td> 
           <% end %>
-          <td><button>Join</button></td>
+          <td><%= link_to 'Join Game', game %>  </td>
         <% end %>
+
       </tr>
     <% end %>
   </tbody>

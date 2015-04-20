@@ -7,7 +7,10 @@ var currentUserColour = "<%= @current_colour %>"
 </script>
 
 
-<h1 id='hoto-title'>¡¡¡¡¡¡Hoto!!!!</h1>
+<div>
+  <h1>It is <%= @turnstate  %>'s turn to <%=@phase  %></h1>
+  <h1>You are playing as <%= @current_colour %></h1>
+</div>
 
   <table id='game-board'>
 
