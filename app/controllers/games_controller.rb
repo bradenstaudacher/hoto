@@ -24,15 +24,17 @@ class GamesController < ApplicationController
 
     @id = params[:id]
     @turnstate = Game.find(params[:id]).turnstate
+    @phase = Game.find(params[:id]).phase
+    
     # NEED TO CHECK THE PLAYER IS NOT ALREADY IN AN ASSOCIATION
     # NEED TO ADD ASSOC
 
     if session[:user_id]
       if GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0]
-        @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
+        return @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
       elsif Game.find(@id).users.length < 2
         GamesUser.create_assoc_black(Game.find(@id), session[:user_id])
-        @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
+        return @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
       end
       @current_colour = "viewer"
     else
@@ -40,6 +42,11 @@ class GamesController < ApplicationController
     end
 
   end
+
+  def is_record?
+
+  end
+
 
   # GET /games/new
   def new
@@ -98,16 +105,20 @@ class GamesController < ApplicationController
     @current_square = @the_right_game.squares[square_id - 1]
 
     @current_square.place(@the_right_game.turnstate)
-    if @the_right_game.turnstate == "white"
-      @the_right_game.turnstate = "black"
-      @the_right_game.save
-    else
-      @the_right_game.turnstate = "white"
-      @the_right_game.save
-    end
-
+ 
     # Square.find(square_id)
 
+    @square = Square.all
+    render json: @square
+  end
+
+  def end_turn
+    @this_game = Game.find(params[:id])
+    @this_game.switch_turnstate
+
+
+
+    # 
     @square = Square.all
     render json: @square
   end
