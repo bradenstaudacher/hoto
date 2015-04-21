@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-
+//= require pusher
 
   //to-do    can we refactor these methods to all go to one route which triggers a method calling method that calls the correct method based on some params or the db?? 
 
@@ -36,13 +36,58 @@ console.log('inside doTheGame in application.js')
           data: { squareId: dataId }, 
           success: function(x) {
             console.log('ajax post was successful');
+            console.log('x = ', x)
 
           },
           failure: function(x){
             console.log('ajax post failed')
           }
         })
+
     }
+    // topple code
+    if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "topple") {
+
+      console.log(this);
+
+      var dataId = ($(this).attr('data-id'));
+
+      $.ajax({
+          url: '/games/' + currentGame + '/topplecheck',
+          method: 'POST',
+          data: { squareId: dataId }, 
+          success: function(x) {
+            console.log('ajax post was successful');
+            console.log('x = ', x)
+            /* topplecheck returns 
+            {
+              {'clickable': true,
+                'targets': [15,21,5,4]
+              }
+            }
+
+            if (i can click it) {
+                removeClass('unselected') from this and the target squares 
+                addClass('topplable')  to the targetable squares
+
+            } 
+            else {
+                nothing happens
+            }
+
+            */
+          },
+          failure: function(x){
+            console.log('ajax post failed')
+          }
+        })     
+      // topplecheck returns an enumerable containing, whether or not I can select that square (is it my color) and also an enumerable containing squares i can click on 
+
+
+
+    }
+
+
   });
         // $(this)
         // square = Square.find($(this).attr('id'));
@@ -66,52 +111,6 @@ console.log('inside doTheGame in application.js')
         }
       })
 
-      $('#topple-button').on('click', function(){
-        console.log('clicked', $(this).text());
-      })
-
-    //   $('.game-square').on('click',function(){
-
-    //     if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "topple") {
-
-    //       $('.game-square').removeClass('active');
-    //       $(this).addClass('active');
-    //       var dataId = ($(this).attr('data-id'));
-
-
-    //       $.ajax({
-    //         url: '/games/' + currentGame + '/place',
-    //         method: 'POST',
-    //         data: { squareId: dataId }, 
-    //         success: function(x) {
-    //           console.log('ajax post was successful');
-
-    //         },
-    //         failure: function(x){
-    //           console.log('ajax post failed')
-    //         }
-    //       })
-    //     }
-    // });
-  $('.game-square').on('click',function(){
-    if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "topple"){
-      console.log('Inside click function')
-      var square1 = this;
-      $(square1).attr('data-id')
-      console.log("Square 1 is set")
-      console.log(square1)
-      console.log($(square1).attr('data-id'))
-      
-      $('.game-square').on('click',function(){
-        var square2 = this;
-        $(square2).attr('data-id')
-        console.log("Square 2 is set")
-        console.log(square2)
-        console.log($(square2).attr('data-id'))
-        console.log("same square" ,square1 == square2)        
-      })
-    }
-  }) 
-
+     
 }
 

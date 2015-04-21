@@ -20,12 +20,16 @@ class GamesController < ApplicationController
   # GET /games/1.json
   def show
     @board = Game.board params[:id]
-    @squares = Square.all.to_json
+    @squares = Square.where(game_id: params[:id])
 
     @id = params[:id]
     @turnstate = Game.find(params[:id]).turnstate
     @phase = Game.find(params[:id]).phase
     @current_colour = GamesUser.set_player_colour(session[:user_id], @id)
+
+    # Pusher['games'].trigger('new_game', {
+    #   :test => "test!"
+    # })
 
   end
 
@@ -90,12 +94,35 @@ class GamesController < ApplicationController
 
     @current_square = @the_right_game.squares[square_id - 1]
 
-    @current_square.place(@the_right_game.turnstate)
+    if @current_square.place(@the_right_game.turnstate)
+      Pusher['games'].trigger('new_game', {
+        :test => "placed square!",
+        # :board_html => "<div>....</div>"
+        })
+    else
+      Pusher['games'].trigger('new_game', {
+        :test => "didnt square!"
+        })
+    end
+
  
     # Square.find(square_id)
 
+# to-do   how do we get rid of these things but not have 500 errors
     @square = Square.all
     render json: @square
+    # render json: @current_square if placed = 'placed'
+  end
+
+  def topplecheck
+    square_id = params[:squareId].to_i
+    @the_right_game = Game.find(params[:id])
+    @current_square = @the_right_game.squares[square_id - 1]
+# to-do    is the square-colour the same as player color and is it height min 2
+
+# to-do    What does @targetable_squares equal??
+    @targetable_squares = [true, 1,2,3] 
+    render json: @targetable_squares
   end
 
   def end_turn

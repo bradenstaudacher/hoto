@@ -1,10 +1,11 @@
-<!-- to-do -->
+<!-- to-do refactor -->
 <script>
-var currentGame = "<%= @id %>"
-var currentTurnstate = "<%= @turnstate %>"
-var currentUser = <%= session[:user_id]  || 0 %>
-var currentUserColour = "<%= @current_colour %>" 
-var currentPhase = "<%= @phase %>"
+  var currentGame = "<%= @id %>"
+  var currentTurnstate = "<%= @turnstate %>"
+  var currentUser = <%= session[:user_id]  || 0 %>
+  var currentUserColour = "<%= @current_colour %>" 
+  var currentPhase = "<%= @phase %>"
+  var currentSquares = "<%= @squares %>"
 </script>
 
 
@@ -26,20 +27,20 @@ var currentPhase = "<%= @phase %>"
   <% square_id = counter %>
 <%        if square.colour == 'black'      %>
 
-            <td class='black game-square' data-id=<%= square_id %>><span class="pieces">
+            <td class='black game-square unselected' data-id=<%= square_id %>><span class="pieces">
 <%=         square.height             %>
             </span></td>
 
 <%        elsif square.colour == 'white'      %>
        
-            <td class='white game-square' data-id=<%= square_id %> >
+            <td class='white game-square unselected' data-id=<%= square_id %> >
             <span class="pieces">
 <%=         square.height             %>
             </span></td>
 
 <%        else                               %>
        
-            <td class='normal game-square' data-id=<%= square_id %> >
+            <td class='normal game-square unselected' data-id=<%= square_id %> >
             <span class="pieces">
 <%=         square.height             %>
             </span></td>
