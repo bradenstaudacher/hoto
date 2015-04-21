@@ -26,9 +26,8 @@ class GamesController < ApplicationController
     @turnstate = Game.find(params[:id]).turnstate
     @phase = Game.find(params[:id]).phase
     
-    # NEED TO CHECK THE PLAYER IS NOT ALREADY IN AN ASSOCIATION
-    # NEED TO ADD ASSOC
-
+    
+    # to-do    refacttor  the repitious code below, and define some helper methods.
     if session[:user_id]
       if GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0]
         return @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour

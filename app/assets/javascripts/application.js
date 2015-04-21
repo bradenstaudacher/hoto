@@ -69,5 +69,49 @@ console.log('inside doTheGame in application.js')
       $('#topple-button').on('click', function(){
         console.log('clicked', $(this).text());
       })
+
+    //   $('.game-square').on('click',function(){
+
+    //     if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "topple") {
+
+    //       $('.game-square').removeClass('active');
+    //       $(this).addClass('active');
+    //       var dataId = ($(this).attr('data-id'));
+
+
+    //       $.ajax({
+    //         url: '/games/' + currentGame + '/place',
+    //         method: 'POST',
+    //         data: { squareId: dataId }, 
+    //         success: function(x) {
+    //           console.log('ajax post was successful');
+
+    //         },
+    //         failure: function(x){
+    //           console.log('ajax post failed')
+    //         }
+    //       })
+    //     }
+    // });
+  $('.game-square').on('click',function(){
+    if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "topple"){
+      console.log('Inside click function')
+      var square1 = this;
+      $(square1).attr('data-id')
+      console.log("Square 1 is set")
+      console.log(square1)
+      console.log($(square1).attr('data-id'))
+      
+      $('.game-square').on('click',function(){
+        var square2 = this;
+        $(square2).attr('data-id')
+        console.log("Square 2 is set")
+        console.log(square2)
+        console.log($(square2).attr('data-id'))
+        console.log("same square" ,square1 == square2)        
+      })
+    }
+  }) 
+
 }
 
