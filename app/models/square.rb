@@ -49,6 +49,18 @@ class Square < ActiveRecord::Base
   DOWN = [0, 1]
   ALLDIR = [LEFT, RIGHT, UP, DOWN]
 
+
+  def topple?
+
+
+    
+
+    # RETURN [true, 1, 2, 3]
+  end
+
+
+
+
   def topple(direction)
     return false unless valid_move([x + direction[0], y + direction[1]])
       
