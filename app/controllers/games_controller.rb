@@ -97,7 +97,7 @@ class GamesController < ApplicationController
     if @current_square.place(@the_right_game.turnstate)
       Pusher['games'].trigger('new_game', {
         :test => "placed square!",
-        # :board_html => "<div>....</div>"
+        :board_html => "<div>BOARD HTML</div>"
         })
     else
       Pusher['games'].trigger('new_game', {

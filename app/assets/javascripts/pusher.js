@@ -11,7 +11,7 @@ var channel = pusher.subscribe('games');
 $(document).ready(function(){
   channel.bind('new_game', function(data) {
    console.log('newgame', data.test);
-   // $(".board").html(data.board_html)
+   $("#game-board").html(data.board_html)
   });
 
   channel.bind('pusher:subscription_succeeded', function(data) {
