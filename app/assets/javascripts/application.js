@@ -49,39 +49,21 @@ console.log('inside doTheGame in application.js')
 
       $('#end-turn-button').on('click', function(){
         console.log('clicked', $(this).text());
-        console.log('clicked', $(this).text());
-        console.log('clicked', $(this).text());
-        console.log('clicked', $(this).text());
-        console.log('clicked', $(this).text());
-        console.log('clicked', $(this).text());
-        console.log('clicked', $(this).text());
-        console.log('clicked', $(this).text());
-        console.log('clicked', $(this).text());
-        console.log('clicked', $(this).text());
-        console.log('clicked', $(this).text());
-        console.log('clicked', $(this).text());
-        console.log('clicked', $(this).text());
-        console.log('clicked', $(this).text());
-        console.log('clicked', $(this).text());
-        
+        if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "topple") {
+          console.log(currentGame);
 
+          $.ajax({
+            url: '/games/' + currentGame + '/end',
+            method: 'GET',
+            success: function(x) {
+              console.log('ajax post was successful');
 
-
-        console.log(currentGame);
-        
-
-
-        $.ajax({
-          url: '/games/' + currentGame + '/end',
-          method: 'GET',
-          success: function(x) {
-            console.log('ajax post was successful');
-
-          },
-          failure: function(x){
-            console.log('ajax post failed')
-          }
-        })
+            },
+            failure: function(x){
+              console.log('ajax post failed')
+            }
+          })
+        }
       })
 
       $('#topple-button').on('click', function(){
