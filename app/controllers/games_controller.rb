@@ -21,7 +21,6 @@ class GamesController < ApplicationController
   def show
     @board = Game.board params[:id]
     @squares = Square.where(game_id: params[:id])
-
     @id = params[:id]
     @turnstate = Game.find(params[:id]).turnstate
     @phase = Game.find(params[:id]).phase
@@ -95,9 +94,10 @@ class GamesController < ApplicationController
     @current_square = @the_right_game.squares[square_id - 1]
 
     if @current_square.place(@the_right_game.turnstate)
+      @board_new = Game.board params[:id]
       Pusher['games'].trigger('new_game', {
         :test => "placed square!",
-        :board_html => "<div>BOARD HTML</div>"
+        :board_html => @board_new.to_json
         })
     else
       Pusher['games'].trigger('new_game', {
