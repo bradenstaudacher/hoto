@@ -3,7 +3,7 @@ class Square < ActiveRecord::Base
 
 
   def place(player_colour)
-    if (player_colour == colour) || (colour == "empty")
+    if ((player_colour == colour) || (colour == "empty")) && game.phase == 'place'
       
       self.height += 1
       self.colour = player_colour
