@@ -26,12 +26,27 @@ class GamesController < ApplicationController
     @turnstate = Game.find(params[:id]).turnstate
     @phase = Game.find(params[:id]).phase
     
+    # NEED TO CHECK THE PLAYER IS NOT ALREADY IN AN ASSOCIATION
+    # NEED TO ADD ASSOC
+
     if session[:user_id]
-      @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
+      if GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0]
+        return @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
+      elsif Game.find(@id).users.length < 2
+        GamesUser.create_assoc_black(Game.find(@id), session[:user_id])
+        return @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
+      end
+      @current_colour = "viewer"
     else
-      @current_colour = "empty"
+      @current_colour = "anonymous viewer"
     end
+
   end
+
+  def is_record?
+
+  end
+
 
   # GET /games/new
   def new
@@ -48,7 +63,7 @@ class GamesController < ApplicationController
     @player_id = session[:user_id]
     if @player_id
       @game = Game.create(turnstate: "white", active: true)
-      GamesUser.create_assoc(@game.id, @player_id)
+      GamesUser.create_assoc_white(@game.id, @player_id)
       Game.make_squares(@game.id)
     end
     # @game = Game.new(game_params)
@@ -63,6 +78,8 @@ class GamesController < ApplicationController
     #   end
     # end
   end
+
+
 
   # PATCH/PUT /games/1
   # PATCH/PUT /games/1.json
