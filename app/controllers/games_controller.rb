@@ -113,6 +113,13 @@ class GamesController < ApplicationController
     # render json: @current_square if placed = 'placed'
   end
 
+  def topplecheck
+    square_id = params[:squareId].to_i
+    @the_right_game = Game.find(params[:id])
+    @current_square = @the_right_game.squares[square_id - 1]
+
+  end
+
   def end_turn
     @this_game = Game.find(params[:id])
     @this_game.switch_turnstate
