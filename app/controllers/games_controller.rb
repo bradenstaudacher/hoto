@@ -107,7 +107,8 @@ class GamesController < ApplicationController
 # to-do    is the square-colour the same as player color and is it height min 2
 
 # to-do    What does @targetable_squares equal??
-    @targetable_squares = [true, 1,2,3] 
+    # @targetable_squares = [true, 1,2,3]
+    @targetable_squares = @current_square.all_empty_squares_adjacent_to
     render json: @targetable_squares
   end
 

@@ -88,6 +88,15 @@ class Square < ActiveRecord::Base
     arr
   end
 
+  def all_empty_squares_adjacent_to
+    arr = []
+    ALLDIR.each do |direction|
+      # binding.pry
+      arr << Square.where(x: x + direction[0]).where(y: y + direction[1]).where(height: 0).where(game_id: game.id)
+    end
+    arr.reject! {|item| item.empty? }
+  end
+
   def valid_move(to)
     square = game.get_square_from_coord(to)
     return false if !(all_squares_adjacent_to.include? to) || Square.offboard?(to) || square.occupied?  || height < 2
