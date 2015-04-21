@@ -117,7 +117,11 @@ class GamesController < ApplicationController
     square_id = params[:squareId].to_i
     @the_right_game = Game.find(params[:id])
     @current_square = @the_right_game.squares[square_id - 1]
+# to-do    is the square-colour the same as player color and is it height min 2
 
+# to-do    What does @targetable_squares equal??
+    @targetable_squares = [true, 1,2,3] 
+    render json: @targetable_squares
   end
 
   def end_turn

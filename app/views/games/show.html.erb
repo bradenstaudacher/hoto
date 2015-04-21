@@ -1,10 +1,11 @@
-<!-- to-do -->
+<!-- to-do refactor -->
 <script>
-var currentGame = "<%= @id %>"
-var currentTurnstate = "<%= @turnstate %>"
-var currentUser = <%= session[:user_id]  || 0 %>
-var currentUserColour = "<%= @current_colour %>" 
-var currentPhase = "<%= @phase %>"
+  var currentGame = "<%= @id %>"
+  var currentTurnstate = "<%= @turnstate %>"
+  var currentUser = <%= session[:user_id]  || 0 %>
+  var currentUserColour = "<%= @current_colour %>" 
+  var currentPhase = "<%= @phase %>"
+  var currentSquares = "<%= @squares %>"
 </script>
 
 
