@@ -27,6 +27,10 @@ class GamesController < ApplicationController
     @phase = Game.find(params[:id]).phase
     @current_colour = GamesUser.set_player_colour(session[:user_id], @id)
 
+    # Pusher['games'].trigger('new_game', {
+    #   :test => "test!"
+    # })
+
   end
 
   def is_record?
@@ -90,7 +94,16 @@ class GamesController < ApplicationController
 
     @current_square = @the_right_game.squares[square_id - 1]
 
-    @current_square.place(@the_right_game.turnstate)
+    if @current_square.place(@the_right_game.turnstate)
+      Pusher['games'].trigger('new_game', {
+        :test => "placed square!",
+        # :board_html => "<div>....</div>"
+        })
+    else
+      Pusher['games'].trigger('new_game', {
+        :test => "didnt square!"
+        })
+    end
  
     # Square.find(square_id)
 
