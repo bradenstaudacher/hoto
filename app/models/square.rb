@@ -1,6 +1,7 @@
 class Square < ActiveRecord::Base
   belongs_to :game
 
+
   def place(player_colour)
     if (player_colour == colour) || (colour == "empty")
       
@@ -13,8 +14,9 @@ class Square < ActiveRecord::Base
       if self.bloomable?
         self.bloom
       end
-      # return 'placed'
+      return true
     end
+    false
   end
   
   def occupied?
