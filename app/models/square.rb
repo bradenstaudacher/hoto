@@ -1,6 +1,7 @@
 class Square < ActiveRecord::Base
   belongs_to :game
 
+
   def place(player_colour)
     if (player_colour == colour) || (colour == "empty")
       
@@ -13,8 +14,9 @@ class Square < ActiveRecord::Base
       if self.bloomable?
         self.bloom
       end
-      # return 'placed'
+      return true
     end
+    false
   end
   
   def occupied?
@@ -48,6 +50,18 @@ class Square < ActiveRecord::Base
   UP = [0, -1]
   DOWN = [0, 1]
   ALLDIR = [LEFT, RIGHT, UP, DOWN]
+
+
+  def topple?
+
+
+    
+
+    # RETURN [true, 1, 2, 3]
+  end
+
+
+
 
   def topple(direction)
     return false unless valid_move([x + direction[0], y + direction[1]])
