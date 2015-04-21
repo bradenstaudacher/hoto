@@ -30,14 +30,15 @@ class GamesController < ApplicationController
     if session[:user_id]
       if GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0]
         @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
-      else
+      elsif Game.find(@id).users.length < 2
         GamesUser.create_assoc_black(Game.find(@id), session[:user_id])
         @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
       end
-
+      @current_colour = "viewer"
     else
-      @current_colour = "empty"
+      @current_colour = "anonymous viewer"
     end
+
   end
 
   # GET /games/new
