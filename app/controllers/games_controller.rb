@@ -89,9 +89,19 @@ class GamesController < ApplicationController
 
     @current_square.place(@the_right_game.turnstate)
  
-    @the_right_game.switch_turnstate(@the_right_game)
     # Square.find(square_id)
 
+    @square = Square.all
+    render json: @square
+  end
+
+  def end_turn
+    @this_game = Game.find(params[:id])
+    @this_game.switch_turnstate
+
+
+
+    # 
     @square = Square.all
     render json: @square
   end

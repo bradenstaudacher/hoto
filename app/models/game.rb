@@ -7,16 +7,16 @@ class Game < ActiveRecord::Base
       Square.where(x: coord[0]).where(y: coord[1]).where(game_id: id)
     end
   
-    def switch_turnstate game
-      
-      if game.turnstate == "white"
-        game.turnstate = "black"
-        game.save
+    def switch_turnstate
+       if self.turnstate == "white"
+        self.turnstate = "black"
+        self.save
       else
-        game.turnstate = "white"
-        game.save
+        self.turnstate = "white"
+        self.save
       end
-      game.phase = 'place'
+      self.phase = 'place'
+      self.save
     end
 
 

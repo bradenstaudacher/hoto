@@ -42,16 +42,50 @@ console.log('inside doTheGame in application.js')
             console.log('ajax post failed')
           }
         })
+    }
+  });
         // $(this)
         // square = Square.find($(this).attr('id'));
 
       $('#end-turn-button').on('click', function(){
         console.log('clicked', $(this).text());
+        console.log('clicked', $(this).text());
+        console.log('clicked', $(this).text());
+        console.log('clicked', $(this).text());
+        console.log('clicked', $(this).text());
+        console.log('clicked', $(this).text());
+        console.log('clicked', $(this).text());
+        console.log('clicked', $(this).text());
+        console.log('clicked', $(this).text());
+        console.log('clicked', $(this).text());
+        console.log('clicked', $(this).text());
+        console.log('clicked', $(this).text());
+        console.log('clicked', $(this).text());
+        console.log('clicked', $(this).text());
+        console.log('clicked', $(this).text());
+        
+
+
+
+        console.log(currentGame);
+        
+
+
+        $.ajax({
+          url: '/games/' + currentGame + '/end',
+          method: 'GET',
+          success: function(x) {
+            console.log('ajax post was successful');
+
+          },
+          failure: function(x){
+            console.log('ajax post failed')
+          }
+        })
       })
+
       $('#topple-button').on('click', function(){
         console.log('clicked', $(this).text());
       })
-    }
-  });
 }
 

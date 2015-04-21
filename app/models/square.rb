@@ -3,12 +3,17 @@ class Square < ActiveRecord::Base
 
   def place(player_colour)
     if (player_colour == colour) || (colour == "empty")
+      
       self.height += 1
       self.colour = player_colour
       self.save
+
+      game.update(phase: 'topple')
+      
       if self.bloomable?
         self.bloom
       end
+
     end
   end
   
@@ -31,6 +36,7 @@ class Square < ActiveRecord::Base
         end
       end
     end
+    game.switch_turnstate
   end
 
   def bloomable?
