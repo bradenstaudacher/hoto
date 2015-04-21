@@ -25,20 +25,7 @@ class GamesController < ApplicationController
     @id = params[:id]
     @turnstate = Game.find(params[:id]).turnstate
     @phase = Game.find(params[:id]).phase
-    
-    
-    # to-do    refacttor  the repitious code below, and define some helper methods.
-    if session[:user_id]
-      if GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0]
-        return @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
-      elsif Game.find(@id).users.length < 2
-        GamesUser.create_assoc_black(Game.find(@id), session[:user_id])
-        return @current_colour = GamesUser.where(user_id: session[:user_id]).where(game_id: params[:id])[0].colour
-      end
-      @current_colour = "viewer"
-    else
-      @current_colour = "anonymous viewer"
-    end
+    @current_colour = GamesUser.sort_player(session[:user_id], @id)
 
   end
 

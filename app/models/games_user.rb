@@ -16,6 +16,21 @@ class GamesUser < ActiveRecord::Base
       join.colour = 'black'
       join.save
     end
+
+    def sort_player(session_id, params_id)
+      @gameuser = GamesUser.where(user_id: session_id).where(game_id: params_id)[0]
+      if session_id
+        if @gameuser
+        return @current_colour = @gameuser.colour
+      elsif Game.find(params_id).users.length < 2
+        create_assoc_black(Game.find(params_id), session_id)
+        return @current_colour = @gameuser.colour
+      end
+        return @current_colour = "viewer"
+      else
+        return @current_colour = "anonymous viewer"
+      end
+    end
   end
 
 end
