@@ -49,6 +49,9 @@ console.log('inside doTheGame in application.js')
     if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "topple") {
 
       console.log(this);
+
+      var dataId = ($(this).attr('data-id'));
+
       $.ajax({
           url: '/games/' + currentGame + '/topplecheck',
           method: 'POST',
@@ -56,12 +59,30 @@ console.log('inside doTheGame in application.js')
           success: function(x) {
             console.log('ajax post was successful');
             console.log('x = ', x)
+            /* topplecheck returns 
+            {
+              {'clickable': true,
+                'targets': [15,21,5,4]
+              }
+            }
 
+            if (i can click it) {
+                removeClass('unselected') from this and the target squares 
+                addClass('topplable')  to the targetable squares
+
+            } 
+            else {
+                nothing happens
+            }
+
+            */
           },
           failure: function(x){
             console.log('ajax post failed')
           }
         })     
+      // topplecheck returns an enumerable containing, whether or not I can select that square (is it my color) and also an enumerable containing squares i can click on 
+
 
 
     }
