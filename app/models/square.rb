@@ -13,7 +13,7 @@ class Square < ActiveRecord::Base
       if self.bloomable?
         self.bloom
       end
-
+      # return 'placed'
     end
   end
   

@@ -20,7 +20,7 @@ class GamesController < ApplicationController
   # GET /games/1.json
   def show
     @board = Game.board params[:id]
-    @squares = Square.all.to_json
+    @squares = Square.where(game_id: params[:id])
 
     @id = params[:id]
     @turnstate = Game.find(params[:id]).turnstate
@@ -103,12 +103,14 @@ class GamesController < ApplicationController
 
     @current_square = @the_right_game.squares[square_id - 1]
 
-    @current_square.place(@the_right_game.turnstate)
+    placed = @current_square.place(@the_right_game.turnstate)
  
     # Square.find(square_id)
 
+# to-do   how do we get rid of these things but not have 500 errors
     @square = Square.all
     render json: @square
+    # render json: @current_square if placed = 'placed'
   end
 
   def end_turn
