@@ -17,7 +17,7 @@ class GamesUser < ActiveRecord::Base
       join.save
     end
 
-    def sort_player(session_id, params_id)
+    def set_player_colour(session_id, params_id)
       @gameuser = GamesUser.where(user_id: session_id).where(game_id: params_id)[0]
       if session_id
         if @gameuser

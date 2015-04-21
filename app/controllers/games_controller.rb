@@ -25,7 +25,7 @@ class GamesController < ApplicationController
     @id = params[:id]
     @turnstate = Game.find(params[:id]).turnstate
     @phase = Game.find(params[:id]).phase
-    @current_colour = GamesUser.sort_player(session[:user_id], @id)
+    @current_colour = GamesUser.set_player_colour(session[:user_id], @id)
 
   end
 
