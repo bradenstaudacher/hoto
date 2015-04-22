@@ -6,7 +6,7 @@ ruby "2.1.3"
 gem 'rails', '4.0.0'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
 
 
 # Use SCSS for stylesheets
@@ -51,7 +51,14 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+  gem 'pry'
+  gem 'pry-nav'
+  gem 'sqlite3'
 end
 
-gem 'pry'
-gem 'pry-nav'
+ gem 'pg'
+
+group :production do
+ gem 'rails_12factor'
+end
+
