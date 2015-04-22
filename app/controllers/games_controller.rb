@@ -140,9 +140,6 @@ class GamesController < ApplicationController
   def end_turn
     @this_game = Game.find(params[:id])
     @this_game.switch_turnstate
-
-
-
     # 
     @square = Square.all
     render json: @square
