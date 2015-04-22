@@ -1,7 +1,23 @@
 #game-list {
   background: grey;
+  width: 22%;
+  background: hsla(33, 11%, 50%, .4);
+  // float: right;
+  // clear: both;
   a {
     color: white;
   }
   
+}
+
+#options{
+  background: hsla(33, 11%, 50%, .1);
+  width: 30%;
+  height: 15em;
+  #host-button {
+    margin: 0 0 0 40%;
+  }
+  button {
+    margin: 5% 0 0 40%;
+  }
 }

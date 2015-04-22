@@ -1,10 +1,12 @@
 <h1>Listing Games</h1>
-<h2 id="host-button"> Host Game </h2>
-<button id="create-game-button"> Create Game </button>
 
-<table>
+<section id='options'>
+  <h2 id="host-button"> Host Game </h2>
+  <button id="create-game-button"> Create Game </button>
+</section>
+<table id="game-list">
 
-  <tbody id="game-list">
+  <tbody >
     <% @games.each do |game| %>
       <tr>
 
