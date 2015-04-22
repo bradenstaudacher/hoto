@@ -13,7 +13,9 @@ class Square < ActiveRecord::Base
       
       if self.bloomable?
         self.bloom
+        game.switch_turnstate
       end
+      # returns true because it's been placed. for game controller
       return true
     end
     false
@@ -29,7 +31,7 @@ class Square < ActiveRecord::Base
     update(colour: 'empty')
     all_squares_adjacent_to.each do |coord|
       if !Square.offboard?(coord)
-        square = game.get_square_from_coord(coord)[0]
+        square = game.get_square_from_coord(coord)
         square.height += 1
         square.colour = square_colour
         square.save
@@ -38,7 +40,6 @@ class Square < ActiveRecord::Base
         end
       end
     end
-    game.switch_turnstate
   end
 
   def bloomable?
@@ -51,12 +52,13 @@ class Square < ActiveRecord::Base
   DOWN = [0, 1]
   ALLDIR = [LEFT, RIGHT, UP, DOWN]
 
+
   def topple(direction)
     return false unless valid_move([x + direction[0], y + direction[1]])
-      
       square_colour = colour
       num_squares_affected = height
       update(height: 0)
+      update(colour: 'empty')
 
       coords_affected = []
       counter = 1
@@ -74,8 +76,11 @@ class Square < ActiveRecord::Base
         square.save
         if square.bloomable?
           square.bloom
+           game.switch_turnstate
+
         end
       end
+
   end
 
   def adj(direction)
@@ -90,9 +95,34 @@ class Square < ActiveRecord::Base
     arr
   end
 
-  def valid_move(to)
-    square = game.get_square_from_coord(to)
-    return false if !(all_squares_adjacent_to.include? to) || Square.offboard?(to) || square.occupied?  || height < 2
+  def all_empty_squares_adjacent_to
+    arr = []
+    ALLDIR.each do |direction|
+      arr << Square.where(x: x + direction[0]).where(y: y + direction[1]).where(height: 0).where(game_id: game.id)
+    end
+    arr.reject! {|item| item.empty? }
+    arr.map! do |obj|
+       x = obj[0].id % 25
+       if x == 0  
+        x = 25
+       end 
+       x
+    end
+    arr
+  end
+  
+  # to-do, this could return if the user's colour is correct 
+  def topplable
+    # is high enough
+    # is my color
+    height > 1
+  end
+
+# to-do    should this be private, should we check if square is nill?
+  def valid_move(destination)
+    square = game.get_square_from_coord(destination)
+    
+    return false if !(all_squares_adjacent_to.include? destination) || Square.offboard?(destination) || square.occupied?  || height < 2
     true 
   end
 
