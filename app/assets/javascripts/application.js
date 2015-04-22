@@ -46,16 +46,9 @@ console.log('inside doTheGame in application.js')
             // var test = [];  
             // var test = squares;
             console.log(squares);
-            // for(var i=0; i < 25; i++){
-            //   $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').removeClass('black white normal');
-            //   $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').addClass(squares[i].colour);
-            //   $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"] .pieces').text(squares[i].height);
-            // }
-            // channel.trigger('refresh_squares', squares);
             endButtonClicked = false
-
           },
-          error: function(x, message){
+          error: function(squares, message){
             console.log('ajax post failed')
           }
         })
