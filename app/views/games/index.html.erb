@@ -1,29 +1,39 @@
-<h1>Listing Games</h1>
-
+<h1 id='welcome'>Welcome to Hoto.</h1>
+<h3 id="intro-message">Hoto is a zany board game that knows how to boogie.</h3>
 <section id='options'>
   <h2 id="host-button"> Host Game </h2>
   <button id="create-game-button"> Create Game </button>
 </section>
-<table id="game-list">
 
-  <tbody >
-    <% @games.each do |game| %>
-      <tr>
+<!-- <h2>Available Games</h2> -->
+<div id="table-container">
+  <table id="game-list">
 
-        <td><%= link_to game.id, game %>  </td>
-        <% if game.users.count == 2 %>
-          <% game.users.each do |user| %>
-            <td><%= user.name %>  </td> 
-          <% end %> 
+    <tbody >
+    <tr id="column-titles">
+      <td class='column-title'>User</td>
+      <td class='column-title'>Rating</td>
 
-        <% else %>
-          <% game.users.each do |user| %>
-            <td><%= user.name %>  </td> 
+    </tr>
+      <% @games.each do |game| %>
+   
+        <tr data-link="<%= game %>">
+
+          <% if game.users.count == 2 %>
+            <% game.users.each do |user| %>
+              <td><%= user.name %>  </td> 
+            <% end %> 
+
+          <% else %>
+            <% game.users.each do |user| %>
+              <td><%= user.name %>  </td> 
+            <% end %>
+            <td><%= link_to 'Join Game', game %>  </td>
           <% end %>
-          <td><%= link_to 'Join Game', game %>  </td>
-        <% end %>
 
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </tr>
+        
+      <% end %>
+    </tbody>
+  </table>
+</div>
