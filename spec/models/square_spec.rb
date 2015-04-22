@@ -8,21 +8,22 @@ RSpec.describe Square, type: :model do
     while counter <= 5 
       i = 1
       while i <= 5
-        Square.create(x: i, y: counter, height: 0)
+        Square.create(x: i, y: counter, height: 0, game_id: 1)
         i += 1
       end
       counter += 1
     end
+    @game = Game.create(turnstate: 'white', active: 'true', phase: 'place')
   end
 
   it "creates the squares" do
     expect(Square.all.length).to eq(25)
   end
   it "can be accessed by coords" do
-    @square1 = Square.get_square_from_coord([1,1])
-    @square2 = Square.get_square_from_coord([2,1])
-    @square13 = Square.get_square_from_coord([3,3])
-    @square25 = Square.get_square_from_coord([5,5])
+    @square1 = @game.get_square_from_coord([1,1])
+    @square2 = @game.get_square_from_coord([2,1])
+    @square13 = @game.get_square_from_coord([3,3])
+    @square25 = @game.get_square_from_coord([5,5])
     expect(@square1).to eq(Square.find(1))
     expect(@square2).to eq(Square.find(2))
     expect(@square13).to eq(Square.find(13))
