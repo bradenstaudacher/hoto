@@ -91,14 +91,14 @@ class GamesController < ApplicationController
 
     if @current_square.place(@the_right_game.turnstate)
       @board_new = Game.board params[:id]
-      Pusher['games'].trigger('new_game', {
+      Pusher['games'].trigger('refresh_squares', {
         :test => "placed square!",
-        :board_html => @board_new.to_json
+        :board_html => @the_right_game.squares
         })
-    else
-      Pusher['games'].trigger('new_game', {
-        :test => "didnt square!"
-        })
+    # else
+    #   Pusher['games'].trigger('new_game', {
+    #     :test => "didnt square!"
+    #     })
     end
 
  
