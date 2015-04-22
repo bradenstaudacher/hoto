@@ -1,7 +1,45 @@
+$transparent-grey: hsla(33, 11%, 50%, .1);
+
+#table-container{
+  // border: 2px solid black;
+}
 #game-list {
-  background: grey;
+  width: 22%;
+  padding: 12px;
+  border-collapse: collapse;
+  // float: right;
+  // clear: both;
   a {
-    color: white;
+    text-decoration: none;
   }
-  
+  #column-titles{
+    background: lightsteelblue;
+    color: white;
+  }  
+}
+
+
+
+#options{
+  width: 30%;
+  float: left;
+  height: 15em;
+  margin: 58px 0 0 95px;
+
+  #host-button {
+    margin: 0 0 0 40%;
+  }
+  button {
+    margin: 5% 0 0 40%;
+  }
+}
+
+#welcome{
+  margin: 60px 0 0 95px;
+  width: 30%;
+}
+
+#intro-message{
+  margin: 40px 0 0 155px;
+  width: 260px;
 }
