@@ -90,10 +90,13 @@ class GamesController < ApplicationController
     @current_square = @the_right_game.squares.where(x: params[:square_x], y: params[:square_y])[0]
 
     if @current_square.place(@the_right_game.turnstate)
-      @board_new = Game.board params[:id]
+      @board_new = Game.find(params[:id])
       Pusher['games'].trigger('refresh_squares', {
         :test => "placed square!",
-        :board_html => @the_right_game.squares
+        :board_html => @the_right_game.squares,
+        :phase => @board_new.phase,
+        :turnstate => @board_new.turnstate
+
         })
     # else
     #   Pusher['games'].trigger('new_game', {
@@ -104,7 +107,7 @@ class GamesController < ApplicationController
  
     # Square.find(square_id)
 
-# to-do   how do we get rid of these things but not have 500 errors
+    # to-do   how do we get rid of these things but not have 500 errors
     # @square = Square.all
     render json: @the_right_game.squares
     # render json: @current_square if placed = 'placed'
