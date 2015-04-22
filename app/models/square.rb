@@ -13,7 +13,9 @@ class Square < ActiveRecord::Base
       
       if self.bloomable?
         self.bloom
+        game.switch_turnstate
       end
+      # returns true because it's been placed. for game controller
       return true
     end
     false
@@ -38,7 +40,6 @@ class Square < ActiveRecord::Base
         end
       end
     end
-    game.switch_turnstate
   end
 
   def bloomable?
@@ -75,6 +76,8 @@ class Square < ActiveRecord::Base
         square.save
         if square.bloomable?
           square.bloom
+           game.switch_turnstate
+
         end
       end
 
