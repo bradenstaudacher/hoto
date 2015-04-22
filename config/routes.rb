@@ -18,6 +18,8 @@ Hoto::Application.routes.draw do
   post "games/:id/place" => 'games#click_to_place'
   get "games/:id/end" => 'games#end_turn'
   post "games/:id/topplecheck" => 'games#topplecheck'
+  post "games/:id/topplecall" => 'games#topplecall'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

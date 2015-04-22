@@ -3,8 +3,7 @@ class Game < ActiveRecord::Base
   has_and_belongs_to_many :users
 
     def get_square_from_coord(coord)
-      # binding.pry
-      Square.where(x: coord[0]).where(y: coord[1]).where(game_id: id)
+      Square.where(x: coord[0]).where(y: coord[1]).where(game_id: id)[0]
     end
   
     def switch_turnstate
