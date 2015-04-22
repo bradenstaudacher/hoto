@@ -28,15 +28,29 @@ console.log('inside doTheGame in application.js')
 
         $('.game-square').removeClass('active');
         $(this).addClass('active');
-        var dataId = ($(this).attr('data-id'));
+        var square_x = ($(this).attr('data-x'));
+        var square_y = ($(this).attr('data-y'));
+        var coordinate = {
+          'square_x': square_x,
+          'square_y': square_y
+        };
 
         $.ajax({
           url: '/games/' + currentGame + '/place',
           method: 'POST',
-          data: { squareId: dataId }, 
-          success: function(x) {
+          data: coordinate, 
+          success: function(squares) {
             console.log('ajax post was successful');
-            console.log('x = ', x)
+            console.log('x = ', squares)
+
+            for(var i=0; i < 25; i++){
+              $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').removeClass('black white normal');
+              $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').addClass(squares[i].colour);
+              $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"] .pieces').text(squares[i].height);
+            }
+
+
+           
 
           },
           failure: function(x){
