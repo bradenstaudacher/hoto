@@ -18,7 +18,8 @@
 
   //to-do    can we refactor these methods to all go to one route which triggers a method calling method that calls the correct method based on some params or the db?? 
 function doTheGame(){
-var arr = [] 
+var arr = []
+var endButtonCount = 0
 
 console.log('inside doTheGame in application.js')
 
@@ -68,7 +69,6 @@ console.log('inside doTheGame in application.js')
       console.log('aaaaaaaaasadfdsfsdagsd');
       console.log(arr);
 
-      console.log();
       if (arr.length === 2) {
         $.ajax({
             url: '/games/' + currentGame + '/topplecall',
@@ -76,7 +76,7 @@ console.log('inside doTheGame in application.js')
             data: { squareId: dataId, from: arr[0], dest: arr[1] }, 
             success: function(x) {
               console.log('ajax post was successful');
-              console.log('x = ', x)
+              // console.log('x = ', x)
 
               /* topplecheck returns */
              
@@ -98,7 +98,7 @@ console.log('inside doTheGame in application.js')
               // }
               arr = []
             },
-            failure: function(x){
+            error: function(x){
               console.log('ajax post failed')
             }
           }) 
@@ -117,22 +117,31 @@ console.log('inside doTheGame in application.js')
 
       $('#end-turn-button').on('click', function(){
         console.log('clicked', $(this).text());
+
         if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "topple") {
-          console.log(currentGame);
+
+
+
+          console.log("passed user check");
 
           $.ajax({
             url: '/games/' + currentGame + '/end',
-            method: 'GET',
+            method: 'POST',
+            dataType: "text",
             success: function(x) {
+
               console.log('ajax post was successful');
+              console.log(x);
+
 
             },
-            failure: function(x){
-              console.log('ajax post failed')
+            error: function(x, message){
+
+              console.log('ajax post failed');
             }
           })
-        }
-      })
+      }
+    })
 
      
 }
