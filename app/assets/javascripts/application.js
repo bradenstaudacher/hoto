@@ -41,14 +41,19 @@ console.log('inside doTheGame in application.js')
           method: 'POST',
           data: coordinate, 
           success: function(squares) {
-            console.log('ajax post was successful');
-            console.log('x = ', squares)
-            for(var i=0; i < 25; i++){
-              $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').removeClass('black white normal');
-              $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').addClass(squares[i].colour);
-              $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"] .pieces').text(squares[i].height);
-            }
+
+            // debugger;
+            // var test = [];  
+            // var test = squares;
+            console.log(squares);
+            // for(var i=0; i < 25; i++){
+            //   $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').removeClass('black white normal');
+            //   $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').addClass(squares[i].colour);
+            //   $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"] .pieces').text(squares[i].height);
+            // }
+            // channel.trigger('refresh_squares', squares);
             endButtonClicked = false
+
           },
           error: function(x, message){
             console.log('ajax post failed')
@@ -63,18 +68,19 @@ console.log('inside doTheGame in application.js')
 
       console.log('its in topple code application js');
 
-      var dataId = ($(this).attr('data-id'));
+      var topple_x = ($(this).attr('data-x'));
+      var topple_y = ($(this).attr('data-y'));
       
-      arr.push(dataId)
+      arr.push([topple_x, topple_y])
 
-      console.log('aaaaaaaaasadfdsfsdagsd');
+      console.log('Array is Below');
       console.log(arr);
 
       if (arr.length === 2) {
         $.ajax({
             url: '/games/' + currentGame + '/topplecall',
             method: 'POST',
-            data: { squareId: dataId, from: arr[0], dest: arr[1] }, 
+            data: { from: arr[0], dest: arr[1] }, 
             success: function(x) {
               console.log('ajax post was successful');
               // console.log('x = ', x)

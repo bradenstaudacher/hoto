@@ -2,13 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 $game-square-background: grey;
-#hoto-title {
-  margin: auto;
-  text-align: center;
-    width: 30%;
-    font-size: 3em;
-}
+$fonts: helvetica, sans-serif;
 
+
+#navbar {
+  float: right;
+}
+hr {
+  clear: both;
+}
 table {
   width: 300px;
   margin: auto;

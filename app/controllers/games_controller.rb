@@ -91,14 +91,14 @@ class GamesController < ApplicationController
 
     if @current_square.place(@the_right_game.turnstate)
       @board_new = Game.board params[:id]
-      Pusher['games'].trigger('new_game', {
+      Pusher['games'].trigger('refresh_squares', {
         :test => "placed square!",
-        :board_html => @board_new.to_json
+        :board_html => @the_right_game.squares
         })
-    else
-      Pusher['games'].trigger('new_game', {
-        :test => "didnt square!"
-        })
+    # else
+    #   Pusher['games'].trigger('new_game', {
+    #     :test => "didnt square!"
+    #     })
     end
 
  
@@ -125,13 +125,11 @@ class GamesController < ApplicationController
   end
 
   def topplecall
-    # square_id = params[:squareId].to_i
     @the_right_game = Game.find(params[:id])
-    # @current_square = @the_right_game.squares[square_id - 1]
-    # direction = params[:]
-    from_square = @the_right_game.squares[params[:from].to_i - 1]
-    dest_square = @the_right_game.squares[params[:dest].to_i - 1]
+    from_square = @the_right_game.squares.where(x: params[:from][0].to_i, y: params[:from][1].to_i)[0]
+    dest_square = @the_right_game.squares.where(x: params[:dest][0].to_i, y: params[:dest][1].to_i)[0]
     from_square.topple([dest_square.x - from_square.x, dest_square.y - from_square.y])
+    render json: @the_right_game
   end
 
   def end_turn
@@ -143,9 +141,6 @@ class GamesController < ApplicationController
     @this_turnstate = @this_game.turnstate
     puts @this_turnstate.is_a? String
     render text: @this_turnstate
-    # 
-    # @square = Square.all
-    # render json: @square
   end
 
   # DELETE /games/1
