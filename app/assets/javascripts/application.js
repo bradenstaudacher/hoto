@@ -18,7 +18,8 @@
 
   //to-do    can we refactor these methods to all go to one route which triggers a method calling method that calls the correct method based on some params or the db?? 
 function doTheGame(){
-var arr = [] 
+var arr = []
+var endButtonClicked = false
 
 console.log('inside doTheGame in application.js')
 
@@ -40,6 +41,7 @@ console.log('inside doTheGame in application.js')
           method: 'POST',
           data: coordinate, 
           success: function(squares) {
+
             // debugger;
             // var test = [];  
             // var test = squares;
@@ -50,8 +52,10 @@ console.log('inside doTheGame in application.js')
             //   $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"] .pieces').text(squares[i].height);
             // }
             // channel.trigger('refresh_squares', squares);
+            endButtonClicked = false
+
           },
-          failure: function(x){
+          error: function(x, message){
             console.log('ajax post failed')
           }
         })
@@ -72,7 +76,6 @@ console.log('inside doTheGame in application.js')
       console.log('Array is Below');
       console.log(arr);
 
-      console.log();
       if (arr.length === 2) {
         $.ajax({
             url: '/games/' + currentGame + '/topplecall',
@@ -80,7 +83,7 @@ console.log('inside doTheGame in application.js')
             data: { from: arr[0], dest: arr[1] }, 
             success: function(x) {
               console.log('ajax post was successful');
-              console.log('x = ', x)
+              // console.log('x = ', x)
 
               /* topplecheck returns */
              
@@ -102,7 +105,7 @@ console.log('inside doTheGame in application.js')
               // }
               arr = []
             },
-            failure: function(x){
+            error: function(x, message){
               console.log('ajax post failed')
             }
           }) 
@@ -118,25 +121,36 @@ console.log('inside doTheGame in application.js')
   });
         // $(this)
         // square = Square.find($(this).attr('id'));
-
+        // var clicked = false
       $('#end-turn-button').on('click', function(){
         console.log('clicked', $(this).text());
+
         if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "topple") {
-          console.log(currentGame);
+          if (endButtonClicked === false) {
+            endButtonClicked = true;
+
+          console.log("passed user check");
 
           $.ajax({
             url: '/games/' + currentGame + '/end',
-            method: 'GET',
-            success: function(x) {
+            method: 'POST',
+            dataType: "text",
+            success: function(newTurnstate) {
+
               console.log('ajax post was successful');
+              console.log(newTurnstate);
+              currentTurnstate = newTurnstate;
+
 
             },
-            failure: function(x){
-              console.log('ajax post failed')
+            error: function(newTurnstate, message){
+
+              console.log('ajax post failed');
             }
           })
         }
-      })
+      }
+    })
 
      
 }

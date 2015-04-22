@@ -134,13 +134,13 @@ class GamesController < ApplicationController
 
   def end_turn
     @this_game = Game.find(params[:id])
+
     @this_game.switch_turnstate
 
 
-
-    # 
-    @square = Square.all
-    render json: @square
+    @this_turnstate = @this_game.turnstate
+    puts @this_turnstate.is_a? String
+    render text: @this_turnstate
   end
 
   # DELETE /games/1
