@@ -16,7 +16,7 @@ Hoto::Application.routes.draw do
   get "game/index"
   root to:  'games#index'
   post "games/:id/place" => 'games#click_to_place'
-  get "games/:id/end" => 'games#end_turn'
+  post "games/:id/end" => 'games#end_turn'
   post "games/:id/topplecheck" => 'games#topplecheck'
   post "games/:id/topplecall" => 'games#topplecall'
 

@@ -1,0 +1,20 @@
+$fonts: helvetica, sans-serif;
+
+
+#header{
+  margin: -36px -8px 0px -9px;
+  background: white;
+}
+
+
+
+#hoto-title {
+  font-family: $fonts;
+  // text-align: center;
+    width: 30%;
+    font-size: 4em;
+    margin: 67px 0 0 21px;
+    a{
+      text-decoration: none;
+    }
+}
