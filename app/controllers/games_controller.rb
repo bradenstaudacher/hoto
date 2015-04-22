@@ -21,7 +21,6 @@ class GamesController < ApplicationController
   def show
     @board = Game.board params[:id]
     @squares = Square.where(game_id: params[:id])
-
     @id = params[:id]
     @turnstate = Game.find(params[:id]).turnstate
     @phase = Game.find(params[:id]).phase
@@ -86,18 +85,15 @@ class GamesController < ApplicationController
   end
 
   def click_to_place 
-    puts params[:squareId]
-    square_id = params[:squareId].to_i
     puts "this is the params id in place " + params[:id]
-
     @the_right_game = Game.find(params[:id])
-
-    @current_square = @the_right_game.squares[square_id - 1]
+    @current_square = @the_right_game.squares.where(x: params[:square_x], y: params[:square_y])[0]
 
     if @current_square.place(@the_right_game.turnstate)
+      @board_new = Game.board params[:id]
       Pusher['games'].trigger('new_game', {
         :test => "placed square!",
-        # :board_html => "<div>....</div>"
+        :board_html => @board_new.to_json
         })
     else
       Pusher['games'].trigger('new_game', {
@@ -109,8 +105,8 @@ class GamesController < ApplicationController
     # Square.find(square_id)
 
 # to-do   how do we get rid of these things but not have 500 errors
-    @square = Square.all
-    render json: @square
+    # @square = Square.all
+    render json: @the_right_game.squares
     # render json: @current_square if placed = 'placed'
   end
 
