@@ -1,0 +1,35 @@
+<table id='game-board'>
+
+<% counter = 1 %>
+
+  <tr>
+<% @board.each do |row|          %>
+
+  <% row.each do |square| %>
+  <% square_id = counter %>
+<%        if square.colour == 'black'      %>
+
+            <td class='black game-square unselected' data-id=<%= square_id %>><span class="pieces">
+<%=         square.height             %>
+            </span></td>
+
+<%        elsif square.colour == 'white'      %>
+       
+            <td class='white game-square unselected' data-id=<%= square_id %> >
+            <span class="pieces">
+<%=         square.height             %>
+            </span></td>
+
+<%        else                               %>
+       
+            <td class='normal game-square unselected' data-id=<%= square_id %> >
+            <span class="pieces">
+<%=         square.height             %>
+            </span></td>
+<%  end                                       %>
+<% counter += 1 %>
+<%    end %>
+  </tr>
+<% end %>
+
+</table>

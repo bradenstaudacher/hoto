@@ -14,44 +14,34 @@
   <h1>You are playing as <%= @current_colour %></h1>
 </div>
 
-  <table id='game-board'>
+<div id="game-board-encase">
+<table id='game-board'>
 
-<% #array_of_square_ids = [1,6,11,16,21,2,7,12,17,22,3,8,13,18,23,4,9,14,19,24,5,10,15,20,25] %>
 
-<% counter = 1 %>
 
-  <tr>
-<% @board.each do |row|          %>
+  
+<% @board.each_with_index do |row, y|  %>
+<tr>
 
-  <% row.each do |square| %>
-  <% square_id = counter %>
-<%        if square.colour == 'black'      %>
+  <% row.each_with_index do |square, x|
+     if square.colour != 'black' && square.colour != 'white'
+      square.colour = 'normal'
+     end      
+  %>
 
-            <td class='black game-square unselected' data-id=<%= square_id %>><span class="pieces">
-<%=         square.height             %>
-            </span></td>
+      <td class='<%= square.colour %> game-square unselected' data-x="<%= x + 1 %>" data-y="<%= y + 1 %>">
+      <span class="pieces">
+      <%= square.height %>
+      </span></td>
 
-<%        elsif square.colour == 'white'      %>
-       
-            <td class='white game-square unselected' data-id=<%= square_id %> >
-            <span class="pieces">
-<%=         square.height             %>
-            </span></td>
 
-<%        else                               %>
-       
-            <td class='normal game-square unselected' data-id=<%= square_id %> >
-            <span class="pieces">
-<%=         square.height             %>
-            </span></td>
-<%  end                                       %>
-<% counter += 1 %>
-<%    end %>
-  </tr>
+
+    <%    end %>
+</tr>
 <% end %>
 
 </table>
-
+</div>
 
 
 
