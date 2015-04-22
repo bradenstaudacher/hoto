@@ -50,7 +50,7 @@ console.log('inside doTheGame in application.js')
             }
             endButtonClicked = false
           },
-          error: function(x){
+          error: function(x, message){
             console.log('ajax post failed')
           }
         })
@@ -99,7 +99,7 @@ console.log('inside doTheGame in application.js')
               // }
               arr = []
             },
-            error: function(x){
+            error: function(x, message){
               console.log('ajax post failed')
             }
           }) 
