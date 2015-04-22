@@ -121,10 +121,21 @@ class GamesController < ApplicationController
 # to-do    is the square-colour the same as player color and is it height min 2
 
 # to-do    What does @targetable_squares equal??
-
+    
+    
     @targetable_squares = @current_square.all_empty_squares_adjacent_to
-
+    @targetable_squares << @current_square.topplable
     render json: @targetable_squares
+  end
+
+  def topplecall
+    # square_id = params[:squareId].to_i
+    @the_right_game = Game.find(params[:id])
+    # @current_square = @the_right_game.squares[square_id - 1]
+    # direction = params[:]
+    from_square = @the_right_game.squares[params[:from].to_i - 1]
+    dest_square = @the_right_game.squares[params[:dest].to_i - 1]
+    from_square.topple([dest_square.x - from_square.x, dest_square.y - from_square.y])
   end
 
   def end_turn

@@ -17,13 +17,13 @@
 //= require pusher
 
   //to-do    can we refactor these methods to all go to one route which triggers a method calling method that calls the correct method based on some params or the db?? 
-
 function doTheGame(){
+var arr = [] 
 
 console.log('inside doTheGame in application.js')
 
     $('.game-square').on('click',function(){
-
+      console.log('clicked game square')
       if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "place") {
 
         $('.game-square').removeClass('active');
@@ -46,46 +46,60 @@ console.log('inside doTheGame in application.js')
 
     }
     // topple code
+      
     if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "topple") {
 
-      console.log(this);
+
+      console.log('its in topple code application js');
 
       var dataId = ($(this).attr('data-id'));
+      
+      arr.push(dataId)
 
-      $.ajax({
-          url: '/games/' + currentGame + '/topplecheck',
-          method: 'POST',
-          data: { squareId: dataId }, 
-          success: function(x) {
-            console.log('ajax post was successful');
-            console.log('x = ', x)
-            /* topplecheck returns 
-            {
-              {'clickable': true,
-                'targets': [15,21,5,4]
-              }
+      console.log('aaaaaaaaasadfdsfsdagsd');
+      console.log(arr);
+
+      console.log();
+      if (arr.length === 2) {
+        $.ajax({
+            url: '/games/' + currentGame + '/topplecall',
+            method: 'POST',
+            data: { squareId: dataId, from: arr[0], dest: arr[1] }, 
+            success: function(x) {
+              console.log('ajax post was successful');
+              console.log('x = ', x)
+
+              /* topplecheck returns */
+             
+              // if (currentUserColour ) {
+                  
+                  // var allsquares = $('.game-square')
+                  // console.log('aaaaaaaa')
+                  // allsquares[0]
+                  // var that = $(this)
+                  
+                  // $(this).removeClass('unselected') 
+                  // from this and the target squares 
+                  // $()addClass('topplable') 
+                   // to the targetable squares
+
+              // } 
+              // else {
+             
+              // }
+              arr = []
+            },
+            failure: function(x){
+              console.log('ajax post failed')
             }
-
-            if (i can click it) {
-                removeClass('unselected') from this and the target squares 
-                addClass('topplable')  to the targetable squares
-
-            } 
-            else {
-                nothing happens
-            }
-
-            */
-          },
-          failure: function(x){
-            console.log('ajax post failed')
-          }
-        })     
+          }) 
+      }    
+      }
       // topplecheck returns an enumerable containing, whether or not I can select that square (is it my color) and also an enumerable containing squares i can click on 
 
 
 
-    }
+    
 
 
   });
