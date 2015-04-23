@@ -24,9 +24,9 @@ var endButtonClicked = false
 console.log('inside doTheGame in application.js')
 
     $('.game-square').on('click',function(){
-      console.log('clicked game square')
+        console.log('clicked game square')
       if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "place") {
-
+        console.log("passed place check, game thinks we are in place");
         $('.game-square').removeClass('active');
         $(this).addClass('active');
         var square_x = ($(this).attr('data-x'));
@@ -39,17 +39,18 @@ console.log('inside doTheGame in application.js')
         $.ajax({
           url: '/games/' + currentGame + '/place',
           method: 'POST',
-          data: coordinate, 
-          success: function(squares) {
-
+          data: coordinate,
+          dataType: 'text',
+          success: function(phase) {
+            currentPhase = phase;
+            console.log(phase);
             // debugger;
             // var test = [];  
             // var test = squares;
-            console.log(squares);
-            endButtonClicked = false
+            endButtonClicked = false;
           },
-          error: function(squares, message){
-            console.log('ajax post failed')
+          error: function(phase, message){
+            console.log('ajax post failed', message)
           }
         })
 
