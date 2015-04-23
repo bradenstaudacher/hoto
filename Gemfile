@@ -45,7 +45,6 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
- gem 'pg'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
@@ -60,5 +59,6 @@ end
 
 group :production do
  gem 'rails_12factor'
+ gem 'pg'
 end
 
