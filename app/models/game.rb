@@ -18,6 +18,16 @@ class Game < ActiveRecord::Base
       self.save
     end
 
+    def update_active
+
+      if moves_counter > 2
+        
+        if !(squares.each.map { |square| square.colour }.include?("black") && squares.each.map { |square| square.colour }.include?("white"))
+          self.update(active: false)
+        end
+      end
+    end
+
 
   class << self 
     def board id

@@ -16,7 +16,7 @@ class GamesController < ApplicationController
     @turnstate = Game.find(params[:id]).turnstate
     @phase = Game.find(params[:id]).phase
     @current_colour = GamesUser.set_player_colour(session[:user_id], @id)
-
+    @active = Game.find(params[:id]).active
     # Pusher['games'].trigger('new_game', {
     #   :test => "test!"
     # })
@@ -91,9 +91,10 @@ class GamesController < ApplicationController
 
         })
 
+      @board_new.update_active
     end
-      phase_and_turnstate = {phase: @board_new.phase, turnstate: @board_new.turnstate}
-      render json: phase_and_turnstate 
+    phase_and_turnstate = {phase: @board_new.phase, turnstate: @board_new.turnstate}
+    render json: phase_and_turnstate 
 
   end
 
@@ -125,8 +126,9 @@ class GamesController < ApplicationController
           :gameid => @board_new.id
 
           })
-    end
 
+    @board_new.update_active
+    end
     render text: @board_new.turnstate
   end
 
