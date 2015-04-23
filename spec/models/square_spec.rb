@@ -13,7 +13,7 @@ RSpec.describe Square, type: :model do
       end
       counter += 1
     end
-    @game = Game.create(turnstate: 'white', active: 'true', phase: 'place')
+    @game = Game.create(turnstate: 'white', active: 'true', phase: 'place', moves_counter: 0)
   end
 
   it "creates the squares" do
