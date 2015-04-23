@@ -1,12 +1,3 @@
-# class GamesController < ApplicationController
-#   def index
-#     # @board = Game::BOARD
-#     @board = Game.board
-#     @games = Square.all.to_json
-#   end
-# end
-
-
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
 
@@ -93,24 +84,17 @@ class GamesController < ApplicationController
       @board_new = Game.find(params[:id])
       Pusher['games'].trigger('refresh_squares', {
         :test => "placed square!",
-        :board_html => @the_right_game.squares,
+        :board_html => @board_new.squares,
         :phase => @board_new.phase,
-        :turnstate => @board_new.turnstate
+        :turnstate => @board_new.turnstate,
+        :gameid => @board_new.id
 
         })
-    # else
-    #   Pusher['games'].trigger('new_game', {
-    #     :test => "didnt square!"
-    #     })
+
     end
+      phase_and_turnstate = {phase: @board_new.phase, turnstate: @board_new.turnstate}
+      render json: phase_and_turnstate 
 
- 
-    # Square.find(square_id)
-
-    # to-do   how do we get rid of these things but not have 500 errors
-    # @square = Square.all
-    render json: @the_right_game.squares
-    # render json: @current_square if placed = 'placed'
   end
 
   def topplecheck
@@ -131,8 +115,19 @@ class GamesController < ApplicationController
     @the_right_game = Game.find(params[:id])
     from_square = @the_right_game.squares.where(x: params[:from][0].to_i, y: params[:from][1].to_i)[0]
     dest_square = @the_right_game.squares.where(x: params[:dest][0].to_i, y: params[:dest][1].to_i)[0]
-    from_square.topple([dest_square.x - from_square.x, dest_square.y - from_square.y])
-    render json: @the_right_game
+    if from_square.topple([dest_square.x - from_square.x, dest_square.y - from_square.y])
+      @board_new = Game.find(params[:id])
+      Pusher['games'].trigger('refresh_squares', {
+          :test => "placed square!",
+          :board_html => @board_new.squares,
+          :phase => @board_new.phase,
+          :turnstate => @board_new.turnstate,
+          :gameid => @board_new.id
+
+          })
+    end
+
+    render text: @board_new.turnstate
   end
 
   def end_turn
@@ -145,8 +140,6 @@ class GamesController < ApplicationController
     render text: @this_turnstate
   end
 
-  # DELETE /games/1
-  # DELETE /games/1.json
   def destroy
     @game.destroy
     respond_to do |format|

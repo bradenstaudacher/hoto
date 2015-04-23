@@ -55,32 +55,33 @@ class Square < ActiveRecord::Base
 
   def topple(direction)
     return false unless valid_move([x + direction[0], y + direction[1]])
-      square_colour = colour
-      num_squares_affected = height
-      update(height: 0)
-      update(colour: 'empty')
+    bloom_counter = 0
+    square_colour = colour
+    num_squares_affected = height
+    update(height: 0)
+    update(colour: 'empty')
 
-      coords_affected = []
-      counter = 1
-      while counter <= num_squares_affected
-        coords_affected << [x + direction[0] * counter, y + direction[1] * counter]
-        counter += 1 
+    coords_affected = []
+    counter = 1
+    while counter <= num_squares_affected
+      coords_affected << [x + direction[0] * counter, y + direction[1] * counter]
+      counter += 1 
+    end
+    coords_affected.select! do |coord|
+      !Square.offboard?(coord)
+    end
+    coords_affected.each do |coord|
+      square = game.get_square_from_coord(coord)
+      square.height += 1
+      square.colour = square_colour
+      square.save
+      if square.bloomable?
+        bloom_counter += 1
+        square.bloom
       end
-      coords_affected.select! do |coord|
-        !Square.offboard?(coord)
-      end
-      coords_affected.each do |coord|
-        square = game.get_square_from_coord(coord)
-        square.height += 1
-        square.colour = square_colour
-        square.save
-        if square.bloomable?
-          square.bloom
-           game.switch_turnstate
-
-        end
-      end
-
+    end
+    game.switch_turnstate if bloom_counter > 0 
+    true
   end
 
   def adj(direction)

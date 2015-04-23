@@ -14,15 +14,19 @@ $(document).ready(function(){
    // $("#game-board").html(data.board_html)
    // debugger;
    var squares = data.board_html;
+   var game = data.gameid;
    var phase = data.phase;
    var turnstate = data.turnstate;
-   for(var i=0; i < 25; i++){
-      $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').removeClass('black white normal');
-      $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').addClass(squares[i].colour);
-      $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"] .pieces').text(squares[i].height);
+   if (game === parseInt(currentGame)) {
+     for(var i=0; i < 25; i++){
+        $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').removeClass('black white empty');
+        $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').addClass(squares[i].colour);
+        $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"] .pieces').text(squares[i].height);
+      }
+        $('#turn-phase').text("It is " + turnstate + "'s turn to " + phase);
     }
-    $('#turn-phase').text("It is " + turnstate + "'s turn to " + phase);
   });
+    
 
   // channel.bind('pusher:subscription_succeeded', function(data) {
   //  console.log('pusher subscription succeeded', data.test);

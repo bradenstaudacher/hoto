@@ -24,9 +24,9 @@ var endButtonClicked = false
 console.log('inside doTheGame in application.js')
 
     $('.game-square').on('click',function(){
-      console.log('clicked game square')
+        console.log('clicked game square')
       if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "place") {
-
+        console.log("passed place check, game thinks we are in place");
         $('.game-square').removeClass('active');
         $(this).addClass('active');
         var square_x = ($(this).attr('data-x'));
@@ -39,17 +39,17 @@ console.log('inside doTheGame in application.js')
         $.ajax({
           url: '/games/' + currentGame + '/place',
           method: 'POST',
-          data: coordinate, 
-          success: function(squares) {
+          data: coordinate,
+          dataType: 'json',
+          success: function(hash) {
+            currentPhase = hash['phase'];
+            currentTurnstate = hash['turnstate'];
+            console.log(hash['phase']);
 
-            // debugger;
-            // var test = [];  
-            // var test = squares;
-            console.log(squares);
-            endButtonClicked = false
+            endButtonClicked = false;
           },
-          error: function(squares, message){
-            console.log('ajax post failed')
+          error: function(phase, message){
+            console.log('ajax post failed', message)
           }
         })
 
@@ -73,33 +73,17 @@ console.log('inside doTheGame in application.js')
         $.ajax({
             url: '/games/' + currentGame + '/topplecall',
             method: 'POST',
-            data: { from: arr[0], dest: arr[1] }, 
-            success: function(x) {
+            data: { from: arr[0], dest: arr[1] },
+            dataType: 'text',
+            success: function(newTurnstate) {
               console.log('ajax post was successful');
-              // console.log('x = ', x)
-
-              /* topplecheck returns */
-             
-              // if (currentUserColour ) {
-                  
-                  // var allsquares = $('.game-square')
-                  // console.log('aaaaaaaa')
-                  // allsquares[0]
-                  // var that = $(this)
-                  
-                  // $(this).removeClass('unselected') 
-                  // from this and the target squares 
-                  // $()addClass('topplable') 
-                   // to the targetable squares
-
-              // } 
-              // else {
-             
-              // }
+              currentTurnstate = newTurnstate;
+              console.log(currentTurnstate)
               arr = []
             },
-            error: function(x, message){
-              console.log('ajax post failed')
+            error: function(newTurnstate, message){
+              console.log('ajax post failed');
+              console.log(message);
             }
           }) 
       }    
