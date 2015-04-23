@@ -13,7 +13,7 @@ game_id_counter = 1
 
 7.times do 
   
-  Game.create(turnstate: "white", active: true, phase: 'place')
+  Game.create(turnstate: "white", active: true, phase: 'place', moves_counter: 0)
 
   counter = 1
 

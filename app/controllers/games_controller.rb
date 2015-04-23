@@ -16,7 +16,7 @@ class GamesController < ApplicationController
     @turnstate = Game.find(params[:id]).turnstate
     @phase = Game.find(params[:id]).phase
     @current_colour = GamesUser.set_player_colour(session[:user_id], @id)
-
+    @active = Game.find(params[:id]).active
     # Pusher['games'].trigger('new_game', {
     #   :test => "test!"
     # })
@@ -42,7 +42,7 @@ class GamesController < ApplicationController
   def create
     @player_id = session[:user_id]
     if @player_id
-      @game = Game.create(turnstate: "white", active: true)
+      @game = Game.create(turnstate: "white", active: true, moves_counter: 0)
       GamesUser.create_assoc_white(@game.id, @player_id)
       Game.make_squares(@game.id)
     end
@@ -91,9 +91,10 @@ class GamesController < ApplicationController
 
         })
 
+      @board_new.update_active
     end
-      phase_and_turnstate = {phase: @board_new.phase, turnstate: @board_new.turnstate}
-      render json: phase_and_turnstate 
+    phase_and_turnstate = {phase: @board_new.phase, turnstate: @board_new.turnstate}
+    render json: phase_and_turnstate 
 
   end
 
@@ -125,8 +126,9 @@ class GamesController < ApplicationController
           :gameid => @board_new.id
 
           })
-    end
 
+    @board_new.update_active
+    end
     render text: @board_new.turnstate
   end
 
@@ -136,8 +138,18 @@ class GamesController < ApplicationController
 
 
     @this_turnstate = @this_game.turnstate
-    puts @this_turnstate.is_a? String
-    render text: @this_turnstate
+
+
+    Pusher['games'].trigger('refresh_squares', {
+        :test => "end turn!",
+        :board_html => @this_game.squares,
+        :phase => @this_game.phase,
+        :turnstate => @this_game.turnstate,
+        :gameid => @this_game.id
+
+        })
+    phase_and_turnstate = {phase: @this_game.phase, turnstate: @this_game.turnstate}
+    render json: phase_and_turnstate
   end
 
   def destroy
