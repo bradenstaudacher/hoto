@@ -84,6 +84,7 @@ console.log('inside doTheGame in application.js')
             error: function(newTurnstate, message){
               console.log('ajax post failed');
               console.log(message);
+              arr = []
             }
           }) 
       }    
@@ -111,17 +112,20 @@ console.log('inside doTheGame in application.js')
           $.ajax({
             url: '/games/' + currentGame + '/end',
             method: 'POST',
-            dataType: "text",
-            success: function(newTurnstate) {
+            dataType: "json",
+            success: function(hash) {
+
+            currentPhase = hash['phase'];
+            currentTurnstate = hash['turnstate'];
+
 
               console.log('ajax post was successful');
-              console.log(newTurnstate);
-              currentTurnstate = newTurnstate;
+              console.log(hash);
 
 
             },
-            error: function(newTurnstate, message){
-
+            error: function(hash, message){
+              console.log(message);
               console.log('ajax post failed');
             }
           })

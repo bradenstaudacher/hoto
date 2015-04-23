@@ -136,8 +136,18 @@ class GamesController < ApplicationController
 
 
     @this_turnstate = @this_game.turnstate
-    puts @this_turnstate.is_a? String
-    render text: @this_turnstate
+
+
+    Pusher['games'].trigger('refresh_squares', {
+        :test => "end turn!",
+        :board_html => @this_game.squares,
+        :phase => @this_game.phase,
+        :turnstate => @this_game.turnstate,
+        :gameid => @this_game.id
+
+        })
+    phase_and_turnstate = {phase: @this_game.phase, turnstate: @this_game.turnstate}
+    render json: phase_and_turnstate
   end
 
   def destroy
