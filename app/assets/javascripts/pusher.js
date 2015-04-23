@@ -17,6 +17,8 @@ $(document).ready(function(){
    var game = data.gameid;
    var phase = data.phase;
    var turnstate = data.turnstate;
+   currentTurnstate = turnstate;
+   currentPhase = phase;
    if (game === parseInt(currentGame)) {
      for(var i=0; i < 25; i++){
         $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').removeClass('black white empty');
