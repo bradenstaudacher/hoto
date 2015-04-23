@@ -42,7 +42,7 @@ class GamesController < ApplicationController
   def create
     @player_id = session[:user_id]
     if @player_id
-      @game = Game.create(turnstate: "white", active: true)
+      @game = Game.create(turnstate: "white", active: true, moves_counter: 0)
       GamesUser.create_assoc_white(@game.id, @player_id)
       Game.make_squares(@game.id)
     end
