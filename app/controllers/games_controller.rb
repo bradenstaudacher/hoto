@@ -144,7 +144,7 @@ class GamesController < ApplicationController
           })
     end
 
-    render json: @board_new
+    render text: @board_new.turnstate
   end
 
   def end_turn

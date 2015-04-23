@@ -74,33 +74,17 @@ console.log('inside doTheGame in application.js')
         $.ajax({
             url: '/games/' + currentGame + '/topplecall',
             method: 'POST',
-            data: { from: arr[0], dest: arr[1] }, 
-            success: function(x) {
+            data: { from: arr[0], dest: arr[1] },
+            dataType: 'text',
+            success: function(newTurnstate) {
               console.log('ajax post was successful');
-              // console.log('x = ', x)
-
-              /* topplecheck returns */
-             
-              // if (currentUserColour ) {
-                  
-                  // var allsquares = $('.game-square')
-                  // console.log('aaaaaaaa')
-                  // allsquares[0]
-                  // var that = $(this)
-                  
-                  // $(this).removeClass('unselected') 
-                  // from this and the target squares 
-                  // $()addClass('topplable') 
-                   // to the targetable squares
-
-              // } 
-              // else {
-             
-              // }
+              currentTurnstate = newTurnstate;
+              console.log(currentTurnstate)
               arr = []
             },
-            error: function(x, message){
-              console.log('ajax post failed')
+            error: function(newTurnstate, message){
+              console.log('ajax post failed');
+              console.log(message);
             }
           }) 
       }    
