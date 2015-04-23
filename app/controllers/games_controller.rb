@@ -1,12 +1,3 @@
-# class GamesController < ApplicationController
-#   def index
-#     # @board = Game::BOARD
-#     @board = Game.board
-#     @games = Square.all.to_json
-#   end
-# end
-
-
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
 
@@ -99,19 +90,11 @@ class GamesController < ApplicationController
         :gameid => @board_new.id
 
         })
-    # else
-    #   Pusher['games'].trigger('new_game', {
-    #     :test => "didnt square!"
-    #     })
+
     end
+      phase_and_turnstate = {phase: @board_new.phase, turnstate: @board_new.turnstate}
+      render json: phase_and_turnstate 
 
- 
-    # Square.find(square_id)
-
-    # to-do   how do we get rid of these things but not have 500 errors
-    # @square = Square.all
-    render text: @board_new.phase
-    # render json: @current_square if placed = 'placed'
   end
 
   def topplecheck
@@ -157,8 +140,6 @@ class GamesController < ApplicationController
     render text: @this_turnstate
   end
 
-  # DELETE /games/1
-  # DELETE /games/1.json
   def destroy
     @game.destroy
     respond_to do |format|

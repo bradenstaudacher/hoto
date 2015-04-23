@@ -40,13 +40,12 @@ console.log('inside doTheGame in application.js')
           url: '/games/' + currentGame + '/place',
           method: 'POST',
           data: coordinate,
-          dataType: 'text',
-          success: function(phase) {
-            currentPhase = phase;
-            console.log(phase);
-            // debugger;
-            // var test = [];  
-            // var test = squares;
+          dataType: 'json',
+          success: function(hash) {
+            currentPhase = hash['phase'];
+            currentTurnstate = hash['turnstate'];
+            console.log(hash['phase']);
+
             endButtonClicked = false;
           },
           error: function(phase, message){
