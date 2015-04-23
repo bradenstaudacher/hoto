@@ -23,6 +23,12 @@ class GamesController < ApplicationController
 
   end
 
+  def available_games_refresh
+    @games = Game.all.includes(:users)
+    render :partial => "games/availablegames"
+  end
+
+
   def is_record?
 
   end
