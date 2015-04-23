@@ -16,6 +16,8 @@ class Square < ActiveRecord::Base
         game.switch_turnstate
       end
       # returns true because it's been placed. for game controller
+      game.moves_counter += 1
+      game.save
       return true
     end
     false
