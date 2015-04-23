@@ -93,7 +93,7 @@ class GamesController < ApplicationController
 
     end
       phase_and_turnstate = {phase: @board_new.phase, turnstate: @board_new.turnstate}
-      render json: phase_and_turnstate 
+      render json: phase_and_turnstate
 
   end
 
