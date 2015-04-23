@@ -95,7 +95,8 @@ class GamesController < ApplicationController
         :test => "placed square!",
         :board_html => @the_right_game.squares,
         :phase => @board_new.phase,
-        :turnstate => @board_new.turnstate
+        :turnstate => @board_new.turnstate,
+        :gameid => @board_new.id
 
         })
     # else
