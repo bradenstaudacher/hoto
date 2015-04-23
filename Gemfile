@@ -45,6 +45,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
+ gem 'pg'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
@@ -56,7 +57,6 @@ group :development, :test do
   gem 'sqlite3'
 end
 
- gem 'pg'
 
 group :production do
  gem 'rails_12factor'
