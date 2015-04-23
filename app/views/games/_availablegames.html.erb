@@ -1,0 +1,32 @@
+<table id="game-list">
+
+  <tbody >
+  <tr id="column-titles">
+    <td class='column-title'>User</td>
+    <td class='column-title'>Rating</td>
+
+  </tr>
+
+    <% @games.each do |game| %> 
+    <tr data-link="<%= game %>">
+      <% if game.users.count == 2 %>
+        <% game.users.each do |user| %>
+          <td><%= user.name %>  </td> 
+        
+        <% end %> 
+          <td><%= link_to 'Spectate', game %>  </td>
+
+      <% else %>
+        <% game.users.each do |user| %>
+          <td><%= user.name %>  </td>
+          <td></td> 
+          <td><%= link_to 'Join Game', game %>  </td>
+        <% end %>
+      <% end %>
+
+    </tr>
+    <% end %>
+
+
+  </tbody>
+</table>
