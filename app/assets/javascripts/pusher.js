@@ -1,7 +1,7 @@
 // Enable pusher logging - don't include this in production
 Pusher.log = function(message) {
  if (window.console && window.console.log) {
-   window.console.log(message);
+   // window.console.log(message);
  }
 };
 
@@ -17,6 +17,7 @@ $(document).ready(function(){
    var game = data.gameid;
    var phase = data.phase;
    var turnstate = data.turnstate;
+   gameActive = data.active;
    currentTurnstate = turnstate;
    currentPhase = phase;
    if (game === parseInt(currentGame)) {
