@@ -20,7 +20,15 @@ $(document).ready(function(){
    gameActive = data.active;
    currentTurnstate = turnstate;
    currentPhase = phase;
+
+
+
    if (game === parseInt(currentGame)) {
+    if (!gameActive){
+        var p = $('<p>')
+       $('#info-div').append('<p>someone won the hoto</p>');
+    } 
+
      for(var i=0; i < 25; i++){
         $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').removeClass('black white empty');
         $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').addClass(squares[i].colour);

@@ -9,9 +9,13 @@
   var gameActive = <%= @active  %>
 </script>
 
-<div>
+<div id="info-div">
   <h1 id="turn-phase">It is <%= @turnstate  %>'s turn to <%=@phase  %></h1>
   <h1 id="current-colour">You are playing as <%= @current_colour %></h1>
+  
+  <% if !@active %>
+    <p class ='game-over'>someone won the hoto</p>
+  <% end %>
 </div>
 
 <div id="game-board-encase">
