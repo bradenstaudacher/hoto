@@ -19,7 +19,7 @@ class GamesUser < ActiveRecord::Base
       elo_diff_loser = loser_old_elo - winner_old_elo
       expected_outcome_winner = calculate_expected_outcome(elo_diff_winner)
       expected_outcome_loser = calculate_expected_outcome(elo_diff_loser)
-      binding.pry
+      
       case
         when w_games_played > 20
           k_factor_winner = 20
@@ -46,7 +46,6 @@ class GamesUser < ActiveRecord::Base
         
       loser.current_rating += elo_adjustment_loser
       loser.save
-      binding.pry
 
     end
 
@@ -85,6 +84,7 @@ class GamesUser < ActiveRecord::Base
       Game.find(game_id).users << User.find(player_id)
       join = GamesUser.where(game_id: game_id).where(user_id: player_id)[0]
       join.colour = 'white'
+      join.previous_rating = User.find(player_id).current_rating
       join.save
     end
 
@@ -92,6 +92,7 @@ class GamesUser < ActiveRecord::Base
       Game.find(game_id).users << User.find(player_id)
       join = GamesUser.where(game_id: game_id).where(user_id: player_id)[0]
       join.colour = 'black'
+      join.previous_rating = User.find(player_id).current_rating
       join.save
     end
 
