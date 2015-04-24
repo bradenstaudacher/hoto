@@ -1,17 +1,22 @@
 <!-- to-do refactor -->
 <script>
-  var currentGame = "<%= @id %>"
-  var currentTurnstate = "<%= @turnstate %>"
+  var currentGame = "<%= @game.id %>"
+  var currentTurnstate = "<%= @game.turnstate %>"
   var currentUser = <%= session[:user_id]  || 0 %>
   var currentUserColour = "<%= @current_colour %>" 
-  var currentPhase = "<%= @phase %>"
+  var currentPhase = "<%= @game.phase %>"
   var currentSquares = "<%= @squares %>"
+  var gameActive = <%= @game.active  %>
 </script>
 
 
-<div class="player-info-phase">
-  <h1 id="turn-phase">It is <%= @turnstate  %>'s turn to <%=@phase  %></h1>
+<div id="info-div" class="player-info-phase">
+  <h1 id="turn-phase">It is <%= @game.turnstate  %>'s turn to <%=@game.phase  %></h1>
   <h1 id="current-colour">You are playing as <%= @current_colour %></h1>
+  
+  <% if !@game.active %>
+    <p class ='game-over'><%= @winner_name %> won the hoto</p>
+  <% end %>
 </div>
 
 <div id="game-board-encase">
@@ -47,9 +52,8 @@
 
 <div id='button-container'>
   <h1 class='action-button' id='end-turn-button'>end turn</h1>
-  <h1 class='action-button' id='topple-button'><%= @active %></h1>
 <!-- this p is here to give the container some filling, because everything else is floated -->
-  <p>&nbsp </p>
+  <p>&nbsp;</p>
 </div>
 
 <script>  doTheGame() </script>
