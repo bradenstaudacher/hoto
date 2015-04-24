@@ -20,13 +20,16 @@
 function doTheGame(){
 var arr = []
 var endButtonClicked = false
-
 console.log('inside doTheGame in application.js')
 
     $('.game-square').on('click',function(){
         console.log('clicked game square')
-      if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "place") {
+
+        // place code below
+
+      if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && (currentPhase === "place") && (gameActive === true)) {
         console.log("passed place check, game thinks we are in place");
+        console.log('aaaaaaaaaa', gameActive)
         $('.game-square').removeClass('active');
         $(this).addClass('active');
         var square_x = ($(this).attr('data-x'));
@@ -44,8 +47,11 @@ console.log('inside doTheGame in application.js')
           success: function(hash) {
             currentPhase = hash['phase'];
             currentTurnstate = hash['turnstate'];
-            console.log(hash['phase']);
-
+            // console.log(hash['phase']);
+            gameActive = hash['active']
+            // if(gameActive === false) {
+            //   $('#info-div').append('someone won the hoto')
+            // };
             endButtonClicked = false;
           },
           error: function(phase, message){
@@ -56,8 +62,8 @@ console.log('inside doTheGame in application.js')
     }
     // topple code
       
-    if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "topple") {
-
+    if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "topple" && (gameActive === true)) {
+      console.log('gameactive : ', gameActive)
 
       console.log('its in topple code application js');
 
@@ -66,24 +72,29 @@ console.log('inside doTheGame in application.js')
       
       arr.push([topple_x, topple_y])
 
-      console.log('Array is Below');
-      console.log(arr);
+      // console.log('Array is Below');
+      // console.log(arr);
 
       if (arr.length === 2) {
         $.ajax({
             url: '/games/' + currentGame + '/topplecall',
             method: 'POST',
             data: { from: arr[0], dest: arr[1] },
-            dataType: 'text',
-            success: function(newTurnstate) {
+            dataType: 'json',
+            success: function(game) {
               console.log('ajax post was successful');
-              currentTurnstate = newTurnstate;
-              console.log(currentTurnstate)
+              
+              currentTurnstate = game.turnstate;
+              gameActive = game.active
+              // console.log(currentTurnstate)
+              // if(gameActive === false) {
+              //   $('#info-div').text('someone won the hoto')
+              // };
               arr = []
             },
             error: function(newTurnstate, message){
               console.log('ajax post failed');
-              console.log(message);
+              // console.log(message);
               arr = []
             }
           }) 
@@ -120,7 +131,7 @@ console.log('inside doTheGame in application.js')
 
 
               console.log('ajax post was successful');
-              console.log(hash);
+              // console.log(hash);
 
 
             },

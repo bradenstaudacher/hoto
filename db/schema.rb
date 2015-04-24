@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423195300) do
+ActiveRecord::Schema.define(version: 20150424021235) do
 
   create_table "games", force: true do |t|
     t.string   "turnstate"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20150423195300) do
     t.boolean  "active"
     t.string   "phase"
     t.integer  "moves_counter"
+    t.integer  "winner_id"
+    t.integer  "loser_id"
   end
 
   create_table "games_users", force: true do |t|

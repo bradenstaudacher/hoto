@@ -1,7 +1,7 @@
 // Enable pusher logging - don't include this in production
 Pusher.log = function(message) {
  if (window.console && window.console.log) {
-   window.console.log(message);
+   // window.console.log(message);
  }
 };
 
@@ -17,9 +17,19 @@ $(document).ready(function(){
    var game = data.gameid;
    var phase = data.phase;
    var turnstate = data.turnstate;
+   var winnerName = data.winner_name
+
+   gameActive = data.active;
    currentTurnstate = turnstate;
    currentPhase = phase;
+
+
+
    if (game === parseInt(currentGame)) {
+    if (!gameActive){
+       $('#info-div').append('<p>'+ winnerName +' won the hoto</p>');
+    } 
+
      for(var i=0; i < 25; i++){
         $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').removeClass('black white empty');
         $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').addClass(squares[i].colour);
