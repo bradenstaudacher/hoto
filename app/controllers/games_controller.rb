@@ -80,7 +80,7 @@ class GamesController < ApplicationController
       end
     end
   end
-
+# to-do   can all of the pusher logic be abstracted to a method
   def click_to_place 
     puts "this is the params id in place " + params[:id]
     @the_right_game = Game.find(params[:id])
@@ -93,14 +93,16 @@ class GamesController < ApplicationController
         :board_html => @board_new.squares,
         :phase => @board_new.phase,
         :turnstate => @board_new.turnstate,
-        :gameid => @board_new.id
-
+        :gameid => @board_new.id,
+        :active => @board_new.active
         })
 
       @board_new.update_active
     end
-    phase_and_turnstate = {phase: @board_new.phase, turnstate: @board_new.turnstate}
+    phase_and_turnstate = {phase: @board_new.phase, turnstate: @board_new.turnstate, active: @board_new.active }
+
     render json: phase_and_turnstate 
+
 
   end
 
@@ -129,13 +131,13 @@ class GamesController < ApplicationController
           :board_html => @board_new.squares,
           :phase => @board_new.phase,
           :turnstate => @board_new.turnstate,
-          :gameid => @board_new.id
-
+          :gameid => @board_new.id,
+          :active => @board_new.active
           })
 
     @board_new.update_active
     end
-    render text: @board_new.turnstate
+    render json: @board_new
   end
 
   def end_turn
@@ -151,7 +153,8 @@ class GamesController < ApplicationController
         :board_html => @this_game.squares,
         :phase => @this_game.phase,
         :turnstate => @this_game.turnstate,
-        :gameid => @this_game.id
+        :gameid => @this_game.id,
+        :active => @this_game.active
 
         })
     phase_and_turnstate = {phase: @this_game.phase, turnstate: @this_game.turnstate}
