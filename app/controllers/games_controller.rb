@@ -90,7 +90,9 @@ class GamesController < ApplicationController
     @the_right_game = Game.find(params[:id])
     @current_square = @the_right_game.squares.where(x: params[:square_x], y: params[:square_y])[0]
 
-    if @current_square.place(@the_right_game.turnstate)
+    turn = @the_right_game.turn
+    
+    if @current_square.place(@the_right_game.turnstate, turn)
       @board_new = Game.find(params[:id])
       @winner_name = User.find(@board_new.winner_id).name if !@board_new.active
       Pusher['games'].trigger('refresh_squares', {
@@ -100,7 +102,8 @@ class GamesController < ApplicationController
         :turnstate => @board_new.turnstate,
         :gameid => @board_new.id,
         :active => @board_new.active,
-        :winner_name => @winner_name
+        :winner_name => @winner_name,
+        :turn => turn
         })
 
       @board_new.update_active
@@ -130,8 +133,10 @@ class GamesController < ApplicationController
     @the_right_game = Game.find(params[:id])
     from_square = @the_right_game.squares.where(x: params[:from][0].to_i, y: params[:from][1].to_i)[0]
     dest_square = @the_right_game.squares.where(x: params[:dest][0].to_i, y: params[:dest][1].to_i)[0]
+
+    turn = @the_right_game.turn
     
-    if from_square.topple([dest_square.x - from_square.x, dest_square.y - from_square.y])
+    if from_square.topple([dest_square.x - from_square.x, dest_square.y - from_square.y], turn)
       @board_new = Game.find(params[:id])
       @winner_name = User.find(@board_new.winner_id).name if !@board_new.active
       Pusher['games'].trigger('refresh_squares', {
@@ -141,7 +146,8 @@ class GamesController < ApplicationController
           :turnstate => @board_new.turnstate,
           :gameid => @board_new.id,
           :active => @board_new.active,
-          :winner_name => @winner_name
+          :winner_name => @winner_name,
+          :turn => turn
           })
 
     @board_new.update_active

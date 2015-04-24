@@ -2,6 +2,16 @@ class Game < ActiveRecord::Base
   has_many :squares
   has_and_belongs_to_many :users
 
+  attr_accessor :_turn
+
+  def turn
+    if self._turn.nil?
+      self._turn = Turn.new(self.turnstate)
+    end
+    self._turn
+  end
+
+
     def get_square_from_coord(coord)
       Square.where(x: coord[0]).where(y: coord[1]).where(game_id: id)[0]
     end

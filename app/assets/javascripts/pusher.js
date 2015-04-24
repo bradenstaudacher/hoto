@@ -18,6 +18,7 @@ $(document).ready(function(){
    var phase = data.phase;
    var turnstate = data.turnstate;
    var winnerName = data.winner_name
+   var turn = data.turn
 
    gameActive = data.active;
    currentTurnstate = turnstate;
