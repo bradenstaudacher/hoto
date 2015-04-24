@@ -25,7 +25,6 @@ $(document).ready(function(){
 
    if (game === parseInt(currentGame)) {
     if (!gameActive){
-        var p = $('<p>')
        $('#info-div').append('<p>someone won the hoto</p>');
     } 
 
