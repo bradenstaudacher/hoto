@@ -17,6 +17,8 @@ $(document).ready(function(){
    var game = data.gameid;
    var phase = data.phase;
    var turnstate = data.turnstate;
+   var winnerName = data.winner_name
+
    gameActive = data.active;
    currentTurnstate = turnstate;
    currentPhase = phase;
@@ -25,7 +27,7 @@ $(document).ready(function(){
 
    if (game === parseInt(currentGame)) {
     if (!gameActive){
-       $('#info-div').append('<p>someone won the hoto</p>');
+       $('#info-div').append('<p>'+ winnerName +' won the hoto</p>');
     } 
 
      for(var i=0; i < 25; i++){

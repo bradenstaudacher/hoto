@@ -19,11 +19,32 @@ class Game < ActiveRecord::Base
     end
 
     def update_active
-
+# to-do  refactor to remove repetition
       if moves_counter > 2
-        
-        if !(squares.each.map { |square| square.colour }.include?("black") && squares.each.map { |square| square.colour }.include?("white"))
+         black_id = GamesUser.where(colour: 'black', game_id: id)[0].user_id
+          white_id = GamesUser.where(colour: 'white', game_id: id)[0].user_id
+        if !(squares.each.map { |square| square.colour }.include?("black"))
           self.update(active: false)
+          self.update(winner_id: white_id)
+          self.update(loser_id: black_id)
+          winner = User.find(white_id)
+          loser = User.find(black_id)
+          winner.games_won += 1 
+          winner.games_played += 1
+          loser.games_played += 1
+          winner.save
+          loser.save
+        elsif !(squares.each.map { |square| square.colour }.include?("white"))
+          self.update(winner_id: black_id)
+          self.update(loser_id: white_id)
+          self.update(active: false)
+          winner = User.find(black_id)
+          loser = User.find(white_id)
+          winner.games_won += 1 
+          winner.games_played += 1
+          loser.games_played += 1
+          winner.save
+          loser.save
         end
       end
     end
