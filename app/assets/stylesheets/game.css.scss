@@ -5,20 +5,25 @@ $game-square-background: grey;
 $fonts: helvetica, sans-serif;
 
 
-#navbar {
-  float: right;
+.player-info-phase{
+  margin-left: 5%;
+  h1{
+    margin: 0px;
+  }
 }
+
 hr {
   clear: both;
 }
-table {
-  width: 300px;
-  margin: auto;
-}
+// table {
+//   width: 300px;
+//   margin: auto;
+// }
 
 #game-board {
   margin: 50px auto 0;
   width: 40em;
+  border-collapse: separate;
   tr {
     height: 8em;
   }

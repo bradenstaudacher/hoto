@@ -1,16 +1,20 @@
-<h1 id='welcome'>Welcome to Hoto.</h1>
-<h3 id="intro-message">Hoto is a zany board game that knows how to boogie.</h3>
-<section id='options'>
-  <h2 id="host-button"> Host Game </h2>
-  <button id="create-game-button"> Create Game </button>
-</section>
+<div id="container">
+  <div id="welcome">
+    <h1>Welcome to Hoto.</h1>
+    <h3>Hoto is a zany board game that knows how to boogie.</h3>
+  </div>
+ 
+  <div id='options'>
+    <h3 id="host-button"> Start a game now! BITCH </h3>
+    <button id="create-game-button" class="btn btn-default"> Create Game </button>
+  </div>
 
-<!-- <h2>Available Games</h2> -->
-<div id="table-container">
-<!-- stuff loaded in here -->
-<p>loading...</p>
+  <!-- <h2>Available Games</h2> -->
+  <div id="table-container">
+  <!-- stuff loaded in here -->
+  <p>loading...</p>
+  </div>
 </div>
-
 <script>
 $(function () {
   var poll = function () {
@@ -20,5 +24,4 @@ $(function () {
   };
   poll();
 });
-
 </script>
