@@ -6,8 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create(name: "bigdog", games_played: 0, games_won: 0, email: "big@dog.com", current_rating: 0, password: "testes", password_confirmation: "testes")
-User.create(name: "crunchy pete", games_played: 0, games_won: 0, email: "cool@dog.com", current_rating: 0, password: "testes", password_confirmation: "testes")
+User.create(name: "bigdog", games_played: 0, games_won: 0, current_rating: 1200, email: "big@dog.com", password: "testes", password_confirmation: "testes")
+User.create(name: "crunchy pete", games_played: 0, games_won: 0, current_rating: 1000, email: "cool@dog.com", password: "testes", password_confirmation: "testes")
 
 game_id_counter = 1
 
@@ -29,10 +29,12 @@ game_id_counter = 1
   Game.find(game_id_counter).users << User.first
   p = GamesUser.where(game_id: game_id_counter).where(user_id: User.first.id)[0]
   p.colour = 'white'
+  p.previous_rating = 1200
   p.save
   Game.find(game_id_counter).users << User.last
   n = GamesUser.where(game_id: game_id_counter).where(user_id: User.last.id)[0]
   n.colour = 'black'
+  n.previous_rating = 900
   n.save
   game_id_counter += 1
 end
