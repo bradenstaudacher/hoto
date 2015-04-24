@@ -49,6 +49,9 @@ console.log('inside doTheGame in application.js')
             currentTurnstate = hash['turnstate'];
             // console.log(hash['phase']);
             gameActive = hash['active']
+            // if(gameActive === false) {
+            //   $('#info-div').append('someone won the hoto')
+            // };
             endButtonClicked = false;
           },
           error: function(phase, message){
@@ -84,6 +87,9 @@ console.log('inside doTheGame in application.js')
               currentTurnstate = game.turnstate;
               gameActive = game.active
               // console.log(currentTurnstate)
+              // if(gameActive === false) {
+              //   $('#info-div').text('someone won the hoto')
+              // };
               arr = []
             },
             error: function(newTurnstate, message){
