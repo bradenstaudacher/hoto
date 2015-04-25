@@ -7,18 +7,18 @@
 <% end %>
 <%= link_to 'Back', root_path %>
 <h1> <%= @user.name %> </h1>
-<table id="game-list">
 
-  <tbody >
-  <h2>Active Games</h2>
-  <tr id="column-titles">
-    <td class='column-title'>Me</td>
-    <td class='column-title'>Opponent</td>
-    <td class='column-title'>To Move</td>
-    <td class='column-title'>Phase</td>
-    <td class='column-title'>Moves</td>
-    <td class='column-title'>Join Game</td>
-  </tr>
+<table class="table table-striped table-hover">
+  <tbody>
+  <h4>Active Games</h4>
+  <thead>
+    <th class='column-title'>Me</th>
+    <th class='column-title'>Opponent</th>
+    <th class='column-title'>To Move</th>
+    <th class='column-title'>Phase</th>
+    <th class='column-title'>Moves</th>
+    <th class='column-title'>Join Game</th>
+  </thead>
     <% @user.games.each do |game| %> 
     <tr data-link="<%= game %>">
       <% if game.active == true && game.users.count == 2%>
@@ -51,13 +51,13 @@
 
 <br>
 
-<table id="user-state">
+<table class="table table-striped table-hover">
   <tbody >
-  <tr id="column-titles">
-    <td class='column-title'>Games</td>
-    <td class='column-title'>Victories</td>
-    <td class='column-title'>Rating</td>
-  </tr>
+  <thead>
+    <th class='column-title'>Games</th>
+    <th class='column-title'>Victories</th>
+    <th class='column-title'>Rating</th>
+  </thead>
   <tr>
     <td><%= @user.games_played %></td>
     <td><%= @user.games_won %></td>
