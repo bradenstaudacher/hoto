@@ -48,7 +48,7 @@ $(document).ready(function(){
             //     $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').addClass(squares[i].colour);
             //     $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').html("<span class='pieces'>"+ squares[i].height + "</span>");
             // }
-          changeGameBoard(squares);
+          // changeGameBoard(squares);
         }else if (data.turn.actions[i].action_type === 'topple'){
           console.log("in pusher topple ")
           var squareX = data.turn.actions[0].coord.x
@@ -124,7 +124,7 @@ $(document).ready(function(){
               var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
              thing.addClass('fake-pieces')
              thing.animate({ 
-              top: "+=" + amountArray[counter]
+              "top" : "+=" + amountArray[counter]
               }, 1000)
              counter += 1
            }
@@ -137,10 +137,42 @@ $(document).ready(function(){
 
         }else {
           console.log("in pusher bloom")
-          var square_coords = data.turn.actions[0].coord
+          // debugger
+          var squareX = data.turn.actions[0].coord.x
+          var squareY = data.turn.actions[0].coord.y
 
+          var square_coords = data.turn.actions[0].coord
+          data.turn.actions[i]
+          //      down up left right
+            var amountArray = [0, "+=242", "-=244", "-=240", "+=140"]
+
+            var counter = 1
+            var directions = [0, "top", "top", "left", "left"]
+            while (counter <= 4) {
+              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
+             thing.addClass('fake-pieces')
+             
+             
+
+
+
+
+             if (directions[counter] === "top") {
+                thing.animate({ 
+                 // directions[counter] : amountArray[counter]
+                    "top" : amountArray[counter]
+                }, 1000)
+              } else {
+                  thing.animate({ 
+                 // directions[counter] : amountArray[counter]
+                    "left" : amountArray[counter]
+                }, 1000)
+              }
+             counter += 1
+           }
+          
           // setTimeout(function(){
-          //   changeGameBoard();
+          //    changeGameBoard(squares);
             
           // }, 3000);
         }
