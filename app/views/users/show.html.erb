@@ -76,24 +76,15 @@
   </thead>
     <% @user.games.each do |game| %> 
     <tr data-link="<%= game %>">
-      <% if game.active == false && game.users.count == 2%>
+      <% if !game.active  %>
         <% game.users.each do |user| %>
-            <td><%= user.name %>  </td> 
+            <td> <%= user.name %> </td> 
           <% end %>
-          <td><%= game.turnstate %>  </td>
-          <td><%= game.phase %>  </td>
-          <td><%= game.moves_counter %>  </td>
+          <td><%= game.turnstate %> </td>
+          <td><%= game.phase %> </td>
+          <td><%= game.moves_counter %> </td>
+          <td><%= link_to 'See Game', game %> </td>
 
-          <td><%= link_to 'See Game', game %>  </td>
-      <% elsif game.active == true %>
-        <% game.users.each do |user| %>
-            <td><%= user.name %>  </td> 
-            <td>Waiting for player </td> 
-        <% end %>
-          <td><%= game.turnstate %>  </td>
-          <td><%= game.phase %>  </td>
-          <td><%= game.moves_counter %>  </td>
-          <td><%= link_to 'See Game', game %>  </td>
 
       <% end %>
 
