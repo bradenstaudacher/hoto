@@ -2,7 +2,7 @@ class Square < ActiveRecord::Base
   belongs_to :game
 
 
-  def place(player_colour)
+  def place(player_colour, turn)
     if ((player_colour == colour) || (colour == "empty")) && game.phase == 'place'
       
       self.height += 1
@@ -12,12 +12,15 @@ class Square < ActiveRecord::Base
       game.update(phase: 'topple')
       
       if self.bloomable?
-        self.bloom
+        self.bloom(turn)
         game.switch_turnstate
       end
       # returns true because it's been placed. for game controller
       game.moves_counter += 1
       game.save
+
+      turn.place(self)
+
       return true
     end
     false
@@ -27,18 +30,20 @@ class Square < ActiveRecord::Base
     height > 0
   end
 
-  def bloom
+  def bloom(turn)
     square_colour = colour
     update(height: 0)
     update(colour: 'empty')
+    bloom = turn.bloom(self)
     all_squares_adjacent_to.each do |coord|
       if !Square.offboard?(coord)
         square = game.get_square_from_coord(coord)
         square.height += 1
         square.colour = square_colour
+        bloom.adjacent_squares << Action.square_to_coords(square)
         square.save
         if square.bloomable?
-          square.bloom
+          square.bloom(turn)
         end
       end
     end
@@ -55,14 +60,14 @@ class Square < ActiveRecord::Base
   ALLDIR = [LEFT, RIGHT, UP, DOWN]
 
 
-  def topple(direction)
+  def topple(direction, turn)
     return false unless valid_move([x + direction[0], y + direction[1]])
     bloom_counter = 0
     square_colour = colour
     num_squares_affected = height
     update(height: 0)
     update(colour: 'empty')
-
+    topple = turn.topple(self)
     coords_affected = []
     counter = 1
     while counter <= num_squares_affected
@@ -77,9 +82,10 @@ class Square < ActiveRecord::Base
       square.height += 1
       square.colour = square_colour
       square.save
+      topple.destination_coords << Action.square_to_coords(square)
       if square.bloomable?
         bloom_counter += 1
-        square.bloom
+        square.bloom(turn)
       end
     end
     game.switch_turnstate if bloom_counter > 0 

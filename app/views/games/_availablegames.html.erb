@@ -1,31 +1,82 @@
+<h3>Your Games</h3>
 <table id="game-list" class="table table-striped table-hover">
 
   <tbody>
   <thead>
-    <th class='column-title'>User</th>
-    <th class='column-title'>User 2</th>
+    <th class='column-title'>White</th>
+    <th class='column-title'>Black</th>
+    <th class='column-title'>Join</th>
+  </thead>
+
+    <% @games.each do |game| %>
+    <% if game.active == true && (game.users.where(id: @player_id)[0] != nil) %>
+      <tr data-link="<%= game %>">
+        <% if game.users.count == 2 %>
+          <% game.users.each do |user| %>
+            <td><%= user.name %> | <%= user.current_rating %></td>
+          <% end %>
+          <td><%= link_to 'Play', game %>  </td>
+        <% end %>
+      </tr>
+    <% end %>
+  <% end %>
+
+
+  </tbody>
+</table>
+
+
+<h3>Join Game</h3>
+<table id="game-list" class="table table-striped table-hover">
+
+  <tbody>
+  <thead>
+    <th class='column-title'>White</th>
+    <th class='column-title'>Black</th>
+    <th class='column-title'>Join</th>
+  </thead>
+
+    <% @games.each do |game| %>
+    <% if game.active == true %>
+      <tr data-link="<%= game %>">
+        <% if game.users.count < 2 %>
+          <% game.users.each do |user| %>
+            <td><%= user.name %> | <%= user.current_rating %>  </td>
+            <td></td>
+          <% end %> 
+          <td><%= link_to 'Join', game %>  </td>
+        <% end %>
+      </tr>
+    <% end %>
+  <% end %>
+
+
+  </tbody>
+</table>
+
+
+<h3>Spectate Game</h3>
+<table id="game-list" class="table table-striped table-hover">
+
+  <tbody>
+  <thead>
+    <th class='column-title'>White</th>
+    <th class='column-title'>Black</th>
     <th class='column-title'>Spectate</th>
   </thead>
 
-    <% @games.each do |game| %> 
-    <tr data-link="<%= game %>">
-      <% if game.users.count == 2 %>
-        <% game.users.each do |user| %>
-          <td><%= user.name %>  </td> 
-        
-        <% end %> 
+  <% @games.each do |game| %>
+    <% if game.active == true && (game.users.where(id: @player_id)[0] == nil) %>
+      <tr data-link="<%= game %>">
+        <% if game.users.count == 2 %>
+          <% game.users.each do |user| %>
+            <td><%= user.name %> | <%= user.current_rating %> </td>
+          <% end %> 
           <td><%= link_to 'Spectate', game %>  </td>
-
-      <% else %>
-        <% game.users.each do |user| %>
-          <td><%= user.name %>  </td>
-          <td></td> 
-          <td><%= link_to 'Join Game', game %>  </td>
         <% end %>
-      <% end %>
-
-    </tr>
+      </tr>
     <% end %>
+  <% end %>
 
 
   </tbody>
