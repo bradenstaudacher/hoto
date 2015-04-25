@@ -63,6 +63,20 @@ table {
 
 }
 
+.fake-pieces {
+   display: block;
+  width: 3.5em;
+  height: 3.5em;
+  position: absolute;
+  margin: auto;
+  z-index: 6;
+  border-radius: 50%;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px
+}
+
 
 .action-button {
   border: solid 1px orange;

@@ -54,14 +54,17 @@ $(document).ready(function(){
         }else if (data.turn.actions[i].action_type === 'topple'){
           console.log("in pusher topple ")
           var square_coords = data.turn.actions[0].coord
+            $('td.game-square[data-x="'+ data.turn.actions[0].coord.x+'"][data-y="'+ data.turn.actions[0].coord.y +'"] span:nth-child(1)').addClass('fake-pieces')
            $('td.game-square[data-x="'+ data.turn.actions[0].coord.x+'"][data-y="'+ data.turn.actions[0].coord.y +'"] span:nth-child(1)').animate({ 
           left: "+=130"
           }, 1000)
+           $('td.game-square[data-x="'+ data.turn.actions[0].coord.x+'"][data-y="'+ data.turn.actions[0].coord.y +'"] span:nth-child(2)').addClass('fake-pieces')
            $('td.game-square[data-x="'+ data.turn.actions[0].coord.x+'"][data-y="'+ data.turn.actions[0].coord.y +'"] span:nth-child(2)').animate({ 
           left: "+=235"
           }, 1000)
+           $('td.game-square[data-x="'+ data.turn.actions[0].coord.x+'"][data-y="'+ data.turn.actions[0].coord.y +'"] span:nth-child(3)').addClass('fake-pieces')
           $('td.game-square[data-x="'+ data.turn.actions[0].coord.x+'"][data-y="'+ data.turn.actions[0].coord.y +'"] span:nth-child(3)').animate({ 
-          left: "+=360"
+          left: "+=340"
           }, 1000)
           setTimeout(function(){
             changeGameBoard(squares)
