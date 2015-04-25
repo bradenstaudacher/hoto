@@ -9,11 +9,20 @@
   var gameActive = <%= @game.active  %>
 </script>
 
-<div id="info-div">
-  <h1 id="turn-phase">It is <%= @game.turnstate  %>'s turn to <%=@game.phase  %></h1>
-  <h1 id="current-colour">You are playing as <%= @current_colour %></h1>
+
+<div id="container-container">
+<div id="info-div" class="player-info-phase">
+  <h3 id="turn-phase" class="info-shove">It is <%= @game.turnstate  %>'s turn to <%=@game.phase  %></h3>
+  <h3 id="current-colour" class="info-shove">You are playing as <%= @current_colour %></h3>
   <h3 class=<%= "player-" + @user1_colour %>> <%= @user1.name %> </h3>
   <h3 class=<%= "player-" + @user2_colour %>> <%= @user2.name %> </h3>
+
+  <div id='button-container'>
+    <h1 class="btn btn-warning" id='end-turn-button'>End Turn</h1>
+  <!-- this p is here to give the container some filling, because everything else is floated -->
+    <p>&nbsp;</p>
+  </div>
+
   
   <% if !@game.active %>
     <p class ='game-over'><%= @winner_name %> won the hoto</p>
@@ -21,13 +30,9 @@
 </div>
 
 <div id="game-board-encase">
-<table id='game-board'>
-
-
-
-  
-<% @board.each_with_index do |row, y|  %>
-<tr>
+  <table id='game-board'>  
+  <% @board.each_with_index do |row, y|  %>
+  <tr>
 
   <% row.each_with_index do |square, x|
      if square.colour != 'black' && square.colour != 'white'
@@ -49,14 +54,9 @@
 <% end %>
 
 </table>
+
+</div>
 </div>
 
-
-
-<div id='button-container'>
-  <h1 class='action-button' id='end-turn-button'>end turn</h1>
-<!-- this p is here to give the container some filling, because everything else is floated -->
-  <p>&nbsp;</p>
-</div>
 
 <script>  doTheGame() </script>

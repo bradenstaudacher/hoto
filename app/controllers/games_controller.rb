@@ -36,6 +36,7 @@ class GamesController < ApplicationController
 
   def available_games_refresh
     @games = Game.all.includes(:users)
+    @player_id = session[:user_id]
     render :partial => "games/availablegames"
   end
 
