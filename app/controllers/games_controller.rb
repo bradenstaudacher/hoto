@@ -152,7 +152,12 @@ class GamesController < ApplicationController
 
     @board_new.update_active
     end
-    render json: @board_new
+    
+    if @board_new
+      render json: @board_new
+    else
+      render json: @the_right_game
+    end
   end
 
   def end_turn
