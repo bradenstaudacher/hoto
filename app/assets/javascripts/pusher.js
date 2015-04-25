@@ -24,7 +24,6 @@ $(document).ready(function(){
    currentTurnstate = turnstate;
    currentPhase = phase;
 
-
    if (game === parseInt(currentGame)) {
     if (!gameActive){
        $('#info-div').append('<p>'+ winnerName +' won the hoto</p>');
@@ -40,7 +39,6 @@ $(document).ready(function(){
     if (turn) {
       for(var i = 0; i < turn.actions.length; i ++){
 
-
         if (data.turn.actions[i].action_type === 'place') {
           console.log("in pusher place")
           var square_coords = data.turn.actions[0].coord
@@ -53,23 +51,90 @@ $(document).ready(function(){
           changeGameBoard(squares);
         }else if (data.turn.actions[i].action_type === 'topple'){
           console.log("in pusher topple ")
-          var square_coords = data.turn.actions[0].coord
-            $('td.game-square[data-x="'+ data.turn.actions[0].coord.x+'"][data-y="'+ data.turn.actions[0].coord.y +'"] span:nth-child(1)').addClass('fake-pieces')
-           $('td.game-square[data-x="'+ data.turn.actions[0].coord.x+'"][data-y="'+ data.turn.actions[0].coord.y +'"] span:nth-child(1)').animate({ 
-          left: "+=130"
-          }, 1000)
-           $('td.game-square[data-x="'+ data.turn.actions[0].coord.x+'"][data-y="'+ data.turn.actions[0].coord.y +'"] span:nth-child(2)').addClass('fake-pieces')
-           $('td.game-square[data-x="'+ data.turn.actions[0].coord.x+'"][data-y="'+ data.turn.actions[0].coord.y +'"] span:nth-child(2)').animate({ 
-          left: "+=235"
-          }, 1000)
-           $('td.game-square[data-x="'+ data.turn.actions[0].coord.x+'"][data-y="'+ data.turn.actions[0].coord.y +'"] span:nth-child(3)').addClass('fake-pieces')
-          $('td.game-square[data-x="'+ data.turn.actions[0].coord.x+'"][data-y="'+ data.turn.actions[0].coord.y +'"] span:nth-child(3)').animate({ 
-          left: "+=340"
-          }, 1000)
-          setTimeout(function(){
-            changeGameBoard(squares)
-            
-          }, 2000)
+          var squareX = data.turn.actions[0].coord.x
+          var squareY = data.turn.actions[0].coord.y
+          var destinationX = turn.actions[0].destination_coords[0].x
+          var destinationY = turn.actions[0].destination_coords[0].y
+
+
+          var direction = getDirection({x: squareX, y: squareY} , {x: destinationX , y: destinationY})
+
+          
+
+
+
+          if (direction === 'right') {
+            console.log('right')
+
+              $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child(1)').addClass('fake-pieces')
+             $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child(1)').animate({ 
+            left: "+=130"
+            }, 1000)
+             $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child(2)').addClass('fake-pieces')
+             $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child(2)').animate({ 
+            left: "+=235"
+            }, 1000)
+             $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child(3)').addClass('fake-pieces')
+            $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child(3)').animate({ 
+            left: "+=340"
+            }, 1000)
+            setTimeout(function(){
+              changeGameBoard(squares)
+              
+            }, 2000)
+         }else if (direction === 'left') {
+            console.log('left')
+
+            var counter = 1
+            var amountArray = [0, 207, 415, 623]
+            while (counter <= 3) {
+              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
+             thing.addClass('fake-pieces')
+             thing.animate({ 
+              left: "-=" + amountArray[counter]
+              }, 1000)
+             counter += 1
+           }
+            setTimeout(function(){
+              changeGameBoard(squares)
+              
+            }, 2000)
+
+         }else if(direction === 'up') {
+            console.log('up')
+            var counter = 1
+            var amountArray = [0, 212, 423, 634]
+            while (counter <= 3) {
+              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
+             thing.addClass('fake-pieces')
+             thing.animate({ 
+              top: "-=" + amountArray[counter]
+              }, 1000)
+             counter += 1
+           }
+            setTimeout(function(){
+              changeGameBoard(squares)
+              
+            }, 2000)
+         }else{
+            console.log('down')
+            var counter = 1
+            var amountArray = [0, 208, 420, 626]
+            while (counter <= 3) {
+              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
+             thing.addClass('fake-pieces')
+             thing.animate({ 
+              top: "+=" + amountArray[counter]
+              }, 1000)
+             counter += 1
+           }
+            setTimeout(function(){
+              changeGameBoard(squares)
+              
+            }, 2000)
+         }
+
+
         }else {
           console.log("in pusher bloom")
           var square_coords = data.turn.actions[0].coord
@@ -98,6 +163,19 @@ $(document).ready(function(){
   function createPieces(number){
     x = "<span class='pieces'>" + number + "</span>"
     return Array(number + 1).join(x)
+  }
+
+     function getDirection(from_coords, to_coords){
+    var direction ='';
+    switch ([from_coords.x - to_coords.x,from_coords.y - to_coords.y].toString()) {
+
+       case "0,1": return "up";
+       case "1,0": return "left";
+       case "-1,0": return "right";
+       case "0,-1": return "down";
+            
+    }
+    return direction;
   }
 
   }); //channel.bind
