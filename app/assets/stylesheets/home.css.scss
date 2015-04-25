@@ -1,12 +1,28 @@
 // $transparent-grey: hsla(33, 11%, 50%, .1);
 
 #container{
+  width: 48%;
+  float: left;
+  margin-top: 8%;
+}
 
+#log-in-button{
+  margin: 1%;
+}
+#sign-up-button{
+  margin: 1%;
+}
+#rules-button{
+  margin: 1%;
 }
 
 #table-container{
   // border: 2px solid black;
+  width: 49%;
+  float: left;
+  margin-top: 8%;
 }
+
 #game-list {
   width: 90%;
   padding: 12px;
@@ -24,17 +40,10 @@
 }
 
 #options{
-  width: 30%;
+  width: 50%;
   float: left;
   // height: 15em;
   margin-left: 5%;
-
-  // #host-button {
-  //   margin: 0 0 0 40%;
-  // }
-  // button {
-  //   margin: 5% 0 0 40%;
-  // }
 }
 
 #welcome h1{

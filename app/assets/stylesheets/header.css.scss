@@ -12,7 +12,8 @@
   // font-family: $fonts;
   // text-align: center;
     font-size: 4em;
-    margin-left: 5%;
+    margin-left: 2.5%;
+    margin-right: 2%;
     display: inline-block;
     a{
       text-decoration: none;
@@ -21,4 +22,8 @@
 
 #navbar{
   display: inline-block;
+  h5 a{
+    margin-left: 2%;
+  }
 }
+
