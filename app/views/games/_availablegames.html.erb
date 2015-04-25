@@ -13,7 +13,7 @@
       <tr data-link="<%= game %>">
         <% if game.users.count == 2 %>
           <% game.users.each do |user| %>
-            <td><%= user.name %> | <%= user.current_rating %></td>
+            <td><%= link_to user.name, user_path(user) %><%= " (" + user.current_rating.to_s + ")" %></td>
           <% end %>
           <td><%= link_to 'Play', game %>  </td>
         <% end %>
@@ -41,7 +41,7 @@
       <tr data-link="<%= game %>">
         <% if game.users.count < 2 %>
           <% game.users.each do |user| %>
-            <td><%= user.name %> | <%= user.current_rating %>  </td>
+            <td><%= link_to user.name, user_path(user) %><%= " (" + user.current_rating.to_s + ")" %></td>
             <td></td>
           <% end %> 
           <% if @player_id%>
@@ -74,7 +74,7 @@
       <tr data-link="<%= game %>">
         <% if game.users.count == 2 %>
           <% game.users.each do |user| %>
-            <td><%= user.name %> | <%= user.current_rating %> </td>
+            <td><%= link_to user.name, user_path(user) %><%= " (" + user.current_rating.to_s + ")" %></td>
           <% end %> 
           <td><%= link_to 'Spectate', game %>  </td>
         <% end %>
