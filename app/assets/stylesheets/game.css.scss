@@ -5,20 +5,26 @@ $game-square-background: grey;
 $fonts: helvetica, sans-serif;
 
 
-#navbar {
-  float: right;
+.player-info-phase{
+  margin-left: 5%;
+  h1{
+    margin: 0px;
+  }
 }
+
 hr {
   clear: both;
 }
-table {
-  width: 300px;
-  margin: auto;
-}
+// table {
+//   width: 300px;
+//   margin: auto;
+// }
 
 #game-board {
   margin: 50px auto 0;
   width: 40em;
+  border-collapse: separate;
+  border-spacing: 1px;
   tr {
     height: 8em;
   }
@@ -51,7 +57,7 @@ table {
   display: block;
   width: 3.5em;
   height: 3.5em;
-
+  font-size: 1.5em;
   margin: auto;
   border-radius: 50%;
 }
@@ -75,3 +81,12 @@ table {
     width: 30%;
 }
 
+.user-games {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.edit-link {
+  text-align: right;
+}
