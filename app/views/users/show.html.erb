@@ -69,10 +69,9 @@
   <thead>
     <th class='column-title'>White</th>
     <th class='column-title'>Black</th>
-    <th class='column-title'>To Move</th>
-    <th class='column-title'>Phase</th>
+    <th class='column-title'>Winner</th>
     <th class='column-title'>Moves</th>
-    <th class='column-title'>Join Game</th>
+    <th class='column-title'>See Game</th>
   </thead>
     <% @user.games.each do |game| %> 
     <tr data-link="<%= game %>">
@@ -80,10 +79,9 @@
         <% game.users.each do |user| %>
             <td> <%= user.name %> </td> 
           <% end %>
-          <td><%= game.turnstate %> </td>
-          <td><%= game.phase %> </td>
+          <td><%= game.get_name_from_winner_id %> </td>
           <td><%= game.moves_counter %> </td>
-          <td><%= link_to 'See Game', game %> </td>
+          <td><%= link_to 'View', game %> </td>
 
 
       <% end %>
