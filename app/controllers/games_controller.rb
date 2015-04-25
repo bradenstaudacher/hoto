@@ -19,6 +19,13 @@ class GamesController < ApplicationController
     # @turnstate = Game.find(params[:id]).turnstate
     # @phase = Game.find(params[:id]).phase
     @current_colour = GamesUser.set_player_colour(session[:user_id], @id)
+
+    @all_users = @game.users
+    @user1 = @game.users[0]
+    @user2 = @game.users[1]
+    @user1_colour = GamesUser.get_colour_by_id(params[:id], @user1.id)
+    @user2_colour = GamesUser.get_colour_by_id(params[:id], @user2.id)
+
     # @active = Game.find(params[:id]).active
     @winner_name = User.find(@game.winner_id).name if !@game.active
     # Pusher['games'].trigger('new_game', {
@@ -30,11 +37,6 @@ class GamesController < ApplicationController
   def available_games_refresh
     @games = Game.all.includes(:users)
     render :partial => "games/availablegames"
-  end
-
-
-  def is_record?
-
   end
 
 
