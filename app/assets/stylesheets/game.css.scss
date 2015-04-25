@@ -12,6 +12,45 @@
 //   }
 // }
 
+
+////
+@-webkit-keyframes shift-foreground {
+  0% {
+    color: #008080; }
+
+  25% {
+    color: #FF19C2; }
+
+  50% {
+    color: #00FFFF; }
+
+  75% {
+    color: #CCAE14; }
+
+  100% {
+    color: #008080; } }
+    
+@keyframes shift-foreground {
+  0% {
+    color: #008080; }
+
+  25% {
+    color: #FF19C2; }
+
+  50% {
+    color: #00FFFF; }
+
+  75% {
+    color: #CCAE14; }
+
+  100% {
+    color: #008080; } }
+//////
+
+.game-over{
+  -webkit-animation: 1s shift-foreground linear infinite;
+          animation: 1s shift-foreground linear infinite; }
+
 hr {
   clear: both;
 }
@@ -141,3 +180,5 @@ hr {
 .edit-link {
   text-align: right;
 }
+
+
