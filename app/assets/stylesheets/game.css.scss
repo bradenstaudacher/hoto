@@ -5,12 +5,12 @@
 // $fonts: helvetica, sans-serif;
 
 
-.player-info-phase{
-  margin-left: 2.6%;
-  h1{
-    margin-bottom: 0.5%;
-  }
-}
+// .player-info-phase{
+//   margin-left: 2.6%;
+//   h1{
+//     margin-bottom: 0.5%;
+//   }
+// }
 
 hr {
   clear: both;
@@ -21,17 +21,40 @@ hr {
 // }
 #info-div{
   float:left;
-  width: 25%;
+  width: 20%;
   margin-top: 10%;
 }
 
 .info-shove{
   margin-left: 30%;
+  float:left;
 }
+
+#white-circle{
+  float:left;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+#black-circle{
+  float:left;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background-color: #000000;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+
 #game-board-encase{
   float:left;
-  width:43%;
-  margin-left: 10%;
+  width:55%;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 #game-board {
   margin: 50px auto 0;
@@ -49,6 +72,11 @@ hr {
   .active {
     background: lightgrey;
   }
+}
+
+#player-turn-info{
+  float:left;
+  margin-top: 10%;
 }
 
 .black span {
@@ -97,21 +125,8 @@ hr {
   bottom: 0px
 }
 
-
-// .action-button {
-//   border: solid 1px orange;
-//   width: 88px;
-//   padding: 5px;
-//   margin: 16px 5px;
-//   float: left;
-//   background: orange;
-//   color: white;
-//   font-size: 1.5em;
-//   text-align: center;
-// }
-
 #button-container {
-    margin-left: 70%;
+    // margin-left: 70%;
     width: 30%;
 }
 
