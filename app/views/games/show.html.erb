@@ -34,12 +34,14 @@
   %>
 
       <td class='<%= square.colour %> game-square unselected' data-x="<%= x + 1 %>" data-y="<%= y + 1 %>">
-      <span class="pieces">
-      <%= square.height %>
-      </span></td>
-
-
-
+      
+        <% square.height.times do %>
+          <span class="pieces">
+            <%= square.height %>
+          </span>
+        <% end %>
+      
+      </td>
     <%    end %>
 </tr>
 <% end %>

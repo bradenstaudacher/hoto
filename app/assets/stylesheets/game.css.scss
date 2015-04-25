@@ -25,6 +25,7 @@ table {
   td {
     background: $game-square-background;
     text-align: center;
+    position: relative;
   }
   .active {
     background: lightgrey;
@@ -51,11 +52,16 @@ table {
   display: block;
   width: 3.5em;
   height: 3.5em;
-
+  position: absolute;
   margin: auto;
+  z-index: 5;
   border-radius: 50%;
-}
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
 
+}
 
 
 .action-button {
