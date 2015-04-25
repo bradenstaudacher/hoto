@@ -9,7 +9,8 @@
   var gameActive = <%= @game.active  %>
 </script>
 
-<div id="info-div">
+
+<div id="info-div" class="player-info-phase">
   <h1 id="turn-phase">It is <%= @game.turnstate  %>'s turn to <%=@game.phase  %></h1>
   <h1 id="current-colour">You are playing as <%= @current_colour %></h1>
   
