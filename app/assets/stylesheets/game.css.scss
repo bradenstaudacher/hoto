@@ -44,6 +44,7 @@ hr {
   td {
     background: grey;
     text-align: center;
+    position: relative;
   }
   .active {
     background: lightgrey;
@@ -70,11 +71,31 @@ hr {
   display: block;
   width: 3.5em;
   height: 3.5em;
+  position: absolute;
   font-size: 1.5em;
   margin: auto;
+  z-index: 5;
   border-radius: 50%;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+
 }
 
+.fake-pieces {
+   display: block;
+  width: 3.5em;
+  height: 3.5em;
+  position: absolute;
+  margin: auto;
+  z-index: 6;
+  border-radius: 50%;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px
+}
 
 
 // .action-button {

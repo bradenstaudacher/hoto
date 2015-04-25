@@ -19,6 +19,13 @@ class GamesController < ApplicationController
     # @turnstate = Game.find(params[:id]).turnstate
     # @phase = Game.find(params[:id]).phase
     @current_colour = GamesUser.set_player_colour(session[:user_id], @id)
+
+    @all_users = @game.users
+    @user1 = @game.users[0]
+    @user2 = @game.users[1]
+    @user1_colour = GamesUser.get_colour_by_id(params[:id], @user1.id)
+    @user2_colour = GamesUser.get_colour_by_id(params[:id], @user2.id)
+
     # @active = Game.find(params[:id]).active
     @winner_name = User.find(@game.winner_id).name if !@game.active
     # Pusher['games'].trigger('new_game', {
@@ -31,11 +38,6 @@ class GamesController < ApplicationController
     @games = Game.all.includes(:users)
     @player_id = session[:user_id]
     render :partial => "games/availablegames"
-  end
-
-
-  def is_record?
-
   end
 
 
@@ -91,7 +93,9 @@ class GamesController < ApplicationController
     @the_right_game = Game.find(params[:id])
     @current_square = @the_right_game.squares.where(x: params[:square_x], y: params[:square_y])[0]
 
-    if @current_square.place(@the_right_game.turnstate)
+    turn = @the_right_game.turn
+    
+    if @current_square.place(@the_right_game.turnstate, turn)
       @board_new = Game.find(params[:id])
       @winner_name = User.find(@board_new.winner_id).name if !@board_new.active
       Pusher['games'].trigger('refresh_squares', {
@@ -101,7 +105,8 @@ class GamesController < ApplicationController
         :turnstate => @board_new.turnstate,
         :gameid => @board_new.id,
         :active => @board_new.active,
-        :winner_name => @winner_name
+        :winner_name => @winner_name,
+        :turn => turn
         })
 
       @board_new.update_active
@@ -131,8 +136,10 @@ class GamesController < ApplicationController
     @the_right_game = Game.find(params[:id])
     from_square = @the_right_game.squares.where(x: params[:from][0].to_i, y: params[:from][1].to_i)[0]
     dest_square = @the_right_game.squares.where(x: params[:dest][0].to_i, y: params[:dest][1].to_i)[0]
+
+    turn = @the_right_game.turn
     
-    if from_square.topple([dest_square.x - from_square.x, dest_square.y - from_square.y])
+    if from_square.topple([dest_square.x - from_square.x, dest_square.y - from_square.y], turn)
       @board_new = Game.find(params[:id])
       @winner_name = User.find(@board_new.winner_id).name if !@board_new.active
       Pusher['games'].trigger('refresh_squares', {
@@ -142,12 +149,18 @@ class GamesController < ApplicationController
           :turnstate => @board_new.turnstate,
           :gameid => @board_new.id,
           :active => @board_new.active,
-          :winner_name => @winner_name
+          :winner_name => @winner_name,
+          :turn => turn
           })
 
     @board_new.update_active
     end
-    render json: @board_new
+    
+    if @board_new
+      render json: @board_new
+    else
+      render json: @the_right_game
+    end
   end
 
   def end_turn
