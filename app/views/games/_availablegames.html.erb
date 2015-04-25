@@ -44,7 +44,11 @@
             <td><%= user.name %> | <%= user.current_rating %>  </td>
             <td></td>
           <% end %> 
-          <td><%= link_to 'Join', game %>  </td>
+          <% if @player_id%>
+            <td><%= link_to 'Join', game %>  </td>
+          <% else %>
+            <td><%= link_to 'Login to join', new_session_path %>  </td>
+          <% end %>
         <% end %>
       </tr>
     <% end %>
