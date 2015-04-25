@@ -68,15 +68,15 @@ $(document).ready(function(){
 
               $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child(1)').addClass('fake-pieces')
              $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child(1)').animate({ 
-            left: "+=130"
+            left: "+=140"
             }, 1000)
              $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child(2)').addClass('fake-pieces')
              $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child(2)').animate({ 
-            left: "+=235"
+            left: "+=260"
             }, 1000)
              $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child(3)').addClass('fake-pieces')
             $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child(3)').animate({ 
-            left: "+=340"
+            left: "+=380"
             }, 1000)
             setTimeout(function(){
               changeGameBoard(squares)
@@ -86,7 +86,7 @@ $(document).ready(function(){
             console.log('left')
 
             var counter = 1
-            var amountArray = [0, 207, 415, 623]
+            var amountArray = [0, 240, 480, 720]
             while (counter <= 3) {
               var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
              thing.addClass('fake-pieces')
@@ -103,7 +103,7 @@ $(document).ready(function(){
          }else if(direction === 'up') {
             console.log('up')
             var counter = 1
-            var amountArray = [0, 212, 423, 634]
+            var amountArray = [0, 244, 485, 727]
             while (counter <= 3) {
               var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
              thing.addClass('fake-pieces')
@@ -119,7 +119,7 @@ $(document).ready(function(){
          }else{
             console.log('down')
             var counter = 1
-            var amountArray = [0, 208, 420, 626]
+            var amountArray = [0, 242, 484, 726]
             while (counter <= 3) {
               var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
              thing.addClass('fake-pieces')
