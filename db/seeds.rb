@@ -73,3 +73,32 @@ user_counter2 = 3
   user_counter2 += 1
 end
 
+########################### GAMES TO SPECTATE FOR CRUNCHY PETE ###########################
+game_id_counter3 = 11
+user_counter3 = 4
+2.times do
+  
+  Game.create(turnstate: "white", active: true, phase: 'place', moves_counter: 0)
+  counter = 1
+
+  while counter <= 5
+    i = 1
+    while i <= 5
+      puts "i done did make a square!!"
+      Square.create(x: i, y: counter, height: 0, game_id: game_id_counter3, colour: 'empty')
+      i += 1
+    end
+    counter += 1
+  end
+  Game.find(game_id_counter3).users << User.find(user_counter3)
+  p = GamesUser.where(game_id: game_id_counter3).where(user_id: User.find(user_counter3).id)[0]
+  p.colour = 'white'
+  p.save
+  Game.find(game_id_counter3).users << User.find(2)
+  n = GamesUser.where(game_id: game_id_counter3).where(user_id: User.find(2).id)[0]
+  n.colour = 'black'
+  n.save
+  game_id_counter3 += 1
+  user_counter3 += 1
+end
+
