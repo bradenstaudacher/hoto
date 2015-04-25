@@ -5,4 +5,63 @@
 
   <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', root_path %>
+<h1> <%= @user.name %> </h1>
+<table id="game-list">
+
+  <tbody >
+  <h2>Active Games</h2>
+  <tr id="column-titles">
+    <td class='column-title'>Me</td>
+    <td class='column-title'>Opponent</td>
+    <td class='column-title'>To Move</td>
+    <td class='column-title'>Phase</td>
+    <td class='column-title'>Moves</td>
+    <td class='column-title'>Join Game</td>
+  </tr>
+    <% @user.games.each do |game| %> 
+    <tr data-link="<%= game %>">
+      <% if game.active == true && game.users.count == 2%>
+        <% game.users.each do |user| %>
+            <td><%= user.name %>  </td> 
+          <% end %>
+          <td><%= game.turnstate %>  </td>
+          <td><%= game.phase %>  </td>
+          <td><%= game.moves_counter %>  </td>
+
+          <td><%= link_to 'See Game', game %>  </td>
+      <% elsif game.active == true %>
+        <% game.users.each do |user| %>
+            <td><%= user.name %>  </td> 
+            <td>Waiting for player </td> 
+        <% end %>
+          <td><%= game.turnstate %>  </td>
+          <td><%= game.phase %>  </td>
+          <td><%= game.moves_counter %>  </td>
+          <td><%= link_to 'See Game', game %>  </td>
+
+      <% end %>
+
+    </tr>
+    <% end %>
+
+
+  </tbody>
+</table>
+
+<br>
+
+<table id="user-state">
+  <tbody >
+  <tr id="column-titles">
+    <td class='column-title'>Games</td>
+    <td class='column-title'>Victories</td>
+    <td class='column-title'>Rating</td>
+  </tr>
+  <tr>
+    <td><%= @user.games_played %></td>
+    <td><%= @user.games_won %></td>
+    <td><%= @user.current_rating %></td>
+  </tr>
+  </tbody>
+</table>
