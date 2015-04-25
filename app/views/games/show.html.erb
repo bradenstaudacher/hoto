@@ -9,57 +9,59 @@
   var gameActive = <%= @game.active  %>
 </script>
 
+<div id="info-div" class="player-info-phase">
+  <div id="white-circle"></div>
+  <h3 class="info-shove"> <%= @user1.name %> </h3>
+  <div id="black-circle"></div>
+  <h3 class="info-shove"> <%= @user2.name %> </h3>
+</div>
 
-<!-- <div id="container-container"> -->
-  <div id="info-div" class="player-info-phase">
-    <div id="white-circle"></div>
-    <h3 class="info-shove"> <%= @user1.name %> </h3>
-    <div id="black-circle"></div>
-    <h3 class="info-shove"> <%= @user2.name %> </h3>
+<div id="game-board-encase">
+  <table id='game-board'>  
+  <% @board.each_with_index do |row, y|  %>
+  <tr>
+  <% row.each_with_index do |square, x|
+     if square.colour != 'black' && square.colour != 'white'
+      square.colour = 'empty'
+     end      
+  %>
+    <td class='<%= square.colour %> game-square unselected' data-x="<%= x + 1 %>" data-y="<%= y + 1 %>">
     
-  </div>
-
-  <div id="game-board-encase">
-    <table id='game-board'>  
-    <% @board.each_with_index do |row, y|  %>
-    <tr>
-
-    <% row.each_with_index do |square, x|
-       if square.colour != 'black' && square.colour != 'white'
-        square.colour = 'empty'
-       end      
-    %>
-
-        <td class='<%= square.colour %> game-square unselected' data-x="<%= x + 1 %>" data-y="<%= y + 1 %>">
-        
-          <% square.height.times do %>
-            <span class="pieces">
-              <%= square.height %>
-            </span>
-          <% end %>
-        </td>
+      <% square.height.times do %>
+        <span class="pieces">
+          <%= square.height %>
+        </span>
+      <% end %>
+    </td>
       <% end %>
   </tr>
-  <% end %>
-  </table>
+<% end %>
+</table>
+</div>
 
-  </div>
-    <div id="player-turn-info">
-      <% if !@game.active %>
-        <p class ='game-over'><%= @winner_name %> won the hoto</p>
-      <% end %>
-       <h3 id="turn-phase">It is <%= @game.turnstate  %>'s turn to <%=@game.phase  %></h3>
-      <!-- <h3 id="current-colour">You are playing as <%= @current_colour %></h3> -->
-      <div id='button-container'>
-        <h1 class="btn btn-warning" id='end-turn-button'>End Turn</h1>
-      <!-- this p is here to give the container some filling, because everything else is floated -->
-        <p>&nbsp;</p>
+<% if @game.active %>
+      
+
+<div id="player-turn-info">
+  <h3 id="turn-phase">It is <%= @game.turnstate  %>'s turn to <%=@game.phase  %></h3>
+  <!-- <h3 id="current-colour">You are playing as <%= @current_colour %></h3> -->
+    <div id='button-container'>
+    <h1 class="btn btn-warning" id='end-turn-button'>End Turn</h1>
+    <!-- this p is here to give the container some filling, because everything else is floated -->
+    <!--   <p>&nbsp;</p> -->
     </div>
-    <h4 style="margin-top: 20px;">Place Phase</h4>
-      <p>orem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <h4 style="margin-top: 30px;">Topple Phase</h4>
-      <p>orem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-<!-- </div> -->
+  <h4 style="margin-top: 20px;">Place Phase</h4>
+  <p>orem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  <h4 style="margin-top: 30px;">Topple Phase</h4>
+  <p>orem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+</div>
+
+<% else %>
+<div id="player-turn-info">
+  <h2 class ='game-over'><%= @winner_name %> won the hoto!</h2>
+  <img src="http://d3at4pok3dofi3.cloudfront.net/gifs/86889bd80fbb45c6ac15794d2de5ac4f.gif" style="height: 150px; width: 150px;">
+</div>
+<% end %>
 
 
 <script>  doTheGame() </script>
