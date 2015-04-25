@@ -18,7 +18,7 @@ User.create(name: "lodki", games_played: 1, games_won: 0, email: "lmanswan@dog.c
 User.create(name: "codman", games_played: 3, games_won: 0, email: "codman@dog.com", current_rating: 1450, password: "testes", password_confirmation: "testes")
 
 ########################### GAMES TO SPECTATE ###########################
-
+rand_colour_array = ["black","white"]
 game_id_counter = 1
 user_counter = 1
 5.times do 
@@ -29,8 +29,14 @@ user_counter = 1
   while counter <= 5
     i = 1
     while i <= 5
+      rand_height = rand(4)
+      if rand_height == 0
+        rand_colour = "empty"
+      else
+        rand_colour = rand_colour_array.sample
+      end
       puts "i done did make a square!!"
-      Square.create(x: i, y: counter, height: 0, game_id: game_id_counter, colour: 'empty')
+      Square.create(x: i, y: counter, height: rand_height, game_id: game_id_counter, colour: rand_colour)
       i += 1
     end
     counter += 1
