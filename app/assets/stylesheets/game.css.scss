@@ -26,8 +26,7 @@ hr {
 }
 
 .info-shove{
-  margin-left: 30%;
-  float:left;
+  margin-left: 80px;
 }
 
 #white-circle{
@@ -37,7 +36,7 @@ hr {
   height: 30px;
   background-color: white;
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: 40px;
 }
 #black-circle{
   float:left;
@@ -45,8 +44,8 @@ hr {
   width: 30px;
   height: 30px;
   background-color: #000000;
-  margin-top: 20px;
-  margin-left: 20px;
+  margin-top: 13px;
+  margin-left: 40px;
 }
 
 
@@ -127,8 +126,10 @@ hr {
 }
 
 #button-container {
-    // margin-left: 70%;
-    width: 30%;
+// margin-left: 70%;
+  width: 30%;  
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .user-games {
