@@ -23,7 +23,7 @@ game_id_counter = 1
 user_counter = 1
 5.times do 
   
-  Game.create(turnstate: "white", active: true, phase: 'place', moves_counter: 0)
+  Game.create(turnstate: "white", active: true, phase: 'place', moves_counter: rand(30))
   counter = 1
 
   while counter <= 5
@@ -59,7 +59,7 @@ game_id_counter2 = 6
 user_counter2 = 3
 5.times do 
   
-  Game.create(turnstate: "white", active: true, phase: 'place', moves_counter: 0)
+  Game.create(turnstate: "white", active: true, phase: 'place', moves_counter: 0, created_at: Time.now - (rand(6) * rand(100) * 10))
   counter = 1
 
   while counter <= 5
