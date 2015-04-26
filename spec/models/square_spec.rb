@@ -14,6 +14,7 @@ RSpec.describe Square, type: :model do
       counter += 1
     end
     @game = Game.create(turnstate: 'white', active: 'true', phase: 'place', moves_counter: 0)
+    @turn = Turn.new("white")
   end
 
   it "creates the squares" do
@@ -36,7 +37,7 @@ RSpec.describe Square, type: :model do
     @topplesquare = Square.find(7)
     @topplesquare.update(height: 2)
     expect(@topplesquare.height).to eq(2)
-    @topplesquare.topple(Square::LEFT)
+    @topplesquare.topple(Square::LEFT, @turn)
     expect(Square.find(7).height).to eq(0)
     expect(Square.find(6).height).to eq(1)
   end
@@ -46,7 +47,7 @@ RSpec.describe Square, type: :model do
     @topplesquare.update(height: 3)
 
     expect(@topplesquare.height).to eq(3)
-    @topplesquare.topple(Square::LEFT)
+    @topplesquare.topple(Square::LEFT, @turn)
     expect(Square.find(7).height).to eq(0)
     expect(Square.find(6).height).to eq(1)
   end
@@ -59,7 +60,7 @@ RSpec.describe Square, type: :model do
 
     expect(@topplesquare.height).to eq(3)
     expect(@topplesquare2.height).to eq(2)
-    @topplesquare.topple(Square::LEFT)
+    @topplesquare.topple(Square::LEFT, @turn)
     expect(Square.find(5).height).to eq(0)
     expect(Square.find(4).height).to eq(1)
     expect(Square.find(3).height).to eq(3)
@@ -72,7 +73,7 @@ RSpec.describe Square, type: :model do
     @topplesquare = Square.find(9)
     @topplesquare.update(height: 2)
     expect(@topplesquare.height).to eq(2)
-    @topplesquare.topple(Square::RIGHT)
+    @topplesquare.topple(Square::RIGHT, @turn)
     expect(Square.find(9).height).to eq(0)
     expect(Square.find(10).height).to eq(1)
   end
@@ -82,7 +83,7 @@ RSpec.describe Square, type: :model do
     @topplesquare.update(height: 3)
 
     expect(@topplesquare.height).to eq(3)
-    @topplesquare.topple(Square::RIGHT)
+    @topplesquare.topple(Square::RIGHT, @turn)
     expect(Square.find(9).height).to eq(0)
     expect(Square.find(10).height).to eq(1)
   end
@@ -95,7 +96,7 @@ RSpec.describe Square, type: :model do
 
     expect(@topplesquare.height).to eq(3)
     expect(@topplesquare2.height).to eq(2)
-    @topplesquare.topple(Square::RIGHT)
+    @topplesquare.topple(Square::RIGHT, @turn)
     expect(Square.find(1).height).to eq(0)
     expect(Square.find(2).height).to eq(1)
     expect(Square.find(3).height).to eq(3)
@@ -108,7 +109,7 @@ RSpec.describe Square, type: :model do
     @topplesquare = Square.find(9)
     @topplesquare.update(height: 2)
     expect(@topplesquare.height).to eq(2)
-    @topplesquare.topple(Square::UP)
+    @topplesquare.topple(Square::UP, @turn)
     expect(Square.find(9).height).to eq(0)
     expect(Square.find(4).height).to eq(1)
   end
@@ -118,7 +119,7 @@ RSpec.describe Square, type: :model do
     @topplesquare.update(height: 3)
 
     expect(@topplesquare.height).to eq(3)
-    @topplesquare.topple(Square::UP)
+    @topplesquare.topple(Square::UP, @turn)
     expect(Square.find(9).height).to eq(0)
     expect(Square.find(4).height).to eq(1)
   end
@@ -131,7 +132,7 @@ RSpec.describe Square, type: :model do
 
     expect(@topplesquare.height).to eq(3)
     expect(@topplesquare2.height).to eq(2)
-    @topplesquare.topple(Square::UP)
+    @topplesquare.topple(Square::UP, @turn)
     expect(Square.find(23).height).to eq(0)
     expect(Square.find(18).height).to eq(1)
     expect(Square.find(13).height).to eq(3)
@@ -144,7 +145,7 @@ RSpec.describe Square, type: :model do
     @topplesquare = Square.find(18)
     @topplesquare.update(height: 2)
     expect(@topplesquare.height).to eq(2)
-    @topplesquare.topple(Square::DOWN)
+    @topplesquare.topple(Square::DOWN, @turn)
     expect(Square.find(18).height).to eq(0)
     expect(Square.find(23).height).to eq(1)
   end
@@ -154,7 +155,7 @@ RSpec.describe Square, type: :model do
     @topplesquare.update(height: 3)
 
     expect(@topplesquare.height).to eq(3)
-    @topplesquare.topple(Square::DOWN)
+    @topplesquare.topple(Square::DOWN, @turn)
     expect(Square.find(18).height).to eq(0)
     expect(Square.find(23).height).to eq(1)
   end
@@ -167,7 +168,7 @@ RSpec.describe Square, type: :model do
 
     expect(@topplesquare.height).to eq(3)
     expect(@topplesquare2.height).to eq(2)
-    @topplesquare.topple(Square::DOWN)
+    @topplesquare.topple(Square::DOWN, @turn)
     expect(Square.find(3).height).to eq(0)
     expect(Square.find(8).height).to eq(1)
     expect(Square.find(13).height).to eq(3)
@@ -185,7 +186,7 @@ RSpec.describe Square, type: :model do
   it "can distribute pieces to all 4 sides" do
     @topplesquare = Square.find(7)
     @topplesquare.update(height: 4)
-    @topplesquare.bloom
+    @topplesquare.bloom(@turn)
     expect(@topplesquare.height).to eq(0)
     expect(Square.find(2).height).to eq(1)
     expect(Square.find(6).height).to eq(1)
@@ -202,7 +203,7 @@ RSpec.describe Square, type: :model do
 
     expect(@topplesquare.height).to eq(2)
     expect(@topplesquare2.height).to eq(3)
-    @topplesquare.topple(Square::DOWN)
+    @topplesquare.topple(Square::DOWN, @turn)
     expect(Square.find(3).height).to eq(0)
     expect(Square.find(13).height).to eq(0)
     expect(Square.find(8).height).to eq(2)
@@ -221,7 +222,7 @@ RSpec.describe Square, type: :model do
 
     expect(@topplesquare.height).to eq(2)
     expect(@topplesquare2.height).to eq(3)
-    @topplesquare.topple(Square::DOWN)
+    @topplesquare.topple(Square::DOWN, @turn)
     expect(Square.find(3).height).to eq(0)
     expect(Square.find(13).height).to eq(1)
     expect(Square.find(8).height).to eq(2)
@@ -238,21 +239,21 @@ RSpec.describe Square, type: :model do
   it "cannot be placed on an empty square with enemy colour" do
     @topplesquare = Square.find(8)
     @topplesquare.update(colour: "black")
-    @topplesquare.place("white")
+    @topplesquare.place("white", @turn)
     expect(@topplesquare.height).to eq(0)
   end
 
   it "can be placed on an empty square with no colour" do
     @topplesquare = Square.find(8)
     @topplesquare.update(colour: "empty")
-    @topplesquare.place("white")
+    @topplesquare.place("white", @turn)
     expect(@topplesquare.height).to eq(1)
   end
 
   it "can be placed on an empty square of same colour" do
     @topplesquare = Square.find(8)
     @topplesquare.update(colour: "white")
-    @topplesquare.place("white")
+    @topplesquare.place("white", @turn)
     expect(@topplesquare.height).to eq(1)
   end
 
@@ -260,7 +261,7 @@ RSpec.describe Square, type: :model do
     @topplesquare = Square.find(8)
     @topplesquare.update(height: 1)
     @topplesquare.update(colour: "white")
-    @topplesquare.place("white")
+    @topplesquare.place("white", @turn)
     expect(@topplesquare.height).to eq(2)
   end
 
@@ -268,7 +269,7 @@ RSpec.describe Square, type: :model do
     @topplesquare = Square.find(8)
     @topplesquare.update(height: 2)
     @topplesquare.update(colour: "white")
-    @topplesquare.place("white")
+    @topplesquare.place("white", @turn)
     expect(@topplesquare.height).to eq(3)
   end
 
@@ -276,7 +277,7 @@ RSpec.describe Square, type: :model do
     @topplesquare = Square.find(8)
     @topplesquare.update(height: 3)
     @topplesquare.update(colour: "white")
-    @topplesquare.place("white")
+    @topplesquare.place("white", @turn)
     expect(@topplesquare.height).to eq(0)
     @topplesquare2 = Square.find(3)
     @topplesquare3 = Square.find(7)

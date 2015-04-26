@@ -86,15 +86,19 @@ class GamesUser < ActiveRecord::Base
       @gameuser = GamesUser.where(user_id: session_id).where(game_id: params_id)[0]
       if session_id
         if @gameuser
-        return @current_colour = @gameuser.colour
-      elsif Game.find(params_id).users.length < 2
-        create_assoc_black(Game.find(params_id), session_id)
-        return @current_colour = @gameuser.colour
-      end
+          return @current_colour = @gameuser.colour
+        elsif Game.find(params_id).users.length < 2
+          create_assoc_black(Game.find(params_id), session_id)
+          return @current_colour = @gameuser.colour
+        end
         return @current_colour = "viewer"
       else
         return @current_colour = "anonymous viewer"
       end
+    end
+
+    def get_colour_by_id(game_id, player_id)
+      return GamesUser.where(game_id: game_id).where(user_id: player_id)[0].colour
     end
   end
 

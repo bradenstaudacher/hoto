@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150424021235) do
+ActiveRecord::Schema.define(version: 20150426001506) do
 
   create_table "games", force: true do |t|
     t.string   "turnstate"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active"
+    t.boolean  "active",        default: true
     t.string   "phase"
-    t.integer  "moves_counter"
+    t.integer  "moves_counter", default: 0
     t.integer  "winner_id"
     t.integer  "loser_id"
   end
@@ -45,12 +45,12 @@ ActiveRecord::Schema.define(version: 20150424021235) do
 
   create_table "users", force: true do |t|
     t.string   "name"
-    t.integer  "games_played"
-    t.integer  "games_won"
+    t.integer  "games_played",    default: 0
+    t.integer  "games_won",       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email"
-    t.integer  "current_rating"
+    t.integer  "current_rating",  default: 1200
     t.string   "password_digest"
   end
 

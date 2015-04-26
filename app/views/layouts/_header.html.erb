@@ -1,14 +1,14 @@
 <div id ="header">
-  <h1 id="hoto-title"><%= link_to "Hoto", '/' %></h1>
+    <h1 id="hoto-title"><%= link_to "Hoto", '/' %></h1>
     <nav id="navbar">  
-      <small>
+      <h5>
         <% if current_user %>
-          Signed in as <%= link_to current_user.name, edit_user_path(current_user) %> (<%= link_to "Log out", session_path("current"), method: :delete %>)
+
+          Signed in as <%= link_to current_user.name, user_path(current_user) %> (<%= current_user.current_rating %>) <%= link_to "Log out ", session_path("current"), method: :delete, :style => "margin-left: 5px;" %>
         <% else %>
           <%= link_to "Log In", new_session_path %> | <%= link_to "Sign Up", new_user_path %>
         <% end %>
-        <%= link_to "Rulez", rules_path %>
-      </small>
+        <%= link_to "Rules", rules_path %>
+      </h5>
     </nav>
-  <hr>
 </div>

@@ -1,12 +1,33 @@
-$transparent-grey: hsla(33, 11%, 50%, .1);
+// $transparent-grey: hsla(33, 11%, 50%, .1);
+
+#container{
+  width: 48%;
+  float: left;
+  margin-top: 8%;
+}
+
+#log-in-button{
+  margin: 1%;
+}
+#sign-up-button{
+  margin: 1%;
+}
+#rules-button{
+  margin: 1%;
+}
 
 #table-container{
   // border: 2px solid black;
+  width: 49%;
+  float: left;
+  margin-top: 8%;
 }
+
 #game-list {
-  width: 22%;
+  width: 90%;
   padding: 12px;
   border-collapse: collapse;
+  margin: 5%;
   // float: right;
   // clear: both;
   a {
@@ -18,28 +39,19 @@ $transparent-grey: hsla(33, 11%, 50%, .1);
   }  
 }
 
-
-
 #options{
-  width: 30%;
+  width: 50%;
   float: left;
-  height: 15em;
-  margin: 58px 0 0 95px;
-
-  #host-button {
-    margin: 0 0 0 40%;
-  }
-  button {
-    margin: 5% 0 0 40%;
-  }
+  // height: 15em;
+  margin-left: 5%;
 }
 
-#welcome{
-  margin: 60px 0 0 95px;
-  width: 30%;
+#welcome h1{
+  margin-left: 5%;
+  width: 100%;
 }
 
-#intro-message{
-  margin: 40px 0 0 155px;
-  width: 260px;
+#welcome h3{
+  margin-left: 5%;
+  width: 100%;
 }

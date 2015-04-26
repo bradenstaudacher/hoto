@@ -13,8 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
 //= require pusher
+//= require_tree .
+
 
   //to-do    can we refactor these methods to all go to one route which triggers a method calling method that calls the correct method based on some params or the db?? 
 function doTheGame(){
@@ -53,9 +54,13 @@ console.log('inside doTheGame in application.js')
             //   $('#info-div').append('someone won the hoto')
             // };
             endButtonClicked = false;
+        $('.game-square').removeClass('active');
+
           },
           error: function(phase, message){
             console.log('ajax post failed', message)
+        $('.game-square').removeClass('active');
+
           }
         })
 
@@ -64,7 +69,7 @@ console.log('inside doTheGame in application.js')
       
     if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "topple" && (gameActive === true)) {
       console.log('gameactive : ', gameActive)
-
+        $(this).addClass('active');
       console.log('its in topple code application js');
 
       var topple_x = ($(this).attr('data-x'));
@@ -72,10 +77,12 @@ console.log('inside doTheGame in application.js')
       
       arr.push([topple_x, topple_y])
 
+      console.log('array is equal to :', arr)
       // console.log('Array is Below');
       // console.log(arr);
 
       if (arr.length === 2) {
+        $('.game-square').removeClass('active');
         $.ajax({
             url: '/games/' + currentGame + '/topplecall',
             method: 'POST',
