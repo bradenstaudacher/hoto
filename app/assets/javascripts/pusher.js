@@ -20,11 +20,11 @@ $(document).ready(function(){
    var winnerName = data.winner_name
    var turn = data.turn
 
+
+   if (game === parseInt(currentGame)) {
    gameActive = data.active;
    currentTurnstate = turnstate;
    currentPhase = phase;
-
-   if (game === parseInt(currentGame)) {
     if (!gameActive){
        $('#info-div').append('<p>'+ winnerName +' won the hoto</p>');
     } 

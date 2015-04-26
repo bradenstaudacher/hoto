@@ -11,6 +11,9 @@ class Game < ActiveRecord::Base
     self._turn
   end
 
+  def get_name_from_winner_id
+    return User.find(winner_id).name if !active
+  end
 
     def get_square_from_coord(coord)
       Square.where(x: coord[0]).where(y: coord[1]).where(game_id: id)[0]
