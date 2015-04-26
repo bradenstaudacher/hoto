@@ -36,7 +36,12 @@ $(document).ready(function(){
     //   $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').addClass(squares[i].colour);
     //   $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').html("<span class='pieces'>"+ squares[i].height + "</span>");
     // }
-    $('#turn-phase').text("It is " + turnstate + "'s turn to " + phase);
+    if (turnstate === currentUserColour) {
+      console.log("In turnstate check")
+      $('#turn-phase').text("Your turn to " + phase);
+    }else{
+      $('#turn-phase').text("Waiting for opponent to " + phase);
+    }
 
     if (turn) {
       for(var i = 0; i < turn.actions.length; i ++){
