@@ -98,24 +98,26 @@ class GamesController < ApplicationController
     @current_square = @the_right_game.squares.where(x: params[:square_x], y: params[:square_y])[0]
 
     turn = @the_right_game.turn
-    
-    if @current_square.place(@the_right_game.turnstate, turn)
-      @board_new = Game.includes(:squares).find(params[:id])
-      @winner_name = User.find(@board_new.winner_id).name if !@board_new.active
+
+    successful_place = @current_square.place(@the_right_game.turnstate, turn)
+    if successful_place
+      @updated_game = Game.find(params[:id])
+      @winner_name = User.find(@updated_game.winner_id).name if !@updated_game.active
+
       Pusher['games'].trigger('refresh_squares', {
         :test => "placed square!",
-        :board_html => @board_new.squares,
-        :phase => @board_new.phase,
-        :turnstate => @board_new.turnstate,
-        :gameid => @board_new.id,
-        :active => @board_new.active,
+        :board_html => @updated_game.squares,
+        :phase => @updated_game.phase,
+        :turnstate => @updated_game.turnstate,
+        :gameid => @updated_game.id,
+        :active => @updated_game.active,
         :winner_name => @winner_name,
         :turn => turn
         })
 
-      @board_new.update_active
+      @updated_game.update_active
     end
-    phase_and_turnstate = {phase: @board_new.phase, turnstate: @board_new.turnstate, active: @board_new.active }
+    phase_and_turnstate = {phase: @updated_game.phase, turnstate: @updated_game.turnstate, active: @updated_game.active }
 
     render json: phase_and_turnstate 
 
@@ -144,24 +146,24 @@ class GamesController < ApplicationController
     turn = @the_right_game.turn
     
     if from_square.topple([dest_square.x - from_square.x, dest_square.y - from_square.y], turn)
-      @board_new = Game.find(params[:id])
-      @winner_name = User.find(@board_new.winner_id).name if !@board_new.active
+      @updated_game = Game.find(params[:id])
+      @winner_name = User.find(@updated_game.winner_id).name if !@updated_game.active
       Pusher['games'].trigger('refresh_squares', {
           :test => "placed square!",
-          :board_html => @board_new.squares,
-          :phase => @board_new.phase,
-          :turnstate => @board_new.turnstate,
-          :gameid => @board_new.id,
-          :active => @board_new.active,
+          :board_html => @updated_game.squares,
+          :phase => @updated_game.phase,
+          :turnstate => @updated_game.turnstate,
+          :gameid => @updated_game.id,
+          :active => @updated_game.active,
           :winner_name => @winner_name,
           :turn => turn
           })
 
-    @board_new.update_active
+    @updated_game.update_active
     end
     
-    if @board_new
-      render json: @board_new
+    if @updated_game
+      render json: @updated_game
     else
       render json: @the_right_game
     end

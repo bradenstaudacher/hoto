@@ -31,6 +31,49 @@ class Game < ActiveRecord::Base
       self.save
     end
 
+    def any_valid_moves?
+      # if place is done && the user only has squares that are 1 high
+      users_squares = self.squares.where(colour: turnstate)
+      users_squares_that_are_high_enough = users_squares.select {|square| square.height > 1 }
+      squares_heights = users_squares.map { |square| square.height }
+      unless squares_heights.include?(2) || squares_heights.include?(3)
+       return false
+      end
+
+      arr = []
+       users_squares_that_are_high_enough.each do |square|
+          # adj_coords  = square.all_squares_adjacent_to
+          # adj_squares = adj_coords.map {|coords| get_square_from_coord(coords)}
+          # adj_squares.reject! {|square| square.empty?}
+          # arr = adj_squares.select { |squarey| squarey.occupied? }
+
+          arr2 = square.all_empty_squares_adjacent_to
+          arr2.flatten!
+          arr << arr2
+          arr.flatten!
+        end
+        if arr.empty?
+          return false
+        end
+        true
+    end
+
+    def any_valid_topples?
+      # to-do   remove the repition in the any_valid methods
+      self.any_valid_moves?
+
+       users_squares = self.squares.where(colour: turnstate)
+      users_squares_that_are_high_enough = users_squares.select {|square| square.height > 1 }
+      squares_heights = users_squares.map { |square| square.height }
+
+         if phase == 'topple'
+          binding.pry
+       
+        end
+      
+    end
+
+
     def update_active
 # to-do  refactor to remove repetition
       if moves_counter > 2

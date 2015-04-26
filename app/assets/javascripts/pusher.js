@@ -66,10 +66,6 @@ $(document).ready(function(){
 
           var direction = getDirection({x: squareX, y: squareY} , {x: destinationX , y: destinationY})
 
-          
-
-
-
           if (direction === 'right') {
             console.log('right')
             var counter = 1
@@ -105,7 +101,14 @@ $(document).ready(function(){
              thing.addClass('fake-pieces')
              thing.animate({ 
               left: "-=" + amountArray[counter]
-              }, 1000)
+              }, {
+                duration: 1000,
+                complete: function(){
+                  if(turn.actions.length > 1){
+                    bloomer()
+                  }
+                }
+              })
              counter += 1
            }
             if(turn.actions.length === 1) { 
@@ -123,7 +126,14 @@ $(document).ready(function(){
              thing.addClass('fake-pieces')
              thing.animate({ 
               top: "-=" + amountArray[counter]
-              }, 1000)
+              }, {
+                duration: 1000,
+                complete: function(){
+                  if(turn.actions.length > 1){
+                    bloomer()
+                  }
+                }
+              })
              counter += 1
            }
             if(turn.actions.length === 1) { 
@@ -140,7 +150,14 @@ $(document).ready(function(){
              thing.addClass('fake-pieces')
              thing.animate({ 
               "top" : "+=" + amountArray[counter]
-              }, 1000)
+              }, {
+                duration: 1000,
+                complete: function(){
+                  if(turn.actions.length > 1){
+                    bloomer()
+                  }
+                }
+              })
              counter += 1
            }
             if(turn.actions.length === 1) { 
