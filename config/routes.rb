@@ -19,8 +19,8 @@ Hoto::Application.routes.draw do
   post "games/:id/end" => 'games#end_turn'
   post "games/:id/topplecheck" => 'games#topplecheck'
   post "games/:id/topplecall" => 'games#topplecall'
+  post "games/:id/resign" => "games#resign"
   get "available_games_refresh" => 'games#available_games_refresh'
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

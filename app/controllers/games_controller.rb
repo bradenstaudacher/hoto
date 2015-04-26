@@ -193,6 +193,16 @@ class GamesController < ApplicationController
     end
   end
 
+  def resign
+    @this_game = Game.find(params[:id])
+    @this_game.update(active: false)
+    @this_game.winner_id = @this_game.users.where.not(id: params[:loser])[0].id
+    @this_game.loser_id = params[:loser]
+    @this_game.save
+    winner_and_active = {winner: @this_game.winner_id, active: @this_game.active}
+    render json: winner_and_active
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_game
