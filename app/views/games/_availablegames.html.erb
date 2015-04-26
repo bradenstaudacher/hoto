@@ -1,5 +1,5 @@
 <h3>Join Game</h3>
-<table id="game-list" class="table table-striped table-hover">
+<table id="join-game-list" class="table table-striped table-hover header-fixed">
 
   <tbody>
   <thead>
@@ -34,7 +34,7 @@
 <% if @player_id %>
   <h3>Your Games</h3>
     <% if User.find(@player_id).games.length > 0 %>
-      <table id="game-list" class="table table-striped table-hover">
+      <table id="game-list" class="table table-striped table-hover header-fixed">
         <tbody>
           <thead>
             <th class='column-title'>White</th>
@@ -63,7 +63,7 @@
 <% end %>
 
 <h3>Spectate Game</h3>
-<table id="game-list" class="table table-striped table-hover">
+<table id="game-list" class="table table-striped table-hover header-fixed">
 
   <tbody>
   <thead>
