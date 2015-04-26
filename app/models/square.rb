@@ -111,11 +111,10 @@ class Square < ActiveRecord::Base
     end
     arr.reject! {|item| item.empty? }
     arr.map! do |obj|
-       x = obj[0].id % 25
-       if x == 0  
-        x = 25
-       end 
-       x
+      coord = []
+      coord << obj[0].x
+      coord << obj[0].y
+      coord
     end
     arr
   end
