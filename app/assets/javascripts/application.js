@@ -119,6 +119,7 @@ console.log('inside doTheGame in application.js')
 
 
 
+
             },
             error: function(hash, message){
               console.log(message);
@@ -149,6 +150,12 @@ console.log('inside doTheGame in application.js')
 
       }
     });
+
+    if ((currentUser !== 0) && (currentTurnstate !== currentUserColour)) {
+      $('#resign-btn').addClass('disabled');
+    }
+
+
      
 }
 
