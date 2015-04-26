@@ -130,11 +130,11 @@ console.log('inside doTheGame in application.js')
     });
 
     $('#resign-btn').on('click',function(){
-      if (currentUser !== 0) {
+      if ((currentUser !== 0) && (currentTurnstate === currentUserColour)) {
           $.ajax({
             url: '/games/' + currentGame + '/resign',
             method: 'POST',
-            data: { loser: currentUser },
+            data: { loser: currentUser }, 
             dataType: "json",
             success: function(hash) {
               console.log(hash);
