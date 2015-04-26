@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @games = Game.all
+    @games = Game.all.includes(:users)
   end
 
   # GET /games/1
@@ -94,13 +94,13 @@ class GamesController < ApplicationController
 # to-do   can all of the pusher logic be abstracted to a method
   def click_to_place 
     puts "this is the params id in place " + params[:id]
-    @the_right_game = Game.find(params[:id])
+    @the_right_game = Game.includes(:squares).find(params[:id])
     @current_square = @the_right_game.squares.where(x: params[:square_x], y: params[:square_y])[0]
 
     turn = @the_right_game.turn
     
     if @current_square.place(@the_right_game.turnstate, turn)
-      @board_new = Game.find(params[:id])
+      @board_new = Game.includes(:squares).find(params[:id])
       @winner_name = User.find(@board_new.winner_id).name if !@board_new.active
       Pusher['games'].trigger('refresh_squares', {
         :test => "placed square!",
