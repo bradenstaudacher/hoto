@@ -13,7 +13,7 @@
   <h4 class="user-games">Statistics</h4>
 
   <thead>
-    <th class='column-title'>Games PLayed</th>
+    <th class='column-title'>Games Played</th>
     <th class='column-title'>Victories</th>
     <th class='column-title'>Rating</th>
   </thead>
@@ -46,7 +46,7 @@
           <td><%= game.turnstate %>  </td>
           <td><%= game.phase %>  </td>
           <td><%= game.moves_counter %>  </td>
-          <td><%= link_to 'See Game', game %>  </td>
+          <td><%= link_to 'Play Game', game %>  </td>
       <% elsif game.active == true %>
         <% game.users.each do |user| %>
             <td><%= user.name %>  </td> 
