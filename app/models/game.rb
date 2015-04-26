@@ -31,6 +31,16 @@ class Game < ActiveRecord::Base
       self.save
     end
 
+    def any_valid_moves?
+      # if place is done && the user only has squares that are 1 high
+      users_squares = self.squares.where(colour: turnstate)
+      squares_heights = users_squares.map { |square| square.height }
+      unless squares_heights.include?(2) || squares_heights.include?(3)
+       self.switch_turnstate
+      end
+    end
+
+
     def update_active
 # to-do  refactor to remove repetition
       if moves_counter > 2
