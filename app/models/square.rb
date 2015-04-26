@@ -10,9 +10,15 @@ class Square < ActiveRecord::Base
       self.save
 
       game.update(phase: 'topple')
-      
+      bloom_counter = 0
+
       if self.bloomable?
+        bloom_counter += 1 
         self.bloom(turn)
+        game.switch_turnstate
+      end
+
+      if !game.any_valid_moves? && bloom_counter == 0
         game.switch_turnstate
       end
       # returns true because it's been placed. for game controller
@@ -88,7 +94,8 @@ class Square < ActiveRecord::Base
         square.bloom(turn)
       end
     end
-    game.switch_turnstate if bloom_counter > 0 
+    game.switch_turnstate if bloom_counter > 0 || !game.any_valid_moves? 
+
     true
   end
 

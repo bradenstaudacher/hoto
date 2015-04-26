@@ -37,7 +37,7 @@ class Game < ActiveRecord::Base
       users_squares_that_are_high_enough = users_squares.select {|square| square.height > 1 }
       squares_heights = users_squares.map { |square| square.height }
       unless squares_heights.include?(2) || squares_heights.include?(3)
-       self.switch_turnstate
+       return false
       end
 
       arr = []
@@ -53,10 +53,9 @@ class Game < ActiveRecord::Base
           arr.flatten!
         end
         if arr.empty?
-          self.switch_turnstate
+          return false
         end
-
-
+        true
     end
 
     def any_valid_topples?
