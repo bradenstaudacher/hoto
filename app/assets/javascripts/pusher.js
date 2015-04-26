@@ -26,7 +26,8 @@ $(document).ready(function(){
    currentTurnstate = turnstate;
    currentPhase = phase;
     if (!gameActive){
-       $('#info-div').append('<p>'+ winnerName +' won the hoto</p>');
+       $('#player-turn-info').html("<h2 class ='game-over'> "+ winnerName +" won the hoto!</h2><img src='http://d3at4pok3dofi3.cloudfront.net/gifs/86889bd80fbb45c6ac15794d2de5ac4f.gif' style='height: 150px; width: 150px;'>");
+
     } 
     // for(var i=0; i < 25; i++){
     //   console.log(i);
