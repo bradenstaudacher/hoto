@@ -24,7 +24,11 @@ class GamesController < ApplicationController
     @user1 = @game.users[0]
     @user2 = @game.users[1]
     @user1_colour = GamesUser.get_colour_by_id(params[:id], @user1.id)
-    @user2_colour = GamesUser.get_colour_by_id(params[:id], @user2.id)
+    if @user2 != nil
+      @user2_colour = GamesUser.get_colour_by_id(params[:id], @user2.id)
+    else
+      @user2_colour = "empty"
+    end
 
     # @active = Game.find(params[:id]).active
     @winner_name = User.find(@game.winner_id).name if !@game.active
