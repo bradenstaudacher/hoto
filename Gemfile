@@ -31,7 +31,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 gem 'pusher'
-
+gem 'kaminari'
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
