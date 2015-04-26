@@ -54,12 +54,16 @@
   <p>orem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
   <h4 style="margin-top: 30px;">Topple Phase</h4>
   <p>orem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-</div>
 
+  <div id='button-container'>
+    <h1 class="btn btn-default" id="resign-btn">Resign</h1>
+  </div>
+
+</div>
 <% else %>
-<div id="player-turn-info">
+<div id="player-turn-info2">
   <h2 class ='game-over'><%= @winner_name %> won the hoto!</h2>
-  <img src="http://d3at4pok3dofi3.cloudfront.net/gifs/86889bd80fbb45c6ac15794d2de5ac4f.gif" style="height: 150px; width: 150px;">
+  <marquee><img src="http://d3at4pok3dofi3.cloudfront.net/gifs/86889bd80fbb45c6ac15794d2de5ac4f.gif" style="height: 150px; width: 150px;"></marquee>
 </div>
 <% end %>
 
