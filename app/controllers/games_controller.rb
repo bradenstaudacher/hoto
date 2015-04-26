@@ -144,6 +144,7 @@ class GamesController < ApplicationController
     
     if from_square.topple([dest_square.x - from_square.x, dest_square.y - from_square.y], turn)
       @board_new = Game.find(params[:id])
+      @board_new.any_valid_moves?
       @updated_game = Game.find(params[:id])
       @winner_name = User.find(@updated_game.winner_id).name if !@updated_game.active
       Pusher['games'].trigger('refresh_squares', {

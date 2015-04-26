@@ -33,7 +33,6 @@ class Game < ActiveRecord::Base
 
     def any_valid_moves?
       # if place is done && the user only has squares that are 1 high
-      binding.pry
       users_squares = self.squares.where(colour: turnstate)
       users_squares_that_are_high_enough = users_squares.select {|square| square.height > 1 }
       squares_heights = users_squares.map { |square| square.height }
@@ -53,7 +52,6 @@ class Game < ActiveRecord::Base
           arr << arr2
           arr.flatten!
         end
-        binding.pry
         if arr.empty?
           self.switch_turnstate
         end
