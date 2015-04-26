@@ -31,7 +31,7 @@
 $(function () {
   var poll = function () {
     $('#table-container').load('available_games_refresh', function(){
-      setTimeout(poll, 3000);
+      setTimeout(poll, 1000);
     });
   };
   poll();

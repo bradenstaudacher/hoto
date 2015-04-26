@@ -12,8 +12,13 @@
 <div id="info-div" class="player-info-phase">
   <div id="white-circle"></div>
   <h3 class="info-shove"> <%= @user1.name %> </h3>
-  <div id="black-circle"></div>
-  <h3 class="info-shove"> <%= @user2.name %> </h3>
+  <% if @user2 != nil %>
+    <div id="black-circle"></div>
+    <h3 class="info-shove"> <%= @user2.name %> </h3>
+  <% else %>
+    <div id="black-circle"></div>
+    <h3 class="info-shove"> Waiting for opponent </h3>
+  <% end %>
 </div>
 
 <div id="game-board-encase">
@@ -54,8 +59,12 @@
   <p>orem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
   <h4 style="margin-top: 30px;">Topple Phase</h4>
   <p>orem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-</div>
+  
+  <div id='button-container'>
+    <h1 class="btn btn-default" id="resign-btn">Resign</h1>
+  </div>
 
+</div>
 <% else %>
 <div id="player-turn-info2">
   <h2 class ='game-over'><%= @winner_name %> won the hoto!</h2>
