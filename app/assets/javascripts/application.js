@@ -155,7 +155,3 @@ console.log('inside doTheGame in application.js')
 
      
 }
-
-    if ((currentUser !== 0) && (currentTurnstate !== currentUserColour)) {
-      $('#resign-btn').addClass('disabled');
-    }
