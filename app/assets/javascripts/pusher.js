@@ -11,16 +11,15 @@ var channel = pusher.subscribe('games');
 $(document).ready(function(){
   channel.bind('refresh_squares', function(data) {
    // console.log('newgame', data.test);
-   // $("#game-board").html(data.board_html)
+
    var game = data.gameid;
    var squares = data.board_html;
    var phase = data.phase;
    var turnstate = data.turnstate;
    var winnerName = data.winner_name
    var turn = data.turn
-   console.log('here is data.board_html')
-   console.log(data.board_html)
-   
+  
+
    if (game === parseInt(currentGame)) {
    gameActive = data.active;
    currentTurnstate = turnstate;
@@ -36,13 +35,18 @@ $(document).ready(function(){
     //   $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').addClass(squares[i].colour);
     //   $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').html("<span class='pieces'>"+ squares[i].height + "</span>");
     // }
-    $('#turn-phase').text("It is " + turnstate + "'s turn to " + phase);
+    if (turnstate === currentUserColour) {
+      console.log("In turnstate check");
+      $('#turn-phase').text("Your turn to " + phase);
+    }else{
+      $('#turn-phase').text("Waiting for opponent to " + phase);
+    }
 
     if (turn) {
       for(var i = 0; i < turn.actions.length; i ++){
         if (data.turn.actions[i].action_type === 'place') {
-          console.log("in pusher place")
-          var square_coords = data.turn.actions[0].coord
+          console.log("in pusher place");
+          var square_coords = data.turn.actions[0].coord;
             // for(var i=0; i < 25; i++){
             //     console.log(i);
             //     $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').removeClass('black white empty');
@@ -56,114 +60,114 @@ $(document).ready(function(){
             bloomer();
           }
         }else if (data.turn.actions[i].action_type === 'topple'){
-          console.log("in pusher topple ")
+          console.log("in pusher topple ");
           
-          var squareX = data.turn.actions[0].coord.x
-          var squareY = data.turn.actions[0].coord.y
-          var destinationX = turn.actions[0].destination_coords[0].x
-          var destinationY = turn.actions[0].destination_coords[0].y
+          var squareX = data.turn.actions[0].coord.x;
+          var squareY = data.turn.actions[0].coord.y;
+          var destinationX = turn.actions[0].destination_coords[0].x;
+          var destinationY = turn.actions[0].destination_coords[0].y;
 
 
-          var direction = getDirection({x: squareX, y: squareY} , {x: destinationX , y: destinationY})
+          var direction = getDirection({x: squareX, y: squareY} , {x: destinationX , y: destinationY});
 
           if (direction === 'right') {
-            console.log('right')
-            var counter = 1
-            var amountArray = [0, 140, 260, 380]
+            console.log('right');
+            var counter = 1;
+            var amountArray = [0, 140, 260, 380];
              while (counter <= 3) {
-              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
-             thing.addClass('fake-pieces')
+              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
+             thing.addClass('fake-pieces');
              thing.animate({ 
               left: "+=" + amountArray[counter]
               }, {
                 duration: 1000,
                 complete: function(){
                   if(turn.actions.length > 1){
-                    bloomer()
+                    bloomer();
                   }
                 }
-              })
-             counter += 1
+              });
+             counter += 1;
             }
 
             if(turn.actions.length === 1) { 
               setTimeout(function(){
-                changeGameBoard(squares)    
-              }, 2000)
+                changeGameBoard(squares);  
+              }, 2000);
             }
          }else if (direction === 'left') {
-            console.log('left')
+            console.log('left');
 
-            var counter = 1
-            var amountArray = [0, 240, 480, 720]
+            var counter = 1;
+            var amountArray = [0, 240, 480, 720];
             while (counter <= 3) {
-              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
-             thing.addClass('fake-pieces')
+              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
+             thing.addClass('fake-pieces');
              thing.animate({ 
               left: "-=" + amountArray[counter]
               }, {
                 duration: 1000,
                 complete: function(){
                   if(turn.actions.length > 1){
-                    bloomer()
+                    bloomer();
                   }
                 }
-              })
-             counter += 1
+              });
+             counter += 1;
            }
             if(turn.actions.length === 1) { 
               setTimeout(function(){
-                changeGameBoard(squares)    
-              }, 2000)
+                changeGameBoard(squares);
+              }, 2000);
             }
 
          }else if(direction === 'up') {
-            console.log('up')
-            var counter = 1
-            var amountArray = [0, 244, 485, 727]
+            console.log('up');
+            var counter = 1;
+            var amountArray = [0, 244, 485, 727];
             while (counter <= 3) {
-              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
-             thing.addClass('fake-pieces')
+              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
+             thing.addClass('fake-pieces');
              thing.animate({ 
               top: "-=" + amountArray[counter]
               }, {
                 duration: 1000,
                 complete: function(){
                   if(turn.actions.length > 1){
-                    bloomer()
+                    bloomer();
                   }
                 }
-              })
-             counter += 1
+              });
+             counter += 1;
            }
             if(turn.actions.length === 1) { 
               setTimeout(function(){
-                changeGameBoard(squares)    
-              }, 2000)
+                changeGameBoard(squares);
+              }, 2000);
             }
          }else{
-            console.log('down')
-            var counter = 1
-            var amountArray = [0, 242, 484, 726]
+            console.log('down');
+            var counter = 1;
+            var amountArray = [0, 242, 484, 726];
             while (counter <= 3) {
-              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
-             thing.addClass('fake-pieces')
+              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
+             thing.addClass('fake-pieces');
              thing.animate({ 
               "top" : "+=" + amountArray[counter]
               }, {
                 duration: 1000,
                 complete: function(){
                   if(turn.actions.length > 1){
-                    bloomer()
+                    bloomer();
                   }
                 }
-              })
-             counter += 1
+              });
+             counter += 1;
            }
             if(turn.actions.length === 1) { 
               setTimeout(function(){
-                changeGameBoard(squares)    
-              }, 2000)
+                changeGameBoard(squares);    
+              }, 2000);
             }
          }
         }
@@ -191,8 +195,8 @@ $(document).ready(function(){
 
 
   function createPieces(number){
-    x = "<span class='pieces'>" + number + "</span>"
-    return Array(number + 1).join(x)
+    x = "<span class='pieces'><p class='piece-numbers'>" + number + "</p></span>";
+    return Array(number + 1).join(x);
   }
 
      function getDirection(from_coords, to_coords){
@@ -212,10 +216,11 @@ $(document).ready(function(){
     console.log("in pusher bloom")
     var bloomArray = getArrayOfBlooms()
     
-    var superColour = turn.colour
+    var superColour = turn.colour;
     // changeGameBoard(squares)
     // to-do    handle the edge case where it's blooming off the side
     // to-do sometimes it blooms and ends up with a 4 stack
+
       for(var i = 0; i < bloomArray.length; i++) {
         var current = bloomArray[i]
         var adj = current.adjacent_squares
@@ -233,15 +238,11 @@ $(document).ready(function(){
           affectedSquaresBuild(adj[n].x,adj[n].y, adj[n].height, turn.colour)
         }
 
-        // var theAffectedSquares = [
-        //     {x: current.coord.x, y: current.coord.y, height: current.coord.height, colour: turn.colour},
-        //     {x: adj[0].x, y: adj[0].y, height: adj[0].height, colour: turn.colour},
-        //     {x: adj[1].x, y: adj[1].y, height: adj[1].height, colour: turn.colour},
-        //     {x: adj[2].x, y: adj[2].y, height: adj[2].height, colour: turn.colour},
-        //     {x: adj[3].x, y: adj[3].y, height: adj[3].height, colour: turn.colour}
-        // ]
-
         createBloomAnimation(bloomArray[i], 1000 * i, theAffectedSquares)
+        createFinalRefresh(1000 * bloomArray.length + 100)
+        // setTimeout(function{
+
+        // })
       }
   }
   
@@ -254,13 +255,19 @@ $(document).ready(function(){
     },time + 1000)
   }
 
+  function createFinalRefresh(time){
+     setTimeout(function(){
+         changeAffectedSquares(squares);
+    },time)
+  }
+
 
   function getArrayOfBlooms(){
     return turn.actions.filter(function(action){
           if(action.action_type === "bloom"){
-            return action
+            return action;
           }
-      })
+      });
   }
 
   function doOneBloom(bloomCoord){
@@ -270,7 +277,7 @@ $(document).ready(function(){
 
       console.log('bloomed on: ', squareX, squareY);
 
-      $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"]').append("<span class ='pieces'></span")
+      $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"]').append("<span class ='pieces'><p class='piece-numbers'>3</p></span")
 
      var counter = 1
       var directions = [0, "top", "top", "left", "left"]
@@ -292,13 +299,7 @@ $(document).ready(function(){
         }
        counter += 1
      }
-
-
    }
-
-
-
-
 
   }); //channel.bind
     
@@ -309,28 +310,3 @@ $(document).ready(function(){
 
 });//end document ready
 
-
-
-// $('.pieces').on('click',function(){
-//   $(this).animate({ 
-//      left: "+=50"
-//   }, 1000)
-// })
-
-
-
-
-// $('#info-div > h3.player-black').on('click',function(){
-//   var thing = $(this)
-//   console.log('a', thing)
-//   thing.animate({
-// 'font-size':  10 
-//   },{
-//   duration: 1000,
-//   complete: function(){
-//   thing.animate({
-//   'font-size' : 100
-// },500)
-// }
-// })
-// });

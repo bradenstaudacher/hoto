@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @games = Game.all
+    @games = Game.all.includes(:users)
   end
 
   # GET /games/1
@@ -94,14 +94,15 @@ class GamesController < ApplicationController
 # to-do   can all of the pusher logic be abstracted to a method
   def click_to_place 
     puts "this is the params id in place " + params[:id]
-    @the_right_game = Game.find(params[:id])
+    @the_right_game = Game.includes(:squares).find(params[:id])
     @current_square = @the_right_game.squares.where(x: params[:square_x], y: params[:square_y])[0]
-
     turn = @the_right_game.turn
+
     successful_place = @current_square.place(@the_right_game.turnstate, turn)
     if successful_place
       @updated_game = Game.find(params[:id])
       @winner_name = User.find(@updated_game.winner_id).name if !@updated_game.active
+
       Pusher['games'].trigger('refresh_squares', {
         :test => "placed square!",
         :board_html => @updated_game.squares,
@@ -175,6 +176,7 @@ class GamesController < ApplicationController
     @this_turnstate = @this_game.turnstate
     @winner_name = User.find(@this_game.winner_id).name if !@this_game.active
 
+
     Pusher['games'].trigger('refresh_squares', {
         :test => "end turn!",
         :board_html => @this_game.squares,
@@ -182,7 +184,7 @@ class GamesController < ApplicationController
         :turnstate => @this_game.turnstate,
         :gameid => @this_game.id,
         :active => @this_game.active,
-        :winner_name => @winner_name
+        :winner_name => @winner_name,
 
         })
     phase_and_turnstate = {phase: @this_game.phase, turnstate: @this_game.turnstate}
@@ -203,6 +205,7 @@ class GamesController < ApplicationController
     @this_game.winner_id = @this_game.users.where.not(id: params[:loser])[0].id
     @this_game.loser_id = params[:loser]
     @this_game.save
+
     Pusher['games'].trigger('refresh_squares', {
       :test => "end turn!",
       :board_html => @this_game.squares,

@@ -127,11 +127,15 @@ hr {
 .black span {
   background-color: black;
   color: white;
+  cursor: pointer; cursor: hand;
+
 }
 
 .white span{
   background-color: white;
   color: black;
+  cursor: pointer; cursor: hand;
+
 }
 
 .normal span {
@@ -139,6 +143,14 @@ hr {
 }
 .empty span {
   color: yellow;
+}
+
+.piece-numbers {
+  font-size: 210%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.game-square {
+  cursor: pointer; cursor: hand;
 }
 .pieces {
   display: block;
