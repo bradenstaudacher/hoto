@@ -122,3 +122,83 @@ user_counter3 = 4
   user_counter3 += 1
 end
 
+################# Crazy Blooms ##############XXXxXXXXX
+
+rand_colour_array = ["black","white"]
+game_id_counter4 = 13
+user_counter4 = 4
+3.times do 
+  
+  Game.create(turnstate: "white", active: true, phase: 'place', moves_counter: 100)
+  counter = 1
+
+  while counter <= 5
+    i = 1
+    while i <= 5
+      # rand_height = rand(4)
+      # if rand_height == 0
+      #   rand_colour = "empty"
+      # else
+        rand_colour = rand_colour_array.sample
+      # end
+      puts "i done did make a square!!"
+      Square.create(x: i, y: counter, height: 3, game_id: game_id_counter4, colour: rand_colour)
+      i += 1
+    end
+    counter += 1
+  end
+  Game.find(game_id_counter4).users << User.find(1)
+  p = GamesUser.where(game_id: game_id_counter4).where(user_id: 1)[0]
+  p.colour = 'white'
+  p.save
+
+  Game.find(game_id_counter4).users << User.find(2)
+  n = GamesUser.where(game_id: game_id_counter4).where(user_id: 2)[0]
+  n.colour = 'black'
+  n.save
+
+  game_id_counter4 += 1
+  user_counter4 += 1
+end
+
+
+# ########### nine middle squares are bloomable  #######################
+
+2.times do
+qq = Game.create(turnstate: "white", active: true, phase: 'place', moves_counter: 100)
+rand_colour_array = ["black","white"]
+  counter = 1
+  
+   while counter <= 5
+    i = 1
+    while i <= 5
+      # rand_height = rand(4)
+      # if rand_height == 0
+      #   rand_colour = "empty"
+      # else
+        rand_colour = rand_colour_array.sample
+      # end
+      puts "i done did make a square!!"
+      Square.create(x: i, y: counter, height: 0, game_id: qq.id, colour: rand_colour)
+      i += 1
+    end
+    counter += 1
+  end
+  these_squares = qq.squares
+  these_squares.each do |squarey|
+    if squarey.x > 1 && squarey.x < 5 && squarey.y > 1 && squarey.y < 5
+      squarey.update(height: 3)
+    end
+  end
+
+  Game.find(qq.id).users << User.find(1)
+  p = GamesUser.where(game_id: qq.id).where(user_id: User.find(1).id)[0]
+  p.colour = 'white'
+  p.save
+
+  Game.find(qq.id).users << User.find(2)
+  n = GamesUser.where(game_id: qq.id).where(user_id: User.find(2).id)[0]
+  n.colour = 'black'
+  n.save
+
+end

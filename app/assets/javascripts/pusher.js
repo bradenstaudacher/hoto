@@ -11,15 +11,14 @@ var channel = pusher.subscribe('games');
 $(document).ready(function(){
   channel.bind('refresh_squares', function(data) {
    // console.log('newgame', data.test);
-   // $("#game-board").html(data.board_html);
-   // debugger;
-   var squares = data.board_html;
+
    var game = data.gameid;
+   var squares = data.board_html;
    var phase = data.phase;
    var turnstate = data.turnstate;
-   var winnerName = data.winner_name;
-   var turn = data.turn;
-
+   var winnerName = data.winner_name
+   var turn = data.turn
+  
 
    if (game === parseInt(currentGame)) {
    gameActive = data.active;
@@ -178,7 +177,16 @@ $(document).ready(function(){
 
     }
   function changeGameBoard(squares){  
-     for(var i=0; i < 25; i++){
+     for(var i = 0; i < squares.length ; i++){
+      $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y +'"]').removeClass('black white empty');
+      $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y +'"]').addClass(squares[i].colour);
+      $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y +'"]').html(createPieces(squares[i].height));
+    }
+  }
+
+  function changeAffectedSquares(squares){
+    // var affectedSquares = [{x:1,y:2},[x: 3,y: 5],[x: 5,y: 6]]     Have an array of affect squares
+    for(var i = 0; i < squares.length; i ++){
       $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').removeClass('black white empty');
       $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').addClass(squares[i].colour);
       $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').html(createPieces(squares[i].height));
@@ -205,83 +213,52 @@ $(document).ready(function(){
   }
 
   function bloomer() {
-    console.log("in pusher bloom");
-          // debugger
-    var bloomArray = getArrayOfBlooms();
+    console.log("in pusher bloom")
+    var bloomArray = getArrayOfBlooms()
     
     var superColour = turn.colour;
-    // var that = this;
+    // changeGameBoard(squares)
+    // to-do    handle the edge case where it's blooming off the side
+    // to-do sometimes it blooms and ends up with a 4 stack
 
       for(var i = 0; i < bloomArray.length; i++) {
-        // console.log('in the for loop bloomArray i s coords', bloomArray[i].coords)
-        //      down up left right
-            // setTimeout(function(){
-       // var bloomCoord = bloomArray[i]
+        var current = bloomArray[i]
+        var adj = current.adjacent_squares
 
-       // var first = bloomArray[0]
-       // var second = bloomArray[1]
-       
 
-       // var callback = function(bloomCoord){
-       //   console.log('setTimeout', bloomCoord)
-       //    // console.log('bloomArray[i] in setTimeout', that.bloomArray[i])
-       //    doOneBloom(bloomCoord)
-       // }
-       // .bind(this);
-
-        // setTimeout(doOneBloom.bind(this,bloomCoord), 1000 * i);
-
-          // doOneBloom(first)
+        var theAffectedSquares = [{x: current.coord.x, y: current.coord.y, height: current.coord.height, colour: turn.colour}]
+      
+        function affectedSquaresBuild(x,y,height, colour){
+          if (!(x > 5 || x < 1 || y > 5 || y < 1)){
+            theAffectedSquares.push({x: x, y: y, height: height, colour: colour})
+          } 
+        }
         
-        // setTimeout(function(){
-        //   doOneBloom(second)
-        // },2000)
+        for (var n = 0; n < adj.length; n++){
+          affectedSquaresBuild(adj[n].x,adj[n].y, adj[n].height, turn.colour)
+        }
 
-        createBloomAnimation(bloomArray[i], 1000 * i);
-        
+        createBloomAnimation(bloomArray[i], 1000 * i, theAffectedSquares)
+        createFinalRefresh(1000 * bloomArray.length + 100)
+        // setTimeout(function{
 
+        // })
       }
-    // var squareX = bloomArray[i].coord.x
-    //   var squareY = bloomArray[i].coord.y
-
-    //   console.log('bloomed on: ', squareX, squareY);
-
-    //   $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"]').append("<span class ='pieces'></span")
-
-    //  var counter = 1
-    //   var directions = [0, "top", "top", "left", "left"]
-
-    //   var amountArray = [0, "+=242", "-=244", "-=240", "+=140"]
-
-    //   while (counter <= 4) {
-    //     var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
-    //    thing.addClass('fake-pieces')
-    //    console.log('thing is equal to : ', thing);
-    //    if (directions[counter] === "top") {
-    //       thing.animate({ 
-    //           "top" : amountArray[counter]
-    //       }, 1000)
-    //     } else {
-    //         thing.animate({ 
-    //           "left" : amountArray[counter]
-    //       },1000)
-    //     }
-    //    counter += 1
-    //  
-          // }, 1200 * (i))
-            // can you settimeout with 0 ???? setTimeout
-      // }
-      setTimeout(function(){
-         changeGameBoard(squares);
-        
-      }, 1250 * bloomArray.length);
   }
   
-  function createBloomAnimation(coord, time){
+  function createBloomAnimation(coord, time, squares){
     setTimeout(function(){
-    doOneBloom(coord);
-    },time);
-    
+      doOneBloom(coord)
+    },time + 100)
+     setTimeout(function(){
+         changeAffectedSquares(squares);
+    },time + 1000)
+  }
+
+  function createFinalRefresh(time){
+     setTimeout(function(){
+         changeAffectedSquares(squares);
+    },time)
   }
 
 
@@ -294,35 +271,35 @@ $(document).ready(function(){
   }
 
   function doOneBloom(bloomCoord){
-    console.log('bloomArray[i] in doOneBloom', bloomCoord);
-    var squareX = bloomCoord.coord.x;
-    var squareY = bloomCoord.coord.y;
+    console.log('bloomArray[i] in doOneBloom', bloomCoord)
+   var squareX = bloomCoord.coord.x
+      var squareY = bloomCoord.coord.y
 
-    console.log('bloomed on: ', squareX, squareY);
+      console.log('bloomed on: ', squareX, squareY);
 
+      $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"]').append("<span class ='pieces'><p class='piece-numbers'>3</p></span")
 
-    var counter = 1;
-    $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"]').append("<span class ='pieces'><p class='piece-numbers'>3</p></span");
-    var directions = [0, "top", "top", "left", "left"];
+     var counter = 1
+      var directions = [0, "top", "top", "left", "left"]
 
-    var amountArray = [0, "+=242", "-=244", "-=240", "+=140"];
+      var amountArray = [0, "+=242", "-=244", "-=240", "+=140"]
 
-    while (counter <= 4) {
-      var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
-      thing.addClass('fake-pieces');
-      // console.log('thing is equal to : ', thing);
-      if (directions[counter] === "top") {
-        thing.animate({ 
-          "top" : amountArray[counter]
-        }, 1000);
-      } else {
-        thing.animate({ 
-          "left" : amountArray[counter]
-        },1000);
-      }
-      counter += 1;
-    }
-  }
+      while (counter <= 4) {
+        var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
+       thing.addClass('fake-pieces')
+       // console.log('thing is equal to : ', thing);
+       if (directions[counter] === "top") {
+          thing.animate({ 
+              "top" : amountArray[counter]
+          }, 900)
+        } else {
+            thing.animate({ 
+              "left" : amountArray[counter]
+          },900)
+        }
+       counter += 1
+     }
+   }
 
   }); //channel.bind
     
@@ -333,28 +310,3 @@ $(document).ready(function(){
 
 });//end document ready
 
-
-
-// $('.pieces').on('click',function(){
-//   $(this).animate({ 
-//      left: "+=50"
-//   }, 1000)
-// })
-
-
-
-
-// $('#info-div > h3.player-black').on('click',function(){
-//   var thing = $(this)
-//   console.log('a', thing)
-//   thing.animate({
-// 'font-size':  10 
-//   },{
-//   duration: 1000,
-//   complete: function(){
-//   thing.animate({
-//   'font-size' : 100
-// },500)
-// }
-// })
-// });
