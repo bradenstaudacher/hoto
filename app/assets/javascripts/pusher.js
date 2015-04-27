@@ -295,40 +295,34 @@ $(document).ready(function(){
 
   function doOneBloom(bloomCoord){
     console.log('bloomArray[i] in doOneBloom', bloomCoord);
-   var squareX = bloomCoord.coord.x;
-      var squareY = bloomCoord.coord.y;
+    var squareX = bloomCoord.coord.x;
+    var squareY = bloomCoord.coord.y;
 
-      console.log('bloomed on: ', squareX, squareY);
-
-      $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"]').append("<span class ='pieces'></span");
-
-     var counter = 1;
-      var directions = [0, "top", "top", "left", "left"];
-
-      var amountArray = [0, "+=242", "-=244", "-=240", "+=140"];
-
-      while (counter <= 4) {
-        var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
-       thing.addClass('fake-pieces');
-       // console.log('thing is equal to : ', thing);
-       if (directions[counter] === "top") {
-          thing.animate({ 
-              "top" : amountArray[counter]
-          }, 1000);
-        } else {
-            thing.animate({ 
-              "left" : amountArray[counter]
-          },1000);
-        }
-       counter += 1;
-     }
+    console.log('bloomed on: ', squareX, squareY);
 
 
-   }
+    var counter = 1;
+    $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"]').append("<span class ='pieces'><p class='piece-numbers'>3</p></span");
+    var directions = [0, "top", "top", "left", "left"];
 
+    var amountArray = [0, "+=242", "-=244", "-=240", "+=140"];
 
-
-
+    while (counter <= 4) {
+      var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
+      thing.addClass('fake-pieces');
+      // console.log('thing is equal to : ', thing);
+      if (directions[counter] === "top") {
+        thing.animate({ 
+          "top" : amountArray[counter]
+        }, 1000);
+      } else {
+        thing.animate({ 
+          "left" : amountArray[counter]
+        },1000);
+      }
+      counter += 1;
+    }
+  }
 
   }); //channel.bind
     
