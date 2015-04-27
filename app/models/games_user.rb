@@ -5,7 +5,6 @@ class GamesUser < ActiveRecord::Base
   class << self
 
     def update_elos(game_id)
-      binding.pry
       winner = User.find(Game.find(game_id).winner_id)
       loser = User.find(Game.find(game_id).loser_id)
 
@@ -38,16 +37,16 @@ class GamesUser < ActiveRecord::Base
         when (0..9).include?(l_games_played)
           k_factor_loser = 40
       end
-      
-      binding.pry
-      
+            
       elo_adjustment_winner = k_factor_winner * ( 1 - expected_outcome_winner )
       elo_adjustment_loser = k_factor_loser * ( 0 - expected_outcome_loser )
-
+      binding.pry
       winner.current_rating += elo_adjustment_winner
+      EloChange.create(user_id: Game.find(game_id).winner_id, change: elo_adjustment_winner)
       winner.save
         
       loser.current_rating += elo_adjustment_loser
+      EloChange.create(user_id: Game.find(game_id).loser_id, change: elo_adjustment_loser)
       loser.save
 
     end
