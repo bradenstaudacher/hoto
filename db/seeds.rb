@@ -202,3 +202,80 @@ rand_colour_array = ["black","white"]
   n.save
 
 end
+# ################################ Outside Squares are bloomable #############
+ff = Game.create(turnstate: "white", active: true, phase: 'place', moves_counter: 100)
+rand_colour_array = ["black","white"]
+  counter = 1
+  
+   while counter <= 5
+    i = 1
+    while i <= 5
+      # rand_height = rand(4)
+      # if rand_height == 0
+      #   rand_colour = "empty"
+      # else
+        rand_colour = rand_colour_array.sample
+      # end
+      puts "i done did make a square!!"
+      Square.create(x: i, y: counter, height: 0, game_id: ff.id, colour: rand_colour)
+      i += 1
+    end
+    counter += 1
+  end
+  these_squares = ff.squares
+  these_squares.each do |squarey|
+    if squarey.y == 1 || squarey.y == 5 || squarey.x == 1 || squarey.x == 5
+      squarey.update(height: 3)
+    end
+  end
+
+  Game.find(ff.id).users << User.find(1)
+  p = GamesUser.where(game_id: ff.id).where(user_id: User.find(1).id)[0]
+  p.colour = 'white'
+  p.save
+
+  Game.find(ff.id).users << User.find(2)
+  n = GamesUser.where(game_id: ff.id).where(user_id: User.find(2).id)[0]
+  n.colour = 'black'
+  n.save
+
+
+############# 5 middle squares bloomable
+ff = Game.create(turnstate: "white", active: true, phase: 'place', moves_counter: 100)
+rand_colour_array = ["black","white"]
+  counter = 1
+  
+   while counter <= 5
+    i = 1
+    while i <= 5
+      # rand_height = rand(4)
+      # if rand_height == 0
+      #   rand_colour = "empty"
+      # else
+        rand_colour = rand_colour_array.sample
+      # end
+      puts "i done did make a square!!"
+      Square.create(x: i, y: counter, height: 0, game_id: ff.id, colour: rand_colour)
+      i += 1
+    end
+    counter += 1
+  end
+  these_squares = ff.squares
+  these_squares.each do |squarey|
+      Square.where(game_id: ff.id).where(x: 3).where(y: 3)[0].update(height: 3)
+      Square.where(game_id: ff.id).where(x: 2).where(y: 3)[0].update(height: 3)
+      Square.where(game_id: ff.id).where(x: 4).where(y: 3)[0].update(height: 3)
+      Square.where(game_id: ff.id).where(x: 3).where(y: 2)[0].update(height: 3)
+      Square.where(game_id: ff.id).where(x: 3).where(y: 4)[0].update(height: 3)
+  end
+
+  Game.find(ff.id).users << User.find(1)
+  p = GamesUser.where(game_id: ff.id).where(user_id: User.find(1).id)[0]
+  p.colour = 'white'
+  p.save
+
+  Game.find(ff.id).users << User.find(2)
+  n = GamesUser.where(game_id: ff.id).where(user_id: User.find(2).id)[0]
+  n.colour = 'black'
+  n.save
+
