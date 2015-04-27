@@ -11,14 +11,14 @@ var channel = pusher.subscribe('games');
 $(document).ready(function(){
   channel.bind('refresh_squares', function(data) {
    // console.log('newgame', data.test);
-   // $("#game-board").html(data.board_html)
+   // $("#game-board").html(data.board_html);
    // debugger;
    var squares = data.board_html;
    var game = data.gameid;
    var phase = data.phase;
    var turnstate = data.turnstate;
-   var winnerName = data.winner_name
-   var turn = data.turn
+   var winnerName = data.winner_name;
+   var turn = data.turn;
 
 
    if (game === parseInt(currentGame)) {
@@ -37,7 +37,7 @@ $(document).ready(function(){
     //   $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').html("<span class='pieces'>"+ squares[i].height + "</span>");
     // }
     if (turnstate === currentUserColour) {
-      console.log("In turnstate check")
+      console.log("In turnstate check");
       $('#turn-phase').text("Your turn to " + phase);
     }else{
       $('#turn-phase').text("Waiting for opponent to " + phase);
@@ -46,8 +46,8 @@ $(document).ready(function(){
     if (turn) {
       for(var i = 0; i < turn.actions.length; i ++){
         if (data.turn.actions[i].action_type === 'place') {
-          console.log("in pusher place")
-          var square_coords = data.turn.actions[0].coord
+          console.log("in pusher place");
+          var square_coords = data.turn.actions[0].coord;
             // for(var i=0; i < 25; i++){
             //     console.log(i);
             //     $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').removeClass('black white empty');
@@ -61,114 +61,114 @@ $(document).ready(function(){
             bloomer();
           }
         }else if (data.turn.actions[i].action_type === 'topple'){
-          console.log("in pusher topple ")
+          console.log("in pusher topple ");
           
-          var squareX = data.turn.actions[0].coord.x
-          var squareY = data.turn.actions[0].coord.y
-          var destinationX = turn.actions[0].destination_coords[0].x
-          var destinationY = turn.actions[0].destination_coords[0].y
+          var squareX = data.turn.actions[0].coord.x;
+          var squareY = data.turn.actions[0].coord.y;
+          var destinationX = turn.actions[0].destination_coords[0].x;
+          var destinationY = turn.actions[0].destination_coords[0].y;
 
 
-          var direction = getDirection({x: squareX, y: squareY} , {x: destinationX , y: destinationY})
+          var direction = getDirection({x: squareX, y: squareY} , {x: destinationX , y: destinationY});
 
           if (direction === 'right') {
-            console.log('right')
-            var counter = 1
-            var amountArray = [0, 140, 260, 380]
+            console.log('right');
+            var counter = 1;
+            var amountArray = [0, 140, 260, 380];
              while (counter <= 3) {
-              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
-             thing.addClass('fake-pieces')
+              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
+             thing.addClass('fake-pieces');
              thing.animate({ 
               left: "+=" + amountArray[counter]
               }, {
                 duration: 1000,
                 complete: function(){
                   if(turn.actions.length > 1){
-                    bloomer()
+                    bloomer();
                   }
                 }
-              })
-             counter += 1
+              });
+             counter += 1;
             }
 
             if(turn.actions.length === 1) { 
               setTimeout(function(){
-                changeGameBoard(squares)    
-              }, 2000)
+                changeGameBoard(squares);  
+              }, 2000);
             }
          }else if (direction === 'left') {
-            console.log('left')
+            console.log('left');
 
-            var counter = 1
-            var amountArray = [0, 240, 480, 720]
+            var counter = 1;
+            var amountArray = [0, 240, 480, 720];
             while (counter <= 3) {
-              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
-             thing.addClass('fake-pieces')
+              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
+             thing.addClass('fake-pieces');
              thing.animate({ 
               left: "-=" + amountArray[counter]
               }, {
                 duration: 1000,
                 complete: function(){
                   if(turn.actions.length > 1){
-                    bloomer()
+                    bloomer();
                   }
                 }
-              })
-             counter += 1
+              });
+             counter += 1;
            }
             if(turn.actions.length === 1) { 
               setTimeout(function(){
-                changeGameBoard(squares)    
-              }, 2000)
+                changeGameBoard(squares);
+              }, 2000);
             }
 
          }else if(direction === 'up') {
-            console.log('up')
-            var counter = 1
-            var amountArray = [0, 244, 485, 727]
+            console.log('up');
+            var counter = 1;
+            var amountArray = [0, 244, 485, 727];
             while (counter <= 3) {
-              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
-             thing.addClass('fake-pieces')
+              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
+             thing.addClass('fake-pieces');
              thing.animate({ 
               top: "-=" + amountArray[counter]
               }, {
                 duration: 1000,
                 complete: function(){
                   if(turn.actions.length > 1){
-                    bloomer()
+                    bloomer();
                   }
                 }
-              })
-             counter += 1
+              });
+             counter += 1;
            }
             if(turn.actions.length === 1) { 
               setTimeout(function(){
-                changeGameBoard(squares)    
-              }, 2000)
+                changeGameBoard(squares);
+              }, 2000);
             }
          }else{
-            console.log('down')
-            var counter = 1
-            var amountArray = [0, 242, 484, 726]
+            console.log('down');
+            var counter = 1;
+            var amountArray = [0, 242, 484, 726];
             while (counter <= 3) {
-              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
-             thing.addClass('fake-pieces')
+              var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
+             thing.addClass('fake-pieces');
              thing.animate({ 
               "top" : "+=" + amountArray[counter]
               }, {
                 duration: 1000,
                 complete: function(){
                   if(turn.actions.length > 1){
-                    bloomer()
+                    bloomer();
                   }
                 }
-              })
-             counter += 1
+              });
+             counter += 1;
            }
             if(turn.actions.length === 1) { 
               setTimeout(function(){
-                changeGameBoard(squares)    
-              }, 2000)
+                changeGameBoard(squares);    
+              }, 2000);
             }
          }
         }
@@ -187,8 +187,8 @@ $(document).ready(function(){
 
 
   function createPieces(number){
-    x = "<span class='pieces'>" + number + "</span>"
-    return Array(number + 1).join(x)
+    x = "<span class='pieces'><p class='piece-numbers'>" + number + "</p></span>";
+    return Array(number + 1).join(x);
   }
 
      function getDirection(from_coords, to_coords){
@@ -205,11 +205,11 @@ $(document).ready(function(){
   }
 
   function bloomer() {
-    console.log("in pusher bloom")
+    console.log("in pusher bloom");
           // debugger
-    var bloomArray = getArrayOfBlooms()
+    var bloomArray = getArrayOfBlooms();
     
-    var superColour = turn.colour
+    var superColour = turn.colour;
     // var that = this;
 
       for(var i = 0; i < bloomArray.length; i++) {
@@ -237,7 +237,7 @@ $(document).ready(function(){
         //   doOneBloom(second)
         // },2000)
 
-        createBloomAnimation(bloomArray[i], 1000 * i)
+        createBloomAnimation(bloomArray[i], 1000 * i);
         
 
       }
@@ -279,8 +279,8 @@ $(document).ready(function(){
   
   function createBloomAnimation(coord, time){
     setTimeout(function(){
-    doOneBloom(coord)
-    },time)
+    doOneBloom(coord);
+    },time);
     
   }
 
@@ -288,47 +288,41 @@ $(document).ready(function(){
   function getArrayOfBlooms(){
     return turn.actions.filter(function(action){
           if(action.action_type === "bloom"){
-            return action
+            return action;
           }
-      })
+      });
   }
 
   function doOneBloom(bloomCoord){
-    console.log('bloomArray[i] in doOneBloom', bloomCoord)
-   var squareX = bloomCoord.coord.x
-      var squareY = bloomCoord.coord.y
+    console.log('bloomArray[i] in doOneBloom', bloomCoord);
+    var squareX = bloomCoord.coord.x;
+    var squareY = bloomCoord.coord.y;
 
-      console.log('bloomed on: ', squareX, squareY);
-
-      $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"]').append("<span class ='pieces'></span")
-
-     var counter = 1
-      var directions = [0, "top", "top", "left", "left"]
-
-      var amountArray = [0, "+=242", "-=244", "-=240", "+=140"]
-
-      while (counter <= 4) {
-        var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')')
-       thing.addClass('fake-pieces')
-       // console.log('thing is equal to : ', thing);
-       if (directions[counter] === "top") {
-          thing.animate({ 
-              "top" : amountArray[counter]
-          }, 1000)
-        } else {
-            thing.animate({ 
-              "left" : amountArray[counter]
-          },1000)
-        }
-       counter += 1
-     }
+    console.log('bloomed on: ', squareX, squareY);
 
 
-   }
+    var counter = 1;
+    $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"]').append("<span class ='pieces'><p class='piece-numbers'>3</p></span");
+    var directions = [0, "top", "top", "left", "left"];
 
+    var amountArray = [0, "+=242", "-=244", "-=240", "+=140"];
 
-
-
+    while (counter <= 4) {
+      var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
+      thing.addClass('fake-pieces');
+      // console.log('thing is equal to : ', thing);
+      if (directions[counter] === "top") {
+        thing.animate({ 
+          "top" : amountArray[counter]
+        }, 1000);
+      } else {
+        thing.animate({ 
+          "left" : amountArray[counter]
+        },1000);
+      }
+      counter += 1;
+    }
+  }
 
   }); //channel.bind
     
