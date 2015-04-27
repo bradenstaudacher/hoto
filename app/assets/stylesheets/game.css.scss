@@ -135,7 +135,7 @@ hr {
   background-color: white;
   color: black;
   cursor: pointer; cursor: hand;
-  
+
 }
 
 .normal span {
@@ -143,6 +143,11 @@ hr {
 }
 .empty span {
   color: yellow;
+}
+
+.piece-numbers {
+  font-size: 210%;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .pieces {
   display: block;

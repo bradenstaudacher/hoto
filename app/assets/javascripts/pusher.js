@@ -187,7 +187,7 @@ $(document).ready(function(){
 
 
   function createPieces(number){
-    x = "<span class='pieces'>" + number + "</span>";
+    x = "<span class='pieces'><p class='piece-numbers'>" + number + "</p></span>";
     return Array(number + 1).join(x);
   }
 
