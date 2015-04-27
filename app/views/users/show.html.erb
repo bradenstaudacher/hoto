@@ -60,6 +60,8 @@
   </tbody>
 </table>
 
+
+<% if @inactive_games.length > 0 %>
 <table class="table table-striped table-hover header-fixed user-games" style="width: 75%;">
 
   <h4 class="user-games">Past Games</h4>
@@ -82,13 +84,15 @@
           <td><%= link_to 'View', game %> </td>
 
 
+
+        <% end %>
+
+      </tr>
       <% end %>
 
-    </tr>
-    <% end %>
 
-
-  </tbody>
-</table>
+    </tbody>
+  </table>
+<% end %>
 
 

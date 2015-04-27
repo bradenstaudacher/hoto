@@ -17,6 +17,19 @@ User.create(name: "gamorhod", games_played: 4, games_won: 1, email: "gamo@dog.co
 User.create(name: "lodki", games_played: 1, games_won: 0, email: "lmanswan@dog.com", current_rating: 823, password: "testes", password_confirmation: "testes")
 User.create(name: "codman", games_played: 3, games_won: 0, email: "codman@dog.com", current_rating: 1450, password: "testes", password_confirmation: "testes")
 
+
+########################### ELO ###########################
+userc = 1
+8.times do
+  changec = rand(15) + rand(20)
+  EloChange.create(user_id: userc, change: changec)
+  changec = rand(15) + rand(20)
+  EloChange.create(user_id: userc, change: changec)
+  changec = rand(15) + rand(20)
+  EloChange.create(user_id: userc, change: changec)
+  userc += 1
+end
+
 ########################### GAMES TO SPECTATE ###########################
 rand_colour_array = ["black","white"]
 game_id_counter = 1
@@ -57,9 +70,10 @@ end
 
 game_id_counter2 = 6
 user_counter2 = 3
+x = Time.now
 5.times do 
   
-  Game.create(turnstate: "white", active: true, phase: 'place', moves_counter: 0, created_at: Time.now - (rand(6) * rand(100) * 10))
+  Game.create(turnstate: "white", active: true, phase: 'place', moves_counter: 0, created_at: x - (rand(6) * rand(100) * 10))
   counter = 1
 
   while counter <= 5
