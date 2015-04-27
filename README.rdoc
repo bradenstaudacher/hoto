@@ -1,7 +1,6 @@
 == HOTO
 
-An online board game where game pieces can be stacked and the height of said stack dictates how they move.
-Capture all of your opponent's pieces to win.
+Capture all of your opponent's pieces to win!
 
 * Ruby version 2.1.3
 
