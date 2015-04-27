@@ -27,10 +27,13 @@
 
 #navbar{
   display: inline-block;
-  margin-left: 60%;
+  margin-left: 56%;
   width: 20%;
-  h5 a{
+  h4 a{
     margin-left: 2%;
   }
 }
 
+#navbar h4{
+  font-size: 1em;
+}
