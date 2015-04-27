@@ -220,6 +220,21 @@ hr {
     float: left;
 }
 
+.header-fixed > .statistics > tr > td,
+.header-fixed > .statistics > tr > th {
+    width: 33.33%;
+
+}
+
+.header-fixed > .activegames > tr > td,
+.header-fixed > .activegames > tr > th {
+    width: 16.66%%;
+}
+
+.header-fixed > .pastgames > tr > td,
+.header-fixed > .pastgames > tr > th {
+    width: 20%;
+}
 /*#join-game-list > .header-fixed > tbody > tr > td,
 #join-game-list > .header-fixed > thead > tr > th {
  
@@ -228,7 +243,5 @@ hr {
 }*/
 .game-list > .header-fixed > tbody > tr > td,
 .game-list > .header-fixed > thead > tr > th {
- 
     width: 33%;
-
 }
