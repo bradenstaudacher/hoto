@@ -205,6 +205,7 @@ class GamesController < ApplicationController
     @this_game.winner_id = @this_game.users.where.not(id: params[:loser])[0].id
     @this_game.loser_id = params[:loser]
     @this_game.save
+    GamesUser.update_elos(@this_game, @this_game.winner_id)
 
     Pusher['games'].trigger('refresh_squares', {
       :test => "end turn!",

@@ -5,35 +5,37 @@ class GamesUser < ActiveRecord::Base
   class << self
 
     def update_elos(game_id, player_id)
-      # winner = Game.find(game_id).winner_id
-      # opponent_id = GamesUser.where(game_id: game_id).select {|gamerecord| gamerecord.user_id != player_id}[0].user_id
-      # old_own_elo = GamesUser.where(game_id: game_id, user_id: id)[0].previous_rating
-      # old_opponent_elo = GamesUser.where(game_id: game_id).select {|gamerecord| gamerecord.user_id != player_id}[0].previous_rating
-      # current_own = User.find(player_id)
-      # current_opponent = User.find(opponent_id)
-      # elo_diff_for_self = old_own_elo - old_opponent_elo
-      # expected_outcome = calculate_expected_outcome(elo_diff_for_self)
-      # k_factor = 40
-
-      # if player_id == winner
-      #   elo_adjustment_self = k_factor * ( 1 – expected_outcome )
-      #   elo_adjustment_opponent = -elo_adjustment_self
-
-      #   current_own.current_rating += elo_adjustment_self
-      #   current_own.save
+      binding.pry
+      winner = Game.find(game_id).winner_id
+      opponent_id = GamesUser.where(game_id: game_id).select {|gamerecord| gamerecord.user_id != player_id}[0].user_id
+      old_own_elo = GamesUser.where(game_id: game_id, user_id: player_id)[0].previous_rating
+      old_opponent_elo = GamesUser.where(game_id: game_id).select {|gamerecord| gamerecord.user_id != player_id}[0].previous_rating
+      current_own = User.find(player_id)
+      current_opponent = User.find(opponent_id)
+      elo_diff_for_self = old_own_elo - old_opponent_elo
+      expected_outcome = calculate_expected_outcome(elo_diff_for_self)
+      k_factor = 40
+      binding.pry
+      if player_id == winner
+        elo_adjustment_self = k_factor * ( 1 - expected_outcome )
+        elo_adjustment_opponent = -elo_adjustment_self
+        binding.pry
+        current_own.current_rating += elo_adjustment_self
+        current_own.save
         
-      #   current_opponent.current_rating += elo_adjustment_opponent
-      #   current_opponent.save
-      # else
-      #   elo_adjustment_self = k_factor * ( 0 – expected_outcome )
-      #   elo_adjustment_opponent = -elo_adjustment_self
+        current_opponent.current_rating += elo_adjustment_opponent
+        current_opponent.save
+      else
+        binding.pry
+        elo_adjustment_self = k_factor * ( 0 - expected_outcome )
+        elo_adjustment_opponent = -elo_adjustment_self
 
-      #   current_own.current_rating += elo_adjustment_self
-      #   current_own.save
+        current_own.current_rating += elo_adjustment_self
+        current_own.save
 
-      #   current_opponent.current_rating += elo_adjustment_opponent
-      #   current_opponent.save
-      # end
+        current_opponent.current_rating += elo_adjustment_opponent
+        current_opponent.save
+      end
       
     end
 
@@ -41,18 +43,18 @@ class GamesUser < ActiveRecord::Base
       case
       when elo_diff_for_self < -800
         return 0.0
-      when (-677..-799).include?(elo_diff_for_self)
+      when (-799..-677).include?(elo_diff_for_self)
         return 0.01
-      when (-366..-676).include?(elo_diff_for_self)
-        return 0.0
-      when (-240..-365).include?(elo_diff_for_self)
-        return 0.0
-      when (-149..-239).include?(elo_diff_for_self)
-        return 0.0
-      when (-72..-148).include?(elo_diff_for_self)
-        return 0.0
+      when (-676..-366).include?(elo_diff_for_self)
+        return 0.1
+      when (-365..-240).include?(elo_diff_for_self)
+        return 0.2
+      when (-239..-149).include?(elo_diff_for_self)
+        return 0.3
+      when (-148..-72).include?(elo_diff_for_self)
+        return 0.4
       when (-71..71).include?(elo_diff_for_self)
-        return 0.0
+        return 0.5
       when elo_diff_for_self > 800
         return 1.0
       when (677..799).include?(elo_diff_for_self)
@@ -72,6 +74,7 @@ class GamesUser < ActiveRecord::Base
       Game.find(game_id).users << User.find(player_id)
       join = GamesUser.where(game_id: game_id).where(user_id: player_id)[0]
       join.colour = 'white'
+      join.previous_rating = User.find(player_id).current_rating
       join.save
     end
 
@@ -79,6 +82,7 @@ class GamesUser < ActiveRecord::Base
       Game.find(game_id).users << User.find(player_id)
       join = GamesUser.where(game_id: game_id).where(user_id: player_id)[0]
       join.colour = 'black'
+      join.previous_rating = User.find(player_id).current_rating
       join.save
     end
 
