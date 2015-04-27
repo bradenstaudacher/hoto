@@ -179,7 +179,7 @@ rand_colour_array = ["black","white"]
         rand_colour = rand_colour_array.sample
       # end
       puts "i done did make a square!!"
-      Square.create(x: i, y: counter, height: 0, game_id: qq.id, colour: rand_colour)
+      Square.create(x: i, y: counter, height: 0, game_id: qq.id, colour: 'empty')
       i += 1
     end
     counter += 1
@@ -217,7 +217,7 @@ rand_colour_array = ["black","white"]
         rand_colour = rand_colour_array.sample
       # end
       puts "i done did make a square!!"
-      Square.create(x: i, y: counter, height: 0, game_id: ff.id, colour: rand_colour)
+      Square.create(x: i, y: counter, height: 0, game_id: ff.id, colour: 'empty')
       i += 1
     end
     counter += 1
@@ -255,7 +255,7 @@ rand_colour_array = ["black","white"]
         rand_colour = rand_colour_array.sample
       # end
       puts "i done did make a square!!"
-      Square.create(x: i, y: counter, height: 0, game_id: ff.id, colour: rand_colour)
+      Square.create(x: i, y: counter, height: 0, game_id: ff.id, colour: 'empty')
       i += 1
     end
     counter += 1
