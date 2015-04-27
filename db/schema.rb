@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20150426235734) do
     t.datetime "updated_at"
   end
 
-
   create_table "games", force: true do |t|
     t.string   "turnstate"
     t.datetime "created_at"
