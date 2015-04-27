@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @inactive_games = @user.games.where(active: false)
+    @change = @user.recent_rating_change
   end 
 
   # GET /users/new

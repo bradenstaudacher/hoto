@@ -16,11 +16,13 @@
     <th class='column-title'>Games Played</th>
     <th class='column-title'>Victories</th>
     <th class='column-title'>Rating</th>
+    <th class='column-title'>Recent Change</th>
   </thead>
   <tr>
     <td><%= @user.games_played %></td>
     <td><%= @user.games_won %></td>
     <td><%= @user.current_rating %></td>
+    <td><%= @user.recent_rating_change %></td>
   </tr>
   </tbody>
 </table>
