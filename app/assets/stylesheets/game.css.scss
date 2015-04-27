@@ -220,8 +220,14 @@ hr {
     float: left;
 }
 
-#join-game-list > .header-fixed > tbody > tr > td,
+/*#join-game-list > .header-fixed > tbody > tr > td,
 #join-game-list > .header-fixed > thead > tr > th {
+ 
+    width: 33%;
+
+}*/
+.game-list > .header-fixed > tbody > tr > td,
+.game-list > .header-fixed > thead > tr > th {
  
     width: 33%;
 
