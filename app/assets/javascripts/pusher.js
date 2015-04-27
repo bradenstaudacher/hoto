@@ -20,6 +20,7 @@ $(document).ready(function(){
    var turn = data.turn
    console.log('here is data.board_html')
    console.log(data.board_html)
+   
    if (game === parseInt(currentGame)) {
    gameActive = data.active;
    currentTurnstate = turnstate;
@@ -172,10 +173,10 @@ $(document).ready(function(){
 
     }
   function changeGameBoard(squares){  
-     for(var i=0; i < 25; i++){
-      $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').removeClass('black white empty');
-      $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').addClass(squares[i].colour);
-      $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y+'"]').html(createPieces(squares[i].height));
+     for(var i = 0; i < squares.length ; i++){
+      $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y +'"]').removeClass('black white empty');
+      $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y +'"]').addClass(squares[i].colour);
+      $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y +'"]').html(createPieces(squares[i].height));
     }
   }
 
@@ -213,16 +214,32 @@ $(document).ready(function(){
     
     var superColour = turn.colour
     // changeGameBoard(squares)
+    // to-do    handle the edge case where it's blooming off the side
+    // to-do sometimes it blooms and ends up with a 4 stack
       for(var i = 0; i < bloomArray.length; i++) {
         var current = bloomArray[i]
         var adj = current.adjacent_squares
-        var theAffectedSquares = [
-            {x: current.coord.x, y: current.coord.y},
-            {x: adj[0].x, y: adj[0].y},
-            {x: adj[1].x, y: adj[1].y},
-            {x: adj[2].x, y: adj[2].y},
-            {x: adj[3].x, y: adj[3].y}
-        ]
+
+
+        var theAffectedSquares = [{x: current.coord.x, y: current.coord.y, height: current.coord.height, colour: turn.colour}]
+      
+        function affectedSquaresBuild(x,y,height, colour){
+          if (!(x > 5 || x < 1 || y > 5 || y < 1)){
+            theAffectedSquares.push({x: x, y: y, height: height, colour: colour})
+          } 
+        }
+        
+        for (var n = 0; n < adj.length; n++){
+          affectedSquaresBuild(adj[n].x,adj[n].y, adj[n].height, turn.colour)
+        }
+
+        // var theAffectedSquares = [
+        //     {x: current.coord.x, y: current.coord.y, height: current.coord.height, colour: turn.colour},
+        //     {x: adj[0].x, y: adj[0].y, height: adj[0].height, colour: turn.colour},
+        //     {x: adj[1].x, y: adj[1].y, height: adj[1].height, colour: turn.colour},
+        //     {x: adj[2].x, y: adj[2].y, height: adj[2].height, colour: turn.colour},
+        //     {x: adj[3].x, y: adj[3].y, height: adj[3].height, colour: turn.colour}
+        // ]
 
         createBloomAnimation(bloomArray[i], 1000 * i, theAffectedSquares)
       }
@@ -253,7 +270,7 @@ $(document).ready(function(){
 
       console.log('bloomed on: ', squareX, squareY);
 
-      // $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"]').append("<span class ='pieces'></span")
+      $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"]').append("<span class ='pieces'></span")
 
      var counter = 1
       var directions = [0, "top", "top", "left", "left"]
