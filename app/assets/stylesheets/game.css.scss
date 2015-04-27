@@ -127,11 +127,15 @@ hr {
 .black span {
   background-color: black;
   color: white;
+  cursor: pointer; cursor: hand;
+
 }
 
 .white span{
   background-color: white;
   color: black;
+  cursor: pointer; cursor: hand;
+  
 }
 
 .normal span {
