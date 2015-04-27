@@ -1,5 +1,6 @@
 <div id ="header">
-    <h1 id="hoto-title"><%= link_to "Hoto", '/' %></h1>
+    <!-- <h1 id="hoto-title"><%= link_to "Hoto", '/' %></h1> -->
+    <%= link_to (image_tag "hotologo.png", :class => "logo-size"), '/' %>
     <nav id="navbar">  
       <h5>
         <% if current_user %>

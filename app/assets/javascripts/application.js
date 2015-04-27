@@ -48,11 +48,7 @@ console.log('inside doTheGame in application.js')
           success: function(hash) {
             currentPhase = hash['phase'];
             currentTurnstate = hash['turnstate'];
-            // console.log(hash['phase']);
             gameActive = hash['active']
-            // if(gameActive === false) {
-            //   $('#info-div').append('someone won the hoto')
-            // };
             endButtonClicked = false;
         $('.game-square').removeClass('active');
 
@@ -73,14 +69,9 @@ console.log('inside doTheGame in application.js')
       console.log('its in topple code application js');
 
       var topple_x = ($(this).attr('data-x'));
-      var topple_y = ($(this).attr('data-y'));
-      
+      var topple_y = ($(this).attr('data-y'));    
       arr.push([topple_x, topple_y])
-
       console.log('array is equal to :', arr)
-      // console.log('Array is Below');
-      // console.log(arr);
-
       if (arr.length === 2) {
         $('.game-square').removeClass('active');
         $.ajax({
@@ -89,19 +80,14 @@ console.log('inside doTheGame in application.js')
             data: { from: arr[0], dest: arr[1] },
             dataType: 'json',
             success: function(game) {
-              console.log('ajax post was successful');
-              
+              console.log('ajax post was successful');      
               currentTurnstate = game.turnstate;
-              gameActive = game.active
-              // console.log(currentTurnstate)
-              // if(gameActive === false) {
-              //   $('#info-div').text('someone won the hoto')
-              // };
-              arr = []
+              gameActive = game.active;
+              arr = [];
             },
             error: function(newTurnstate, message){
               console.log('ajax post failed');
-              // console.log(message);
+              console.log(message);
               arr = []
             }
           }) 
@@ -109,15 +95,7 @@ console.log('inside doTheGame in application.js')
       }
       // topplecheck returns an enumerable containing, whether or not I can select that square (is it my color) and also an enumerable containing squares i can click on 
 
-
-
-    
-
-
-  });
-        // $(this)
-        // square = Square.find($(this).attr('id'));
-        // var clicked = false
+  });// end of click game square
       $('#end-turn-button').on('click', function(){
         console.log('clicked', $(this).text());
 
@@ -138,7 +116,8 @@ console.log('inside doTheGame in application.js')
 
 
               console.log('ajax post was successful');
-              // console.log(hash);
+
+
 
 
             },
@@ -149,8 +128,30 @@ console.log('inside doTheGame in application.js')
           })
         }
       }
-    })
+    });
+
+    $('#resign-btn').on('click',function(){
+      if ((currentUser !== 0) && (currentTurnstate === currentUserColour)) {
+          $.ajax({
+            url: '/games/' + currentGame + '/resign',
+            method: 'POST',
+            data: { loser: currentUser }, 
+            dataType: "json",
+            success: function(hash) {
+              console.log(hash);
+              gameActive = hash.active;
+              console.log('ajax post was successful');
+            },
+            error: function(hash, message){
+              console.log(message);
+              console.log('ajax post failed');
+            }
+          })
+
+      }
+    });
+
+
 
      
 }
-
