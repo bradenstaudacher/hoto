@@ -19,18 +19,18 @@
 
   //to-do    can we refactor these methods to all go to one route which triggers a method calling method that calls the correct method based on some params or the db?? 
 function doTheGame(){
-var arr = []
-var endButtonClicked = false
-console.log('inside doTheGame in application.js')
+var arr = [];
+var endButtonClicked = false;
+console.log('inside doTheGame in application.js');
 
     $('.game-square').on('click',function(){
-        console.log('clicked game square')
+        console.log('clicked game square');
 
         // place code below
 
       if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && (currentPhase === "place") && (gameActive === true)) {
         console.log("passed place check, game thinks we are in place");
-        console.log('aaaaaaaaaa', gameActive)
+        console.log('aaaaaaaaaa', gameActive);
         $('.game-square').removeClass('active');
         $(this).addClass('active');
         var square_x = ($(this).attr('data-x'));
@@ -46,32 +46,33 @@ console.log('inside doTheGame in application.js')
           data: coordinate,
           dataType: 'json',
           success: function(hash) {
-            currentPhase = hash['phase'];
-            currentTurnstate = hash['turnstate'];
-            gameActive = hash['active']
+            currentPhase = hash.phase;
+            currentTurnstate = hash.turnstate;
+            gameActive = hash.active;
             endButtonClicked = false;
         $('.game-square').removeClass('active');
 
           },
           error: function(phase, message){
-            console.log('ajax post failed', message)
+            console.log(phase);
+            console.log('ajax post failed', message);
         $('.game-square').removeClass('active');
 
           }
-        })
+        });
 
     }
     // topple code
       
     if ((currentUser !== 0) && (currentTurnstate === currentUserColour) && currentPhase === "topple" && (gameActive === true)) {
-      console.log('gameactive : ', gameActive)
+      console.log('gameactive : ', gameActive);
         $(this).addClass('active');
       console.log('its in topple code application js');
 
       var topple_x = ($(this).attr('data-x'));
       var topple_y = ($(this).attr('data-y'));    
-      arr.push([topple_x, topple_y])
-      console.log('array is equal to :', arr)
+      arr.push([topple_x, topple_y]);
+      console.log('array is equal to :', arr);
       if (arr.length === 2) {
         $('.game-square').removeClass('active');
         $.ajax({
@@ -87,10 +88,11 @@ console.log('inside doTheGame in application.js')
             },
             error: function(newTurnstate, message){
               console.log('ajax post failed');
+              console.log(newTurnstate);
               console.log(message);
-              arr = []
+              arr = [];
             }
-          }) 
+          });
       }    
       }
       // topplecheck returns an enumerable containing, whether or not I can select that square (is it my color) and also an enumerable containing squares i can click on 
@@ -111,8 +113,8 @@ console.log('inside doTheGame in application.js')
             dataType: "json",
             success: function(hash) {
 
-            currentPhase = hash['phase'];
-            currentTurnstate = hash['turnstate'];
+            currentPhase = hash.phase;
+            currentTurnstate = hash.turnstate;
 
 
               console.log('ajax post was successful');
@@ -122,10 +124,11 @@ console.log('inside doTheGame in application.js')
 
             },
             error: function(hash, message){
+              console.log(hash);
               console.log(message);
               console.log('ajax post failed');
             }
-          })
+          });
         }
       }
     });
@@ -143,10 +146,11 @@ console.log('inside doTheGame in application.js')
               console.log('ajax post was successful');
             },
             error: function(hash, message){
+              console.log(hash);
               console.log(message);
               console.log('ajax post failed');
             }
-          })
+          });
 
       }
     });
