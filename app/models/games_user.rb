@@ -4,39 +4,51 @@ class GamesUser < ActiveRecord::Base
 
   class << self
 
-    def update_elos(game_id, player_id)
-      binding.pry
-      winner = Game.find(game_id).winner_id
-      opponent_id = GamesUser.where(game_id: game_id).select {|gamerecord| gamerecord.user_id != player_id}[0].user_id
-      old_own_elo = GamesUser.where(game_id: game_id, user_id: player_id)[0].previous_rating
-      old_opponent_elo = GamesUser.where(game_id: game_id).select {|gamerecord| gamerecord.user_id != player_id}[0].previous_rating
-      current_own = User.find(player_id)
-      current_opponent = User.find(opponent_id)
-      elo_diff_for_self = old_own_elo - old_opponent_elo
-      expected_outcome = calculate_expected_outcome(elo_diff_for_self)
-      k_factor = 40
-      binding.pry
-      if player_id == winner
-        elo_adjustment_self = k_factor * ( 1 - expected_outcome )
-        elo_adjustment_opponent = -elo_adjustment_self
-        binding.pry
-        current_own.current_rating += elo_adjustment_self
-        current_own.save
-        
-        current_opponent.current_rating += elo_adjustment_opponent
-        current_opponent.save
-      else
-        binding.pry
-        elo_adjustment_self = k_factor * ( 0 - expected_outcome )
-        elo_adjustment_opponent = -elo_adjustment_self
+    def update_elos(game_id)
+      winner = User.find(Game.find(game_id).winner_id)
+      loser = User.find(Game.find(game_id).loser_id)
 
-        current_own.current_rating += elo_adjustment_self
-        current_own.save
+      w_games_played = winner.games_played
+      l_games_played = loser.games_played
+      
+      winner_old_elo = GamesUser.where(game_id: game_id, user_id: winner.id)[0].previous_rating
+      loser_old_elo = GamesUser.where(game_id: game_id, user_id: loser.id)[0].previous_rating
+      
+      
+      elo_diff_winner = winner_old_elo - loser_old_elo
+      elo_diff_loser = loser_old_elo - winner_old_elo
+      expected_outcome_winner = calculate_expected_outcome(elo_diff_winner)
+      expected_outcome_loser = calculate_expected_outcome(elo_diff_loser)
+      
+      case
+        when w_games_played > 20
+          k_factor_winner = 20
+        when (10..19).include?(w_games_played)
+          k_factor_winner = 30
+        when (0..9).include?(w_games_played)
+          k_factor_winner = 40
+      end
 
-        current_opponent.current_rating += elo_adjustment_opponent
-        current_opponent.save
+      case
+        when l_games_played > 20
+          k_factor_loser = 20
+        when (10..19).include?(l_games_played)
+          k_factor_loser = 30
+        when (0..9).include?(l_games_played)
+          k_factor_loser = 40
       end
       
+      binding.pry
+      
+      elo_adjustment_winner = k_factor_winner * ( 1 - expected_outcome_winner )
+      elo_adjustment_loser = k_factor_loser * ( 0 - expected_outcome_loser )
+
+      winner.current_rating += elo_adjustment_winner
+      winner.save
+        
+      loser.current_rating += elo_adjustment_loser
+      loser.save
+
     end
 
     def calculate_expected_outcome(elo_diff_for_self)
