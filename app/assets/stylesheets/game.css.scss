@@ -149,6 +149,9 @@ hr {
   font-size: 210%;
   font-family: Arial, Helvetica, sans-serif;
 }
+.game-square {
+  cursor: pointer; cursor: hand;
+}
 .pieces {
   display: block;
   width: 3.5em;
