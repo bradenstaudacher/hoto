@@ -96,9 +96,10 @@ hr {
 }
 #game-board {
   margin: 50px auto 0;
+  padding: 0.5px !important;
   width: 40em;
   border-collapse: separate;
-  border-spacing: 1px;
+  border-spacing: 3px;
   tr {
     height: 8em;
   }
@@ -198,5 +199,61 @@ hr {
 .edit-link {
   text-align: right;
 }
+/*scrollable tables*/
+.header-fixed {
+    width: 100% 
+}
 
+.header-fixed > thead,
+.header-fixed > tbody,
+.header-fixed > thead > tr,
+.header-fixed > tbody > tr,
+.header-fixed > thead > tr > th,
+.header-fixed > tbody > tr > td {
+    display: block;
+}
 
+.header-fixed > tbody > tr:after,
+.header-fixed > thead > tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.header-fixed > tbody {
+    overflow-y: auto;
+    height: 150px;
+}
+
+.header-fixed > tbody > tr > td,
+.header-fixed > thead > tr > th {
+    width: 25%;
+    float: left;
+}
+
+.header-fixed > .statistics > tr > td,
+.header-fixed > .statistics > tr > th {
+    width: 33.33%;
+
+}
+
+.header-fixed > .activegames > tr > td,
+.header-fixed > .activegames > tr > th {
+    width: 16.66%%;
+}
+
+.header-fixed > .pastgames > tr > td,
+.header-fixed > .pastgames > tr > th {
+    width: 20%;
+}
+/*#join-game-list > .header-fixed > tbody > tr > td,
+#join-game-list > .header-fixed > thead > tr > th {
+ 
+    width: 33%;
+
+}*/
+.game-list > .header-fixed > tbody > tr > td,
+.game-list > .header-fixed > thead > tr > th {
+    width: 33%;
+}
