@@ -61,15 +61,11 @@ class Game < ActiveRecord::Base
     def any_valid_topples?
       # to-do   remove the repition in the any_valid methods
       self.any_valid_moves?
-
-       users_squares = self.squares.where(colour: turnstate)
+      users_squares = self.squares.where(colour: turnstate)
       users_squares_that_are_high_enough = users_squares.select {|square| square.height > 1 }
       squares_heights = users_squares.map { |square| square.height }
-
-         if phase == 'topple'
-       
-        end
-      
+      if phase == 'topple'
+      end
     end
 
 
