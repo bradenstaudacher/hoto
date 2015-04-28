@@ -40,7 +40,6 @@ class GamesUser < ActiveRecord::Base
             
       elo_adjustment_winner = k_factor_winner * ( 1 - expected_outcome_winner )
       elo_adjustment_loser = k_factor_loser * ( 0 - expected_outcome_loser )
-      binding.pry
       winner.current_rating += elo_adjustment_winner
       EloChange.create(user_id: Game.find(game_id).winner_id, change: elo_adjustment_winner)
       winner.save

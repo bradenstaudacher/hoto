@@ -67,7 +67,6 @@ class Game < ActiveRecord::Base
       squares_heights = users_squares.map { |square| square.height }
 
          if phase == 'topple'
-          binding.pry
        
         end
       
