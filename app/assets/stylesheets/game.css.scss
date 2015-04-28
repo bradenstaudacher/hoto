@@ -196,9 +196,14 @@ hr {
   margin-right: auto;
 }
 
-.edit-link {
-  text-align: right;
+.edit-link a {
+  // text-align: right;
 }
+
+.editbtn{
+  margin-left: 12.5%;
+}
+
 /*scrollable tables*/
 .header-fixed {
     width: 100% 
