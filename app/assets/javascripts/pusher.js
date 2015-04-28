@@ -21,7 +21,7 @@ $(document).ready(function(){
       currentTurnstate = turnstate;
       currentPhase = phase;
       if (!gameActive){
-        $('#player-turn-info').html("<marquee><h2 class ='game-over'> "+ winnerName +" won the hoto!</h2><img src='http://d3at4pok3dofi3.cloudfront.net/gifs/86889bd80fbb45c6ac15794d2de5ac4f.gif' style='height: 150px; width: 150px;'></marquee>");
+        $('#player-turn-info').html("<h2 class ='game-over'> "+ winnerName +" wins!</h2>");
       }
     
       if (turnstate === currentUserColour) {
@@ -50,6 +50,7 @@ $(document).ready(function(){
             } else {
               bloomer();
             }
+            // to-do abstract all topple directions into one function
           } else if (data.turn.actions[i].action_type === 'topple'){
             console.log("in pusher topple ");
             var squareX = data.turn.actions[0].coord.x;
@@ -71,7 +72,17 @@ $(document).ready(function(){
                   duration: 1000,
                     complete: function(){
                       if(turn.actions.length > 1){
-                        bloomer();
+                        toppleAction = getArrayOfTopples()
+                        originSquare = {x: toppleAction[0].coord.x, y: toppleAction[0].coord.y, height: toppleAction[0].coord.height, colour: turn.colour}
+                        arr = [originSquare]
+                        destinationArray = toppleAction[0].destination_coords
+                        for(var i = 0; i < destinationArray.length; i++){
+                          arr = affectedToppleSquaresBuild(destinationArray[i].x, destinationArray[i].y, destinationArray[i].height, turn.colour, arr)
+                        }
+                        changeAffectedSquares(arr)
+                        setTimeout(function(){
+                          bloomer();
+                        },500)
                       }
                     }
                   });
@@ -96,7 +107,17 @@ $(document).ready(function(){
                 duration: 1000,
                   complete: function(){
                     if(turn.actions.length > 1){
-                      bloomer();
+                        toppleAction = getArrayOfTopples()
+                        originSquare = {x: toppleAction[0].coord.x, y: toppleAction[0].coord.y, height: toppleAction[0].coord.height, colour: turn.colour}
+                        arr = [originSquare]
+                        destinationArray = toppleAction[0].destination_coords
+                        for(var i = 0; i < destinationArray.length; i++){
+                          arr = affectedToppleSquaresBuild(destinationArray[i].x, destinationArray[i].y, destinationArray[i].height, turn.colour, arr)
+                        }
+                        changeAffectedSquares(arr)
+                        setTimeout(function(){
+                          bloomer();
+                        },500)
                     }
                   }
                 });
@@ -121,7 +142,17 @@ $(document).ready(function(){
                   duration: 1000,
                   complete: function(){
                     if(turn.actions.length > 1){
-                      bloomer();
+                         toppleAction = getArrayOfTopples()
+                        originSquare = {x: toppleAction[0].coord.x, y: toppleAction[0].coord.y, height: toppleAction[0].coord.height, colour: turn.colour}
+                        arr = [originSquare]
+                        destinationArray = toppleAction[0].destination_coords
+                        for(var i = 0; i < destinationArray.length; i++){
+                          arr = affectedToppleSquaresBuild(destinationArray[i].x, destinationArray[i].y, destinationArray[i].height, turn.colour, arr)
+                        }
+                        changeAffectedSquares(arr)
+                        setTimeout(function(){
+                          bloomer();
+                        },500)
                     }
                   }
                 });
@@ -145,7 +176,17 @@ $(document).ready(function(){
                   duration: 1000,
                   complete: function(){
                     if(turn.actions.length > 1){
-                      bloomer();
+                        toppleAction = getArrayOfTopples()
+                        originSquare = {x: toppleAction[0].coord.x, y: toppleAction[0].coord.y, height: toppleAction[0].coord.height, colour: turn.colour}
+                        arr = [originSquare]
+                        destinationArray = toppleAction[0].destination_coords
+                        for(var i = 0; i < destinationArray.length; i++){
+                          arr = affectedToppleSquaresBuild(destinationArray[i].x, destinationArray[i].y, destinationArray[i].height, turn.colour, arr)
+                        }
+                        changeAffectedSquares(arr)
+                        setTimeout(function(){
+                          bloomer();
+                        },500)
                     }
                   }
                 });
@@ -212,6 +253,13 @@ $(document).ready(function(){
         createFinalRefresh(1000 * bloomArray.length + 100)
       }
     }
+
+     function affectedToppleSquaresBuild(x,y,height, colour, arrayOfAffectedSquares){
+        if (!(x > 5 || x < 1 || y > 5 || y < 1)){
+          arrayOfAffectedSquares.push({x: x, y: y, height: height, colour: colour})
+        } 
+        return arrayOfAffectedSquares
+      }
     
     function createBloomAnimation(coord, time, squares){
       setTimeout(function(){
@@ -227,7 +275,7 @@ $(document).ready(function(){
            changeAffectedSquares(squares);
       },time)
     }
-
+// to-do combine the below two array building functions
     function getArrayOfBlooms(){
       return turn.actions.filter(function(action){
         if(action.action_type === "bloom"){
@@ -235,6 +283,14 @@ $(document).ready(function(){
         }
       });
     }
+    function getArrayOfTopples(){
+      return turn.actions.filter(function(action){
+        if(action.action_type === "topple"){
+          return action;
+        }
+      });
+    }
+
 
     function doOneBloom(bloomCoord){
       console.log('bloomArray[i] in doOneBloom', bloomCoord)
