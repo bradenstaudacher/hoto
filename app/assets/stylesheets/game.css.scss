@@ -236,6 +236,10 @@ hr {
     height: 150px;
 }
 
+.header-fixed > .statistics{
+  height: auto;
+}
+
 .header-fixed > tbody > tr > td,
 .header-fixed > thead > tr > th {
     width: 25%;
