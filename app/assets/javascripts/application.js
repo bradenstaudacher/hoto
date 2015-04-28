@@ -22,7 +22,8 @@ function doTheGame(){
 var arr = [];
 var endButtonClicked = false;
 console.log('inside doTheGame in application.js');
-
+    $('#end-turn-button').addClass('disabled');
+    $('#resign-btn').addClass('disabled');  
     $('.game-square').on('click',function(){
         console.log('clicked game square');
 
