@@ -196,9 +196,19 @@ hr {
   margin-right: auto;
 }
 
-.edit-link {
-  text-align: right;
+.edit-link a {
+  // text-align: right;
 }
+
+.editbtn{
+  margin-left: 12.5%;
+}
+
+.chart{
+  width: 25%;
+  margin-left: 40%;
+}
+
 /*scrollable tables*/
 .header-fixed {
     width: 100% 
@@ -232,10 +242,14 @@ hr {
     float: left;
 }
 
+.header-fixed > .gamejoin > tr > td,
+.header-fixed > .gamejoin > tr > th {
+    width: 33.33%;
+}
+
 .header-fixed > .statistics > tr > td,
 .header-fixed > .statistics > tr > th {
-    width: 33.33%;
-
+    width: 25%;
 }
 
 .header-fixed > .activegames > tr > td,
