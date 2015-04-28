@@ -67,10 +67,12 @@ user_counter = 1
   Game.find(game_id_counter).users << User.find(user_counter)
   p = GamesUser.where(game_id: game_id_counter).where(user_id: User.find(user_counter).id)[0]
   p.colour = 'white'
+  p.previous_rating = 1000
   p.save
   Game.find(game_id_counter).users << User.find(user_counter+1)
   n = GamesUser.where(game_id: game_id_counter).where(user_id: User.find(user_counter+1).id)[0]
   n.colour = 'black'
+  n.previous_rating = 1000
   n.save
   game_id_counter += 1
   user_counter += 1
@@ -98,6 +100,7 @@ x = Time.now
   Game.find(game_id_counter2).users << User.find(user_counter2)
   p = GamesUser.where(game_id: game_id_counter2).where(user_id: User.find(user_counter2).id)[0]
   p.colour = 'white'
+  p.previous_rating = 1000
   p.save
   game_id_counter2 += 1
   user_counter2 += 1
@@ -123,10 +126,12 @@ user_counter3 = 4
   Game.find(game_id_counter3).users << User.find(user_counter3)
   p = GamesUser.where(game_id: game_id_counter3).where(user_id: User.find(user_counter3).id)[0]
   p.colour = 'white'
+  p.previous_rating = 1000
   p.save
   Game.find(game_id_counter3).users << User.find(2)
   n = GamesUser.where(game_id: game_id_counter3).where(user_id: User.find(2).id)[0]
   n.colour = 'black'
+  n.previous_rating = 1000
   n.save
   game_id_counter3 += 1
   user_counter3 += 1
@@ -160,11 +165,13 @@ user_counter4 = 4
   Game.find(game_id_counter4).users << User.find(1)
   p = GamesUser.where(game_id: game_id_counter4).where(user_id: 1)[0]
   p.colour = 'white'
+  p.previous_rating = 1000
   p.save
 
   Game.find(game_id_counter4).users << User.find(2)
   n = GamesUser.where(game_id: game_id_counter4).where(user_id: 2)[0]
   n.colour = 'black'
+  n.previous_rating = 1000
   n.save
 
   game_id_counter4 += 1
@@ -204,11 +211,13 @@ rand_colour_array = ["black","white"]
   Game.find(qq.id).users << User.find(1)
   p = GamesUser.where(game_id: qq.id).where(user_id: User.find(1).id)[0]
   p.colour = 'white'
+  p.previous_rating = 1000
   p.save
 
   Game.find(qq.id).users << User.find(2)
   n = GamesUser.where(game_id: qq.id).where(user_id: User.find(2).id)[0]
   n.colour = 'black'
+  n.previous_rating = 1000
   n.save
 
 end
@@ -242,11 +251,13 @@ rand_colour_array = ["black","white"]
   Game.find(ff.id).users << User.find(1)
   p = GamesUser.where(game_id: ff.id).where(user_id: User.find(1).id)[0]
   p.colour = 'white'
+  p.previous_rating = 1000
   p.save
 
   Game.find(ff.id).users << User.find(2)
   n = GamesUser.where(game_id: ff.id).where(user_id: User.find(2).id)[0]
   n.colour = 'black'
+  n.previous_rating = 1000
   n.save
 
 
@@ -282,10 +293,12 @@ rand_colour_array = ["black","white"]
   Game.find(ff.id).users << User.find(1)
   p = GamesUser.where(game_id: ff.id).where(user_id: User.find(1).id)[0]
   p.colour = 'white'
+  p.previous_rating = 1000
   p.save
 
   Game.find(ff.id).users << User.find(2)
   n = GamesUser.where(game_id: ff.id).where(user_id: User.find(2).id)[0]
   n.colour = 'black'
+  n.previous_rating = 1000
   n.save
 
