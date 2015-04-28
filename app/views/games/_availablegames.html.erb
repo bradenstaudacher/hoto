@@ -1,25 +1,24 @@
 <h3>Join Game</h3>
 <table class="game-list table table-striped table-hover header-fixed">
 
-  <thead class="statistics">
+  <thead class="gamejoin">
     <th class='column-title'>White</th>
     <th class='column-title'>Created</th>
     <th class='column-title'>Join</th>
   </thead>
-  <tbody class="statistics">
-    <% @games.each do |game| %>
-      <% if game.active == true %>
-        <tr data-link="<%= game %>">
-          <% if game.users.length < 2 %>
-            <% game.users.each do |user| %>
-              <td><%= link_to user.name, user_path(user) %><%= " (" + user.current_rating.to_s + ")" %></td>
-            <% end %>
-            <td><%= time_ago_in_words(game.created_at) %> ago</td> 
-            <% if @player_id%>
-              <td><%= link_to 'Join', game %>  </td>
-            <% else %>
-              <td><%= link_to 'Login to join', new_session_path %>  </td>
-            <% end %>
+  <tbody class="gamejoin">
+  <% @games.each do |game| %>
+    <% if game.active == true %>
+      <tr data-link="<%= game %>">
+        <% if game.users.length < 2 %>
+          <% game.users.each do |user| %>
+            <td><%= link_to user.name, user_path(user) %><%= " (" + user.current_rating.to_s + ")" %></td>
+          <% end %>
+          <td><%= time_ago_in_words(game.created_at) %> ago</td> 
+          <% if @player_id%>
+            <td><%= link_to 'Join', game %>  </td>
+          <% else %>
+            <td><%= link_to 'Login to join', new_session_path %>  </td>
           <% end %>
         </tr>
       <% end %>

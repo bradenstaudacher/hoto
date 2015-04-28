@@ -1,14 +1,13 @@
 <p id="notice"><%= notice %></p>
 <div class="edit-link">
-  <% if current_user  == @user %>
-    <%= link_to "Edit", edit_user_path(current_user), class: "btn btn-inverse" %>|
-    <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-inverse" %>
-  <% end %>
+<h1 class="user-games"> <%= @user.name %> </h1>
+<% if current_user  == @user %>
+  <%= link_to "Edit", edit_user_path(current_user), class: "editbtn btn btn-warning" %>
+  <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+<% end %>
 </div>
 
-<h1 class="user-games"> <%= @user.name %> </h1> 
-<img src=<%= @chart_url %>>
-<br>
+
 <table class="table table-striped table-hover  header-fixed user-games" style="width: 75%;">
   <h4 class="user-games">Statistics</h4>
   <thead class="statistics">
@@ -26,6 +25,8 @@
     </tr>
   </tbody>
 </table>
+
+<img src=<%= @chart_url %> class="chart">
 
 <table class="table table-striped table-hover  header-fixed user-games" style="width: 75%;">
   <h4 class="user-games">Active Games</h4>

@@ -30,6 +30,16 @@ userc = 1
   userc += 1
 end
 
+
+
+12.times do
+  neg = [1,-1]
+  changec = rand(15) + rand(30) * neg.sample
+  EloChange.create(user_id: 1, change: changec)
+  changec = rand(10) + rand(20) * neg.sample
+  EloChange.create(user_id: 2, change: changec)
+end
+
 ########################### GAMES TO SPECTATE ###########################
 rand_colour_array = ["black","white"]
 game_id_counter = 1
