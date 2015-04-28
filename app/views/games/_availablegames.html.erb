@@ -1,12 +1,12 @@
 <h3>Join Game</h3>
 <table class="game-list table table-striped table-hover header-fixed">
 
-  <thead class="statistics">
+  <thead class="gamejoin">
     <th class='column-title'>White</th>
     <th class='column-title'>Created</th>
     <th class='column-title'>Join</th>
   </thead>
-  <tbody class="statistics">
+  <tbody class="gamejoin">
   <% @games.each do |game| %>
     <% if game.active == true %>
       <tr data-link="<%= game %>">

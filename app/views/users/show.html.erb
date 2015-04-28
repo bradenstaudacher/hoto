@@ -14,15 +14,19 @@
     <th class='column-title'>Games Played</th>
     <th class='column-title'>Victories</th>
     <th class='column-title'>Rating</th>
+    <th class='column-title'>Recent Change</th>
   </thead>
   <tbody class="statistics">
   <tr>
     <td><%= @user.games_played %></td>
     <td><%= @user.games_won %></td>
     <td><%= @user.current_rating %></td>
+    <td><%= @user.recent_rating_change %></td>
   </tr>
   </tbody>
 </table>
+
+<img src=<%= @chart_url %> class="chart">
 
 <table class="table table-striped table-hover  header-fixed user-games" style="width: 75%;">
     <h4 class="user-games">Active Games</h4>

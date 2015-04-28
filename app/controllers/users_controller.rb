@@ -12,6 +12,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @inactive_games = @user.games.where(active: false)
+    @change = @user.recent_rating_change
+    @chart_change = @user.chart_rating_change
+    puts "BAOEITABEIGB"
+    puts @chart_change
+    @chart_url = Gchart.sparkline(:data => @chart_change, :bg => "cccccc00", :size => '190x42', :line_colors => '0077CC')
   end 
 
   # GET /users/new
