@@ -29,7 +29,7 @@
 
 <% if @player_id %>
   <h3>Your Games</h3>
-  <% if User.find(@player_id).games.length > 0 %>
+  <% if User.find(@player_id).games.where(active: true).length > 0 %>
     <table class=" game-list table table-striped table-hover header-fixed">
       <thead>
         <th class='column-title'>White</th>
