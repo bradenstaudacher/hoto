@@ -187,7 +187,7 @@ rand_colour_array = ["black","white"]
   these_squares = qq.squares
   these_squares.each do |squarey|
     if squarey.x > 1 && squarey.x < 5 && squarey.y > 1 && squarey.y < 5
-      squarey.update(height: 3)
+      squarey.update(height: 3, colour: rand_colour)
     end
   end
 
@@ -225,7 +225,7 @@ rand_colour_array = ["black","white"]
   these_squares = ff.squares
   these_squares.each do |squarey|
     if squarey.y == 1 || squarey.y == 5 || squarey.x == 1 || squarey.x == 5
-      squarey.update(height: 3)
+      squarey.update(height: 3, colour: rand_colour)
     end
   end
 
@@ -262,11 +262,11 @@ rand_colour_array = ["black","white"]
   end
   these_squares = ff.squares
   these_squares.each do |squarey|
-      Square.where(game_id: ff.id).where(x: 3).where(y: 3)[0].update(height: 3)
-      Square.where(game_id: ff.id).where(x: 2).where(y: 3)[0].update(height: 3)
-      Square.where(game_id: ff.id).where(x: 4).where(y: 3)[0].update(height: 3)
-      Square.where(game_id: ff.id).where(x: 3).where(y: 2)[0].update(height: 3)
-      Square.where(game_id: ff.id).where(x: 3).where(y: 4)[0].update(height: 3)
+      Square.where(game_id: ff.id).where(x: 3).where(y: 3)[0].update(height: 3, colour: 'white')
+      Square.where(game_id: ff.id).where(x: 2).where(y: 3)[0].update(height: 3, colour: 'black')
+      Square.where(game_id: ff.id).where(x: 4).where(y: 3)[0].update(height: 3, colour: 'white')
+      Square.where(game_id: ff.id).where(x: 3).where(y: 2)[0].update(height: 3, colour: 'black')
+      Square.where(game_id: ff.id).where(x: 3).where(y: 4)[0].update(height: 3, colour: 'black')
   end
 
   Game.find(ff.id).users << User.find(1)
