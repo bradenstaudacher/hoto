@@ -20,26 +20,22 @@
           <% else %>
             <td><%= link_to 'Login to join', new_session_path %>  </td>
           <% end %>
-        <% end %>
-      </tr>
+        </tr>
+      <% end %>
     <% end %>
-  <% end %>
-
-
   </tbody>
 </table>
-
 
 <% if @player_id %>
   <h3>Your Games</h3>
     <% if User.find(@player_id).games.length > 0 %>
       <table class=" game-list table table-striped table-hover header-fixed">
-         <thead>
+          <thead>
             <th class='column-title'>White</th>
             <th class='column-title'>Black</th>
             <th class='column-title'>Moves</th>
             <th class='column-title'>Join</th>
-         </thead>
+          </thead>
         <tbody>
           <% @games.each do |game| %>
             <% if game.active == true && (game.users.where(id: @player_id)[0] != nil) %>
@@ -48,7 +44,7 @@
                   <% game.users.each do |user| %>
                     <td><%= link_to user.name, user_path(user) %><%= " (" + user.current_rating.to_s + ")" %></td>
                   <% end %>
-                <td><%= game.moves_counter %></td> 
+                  <td><%= game.moves_counter %></td> 
                   <td><%= link_to 'Play', game %>  </td>
                 <% end %>
               </tr>
@@ -70,21 +66,18 @@
     <th class='column-title'>Spectate</th>
   </thead>
   <tbody>
-
-  <% @games.each do |game| %>
-    <% if game.active == true && (game.users.where(id: @player_id)[0] == nil) %>
-      <tr data-link="<%= game %>">
-        <% if game.users.length == 2 %>
-          <% game.users.each do |user| %>
-            <td><%= link_to user.name, user_path(user) %><%= " (" + user.current_rating.to_s + ")" %></td>
+    <% @games.each do |game| %>
+      <% if game.active == true && (game.users.where(id: @player_id)[0] == nil) %>
+        <tr data-link="<%= game %>">
+          <% if game.users.length == 2 %>
+            <% game.users.each do |user| %>
+              <td><%= link_to user.name, user_path(user) %><%= " (" + user.current_rating.to_s + ")" %></td>
+            <% end %>
+            <td><%= game.moves_counter %></td> 
+            <td><%= link_to 'Spectate', game %>  </td>
           <% end %>
-          <td><%= game.moves_counter %></td> 
-          <td><%= link_to 'Spectate', game %>  </td>
-        <% end %>
-      </tr>
+        </tr>
+      <% end %>
     <% end %>
-  <% end %>
-
-
   </tbody>
 </table>

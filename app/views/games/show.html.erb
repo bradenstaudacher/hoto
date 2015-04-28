@@ -23,58 +23,47 @@
 
 <div id="game-board-encase">
   <table id='game-board'>  
-  <% @board.each_with_index do |row, y|  %>
-  <tr>
-  <% row.each_with_index do |square, x|
-     if square.colour != 'black' && square.colour != 'white'
-      square.colour = 'empty'
-     end      
-  %>
-    <td class='<%= square.colour %> game-square unselected' data-x="<%= x + 1 %>" data-y="<%= y + 1 %>">
-    
-      <% square.height.times do %>
-        <span class="pieces">
-          <p class="piece-numbers"><%= square.height %></p>
-        </span>
+    <% @board.each_with_index do |row, y|  %>
+    <tr>
+      <% row.each_with_index do |square, x| %>
+        <% if square.colour != 'black' && square.colour != 'white' %>
+          <% square.colour = 'empty' %>
+        <% end %>
+        <td class='<%= square.colour %> game-square unselected' data-x="<%= x + 1 %>" data-y="<%= y + 1 %>">
+          <% square.height.times do %>
+            <span class="pieces">
+              <p class="piece-numbers"><%= square.height %></p>
+            </span>
+          <% end %>
+        </td>
       <% end %>
-    </td>
-      <% end %>
-  </tr>
-<% end %>
+    </tr>
+  <% end %>
 </table>
 </div>
 
 <% if @game.active %>
-      
-
-<div id="player-turn-info">
-  <% if @game.turnstate == @current_colour %>
-    <h3 id="turn-phase">Your turn to <%=@game.phase  %></h3>
-  <% else %>
-    <h3 id="turn-phase">Waiting for opponent to <%=@game.phase  %></h3>
-  <% end %>
-  <!-- <h3 id="current-colour">You are playing as <%= @current_colour %></h3> -->
+  <div id="player-turn-info">
+    <% if @game.turnstate == @current_colour %>
+      <h4 id="turn-phase">Your turn to <%=@game.phase  %></h4>
+    <% else %>
+      <h4 id="turn-phase">Waiting for opponent to <%=@game.phase  %></h4>
+    <% end %>
+      <div id='button-container'>
+        <h1 class="btn btn-warning" id='end-turn-button'>End Turn</h1>
+      </div>
+    <h4 style="margin-top: 20px;">Place Phase</h4>
+    <p>Click a stack of your colour or an empty square to place your piece. You must place before your turn can continue.</p>
+    <h4 style="margin-top: 30px;">Topple Phase</h4>
+    <p>To topple, click the stack you want to move and the square you want it to topple into. A stack must be higher than one to topple, and can only topple into empty adjacent squares.  You can topple as many times as you like before ending your turn.</p>
     <div id='button-container'>
-    <h1 class="btn btn-warning" id='end-turn-button'>End Turn</h1>
-    <!-- this p is here to give the container some filling, because everything else is floated -->
-    <!--   <p>&nbsp;</p> -->
+      <h1 class="btn btn-default" id="resign-btn">Resign</h1>
     </div>
-  <h4 style="margin-top: 20px;">Place Phase</h4>
-  <p>orem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-  <h4 style="margin-top: 30px;">Topple Phase</h4>
-  <p>orem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-  
-  <div id='button-container'>
-    <h1 class="btn btn-default" id="resign-btn">Resign</h1>
   </div>
-
-</div>
 <% else %>
-<div id="player-turn-info2">
-  <h2 class ='game-over'><%= @winner_name %> won the hoto!</h2>
-  <marquee><img src="http://d3at4pok3dofi3.cloudfront.net/gifs/86889bd80fbb45c6ac15794d2de5ac4f.gif" style="height: 150px; width: 150px;"></marquee>
-</div>
+  <div id="player-turn-info2">
+    <h2 class ='game-over'><%= @winner_name %> won the hoto!</h2>
+    <marquee><img src="http://d3at4pok3dofi3.cloudfront.net/gifs/86889bd80fbb45c6ac15794d2de5ac4f.gif" style="height: 150px; width: 150px;"></marquee>
+  </div>
 <% end %>
-
-
 <script>  doTheGame() </script>
