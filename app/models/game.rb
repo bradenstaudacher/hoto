@@ -67,7 +67,6 @@ class Game < ActiveRecord::Base
       squares_heights = users_squares.map { |square| square.height }
 
          if phase == 'topple'
-          binding.pry
        
         end
       
@@ -90,6 +89,7 @@ class Game < ActiveRecord::Base
           loser.games_played += 1
           winner.save
           loser.save
+          GamesUser.update_elos(id)
         elsif !(squares.each.map { |square| square.colour }.include?("white"))
           self.update(winner_id: black_id)
           self.update(loser_id: white_id)
@@ -101,6 +101,7 @@ class Game < ActiveRecord::Base
           loser.games_played += 1
           winner.save
           loser.save
+          GamesUser.update_elos(id)
         end
       end
     end

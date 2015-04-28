@@ -34,7 +34,7 @@
     
       <% square.height.times do %>
         <span class="pieces">
-          <%= square.height %>
+          <p class="piece-numbers"><%= square.height %></p>
         </span>
       <% end %>
     </td>
@@ -48,7 +48,11 @@
       
 
 <div id="player-turn-info">
-  <h3 id="turn-phase">It is <%= @game.turnstate  %>'s turn to <%=@game.phase  %></h3>
+  <% if @game.turnstate == @current_colour %>
+    <h3 id="turn-phase">Your turn to <%=@game.phase  %></h3>
+  <% else %>
+    <h3 id="turn-phase">Waiting for opponent to <%=@game.phase  %></h3>
+  <% end %>
   <!-- <h3 id="current-colour">You are playing as <%= @current_colour %></h3> -->
     <div id='button-container'>
     <h1 class="btn btn-warning" id='end-turn-button'>End Turn</h1>

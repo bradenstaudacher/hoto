@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150426001506) do
+ActiveRecord::Schema.define(version: 20150426235734) do
+
+  create_table "elo_changes", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "change"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "games", force: true do |t|
     t.string   "turnstate"
@@ -50,7 +57,7 @@ ActiveRecord::Schema.define(version: 20150426001506) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "email"
-    t.integer  "current_rating",  default: 1200
+    t.integer  "current_rating",  default: 1000
     t.string   "password_digest"
   end
 
