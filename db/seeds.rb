@@ -302,3 +302,47 @@ rand_colour_array = ["black","white"]
   n.previous_rating = 1000
   n.save
 
+####################################    Demo-day #####################
+
+
+gg = Game.create(turnstate: "white", active: true, phase: 'place', moves_counter: 111)
+rand_colour_array = ["black","white"]
+  counter = 1
+  
+   while counter <= 5
+    i = 1
+    while i <= 5
+      # rand_height = rand(4)
+      # if rand_height == 0
+      #   rand_colour = "empty"
+      # else
+        rand_colour = rand_colour_array.sample
+      # end
+      puts "i done did make a square!!"
+      Square.create(x: i, y: counter, height: 0, game_id: gg.id, colour: 'empty')
+      i += 1
+    end
+    counter += 1
+  end
+  these_squares = gg.squares
+  these_squares.each do |squarey|
+      Square.where(game_id: gg.id).where(x: 4).where(y: 1)[0].update(height: 1, colour: 'black')
+      Square.where(game_id: gg.id).where(x: 5).where(y: 2)[0].update(height: 1, colour: 'black')
+      Square.where(game_id: gg.id).where(x: 2).where(y: 4)[0].update(height: 1, colour: 'black')
+      Square.where(game_id: gg.id).where(x: 3).where(y: 4)[0].update(height: 1, colour: 'black')
+      Square.where(game_id: gg.id).where(x: 4).where(y: 4)[0].update(height: 1, colour: 'white')
+      Square.where(game_id: gg.id).where(x: 4).where(y: 2)[0].update(height: 1, colour: 'white')
+
+  end
+
+  Game.find(gg.id).users << User.find(1)
+  p = GamesUser.where(game_id: gg.id).where(user_id: User.find(1).id)[0]
+  p.colour = 'white'
+  p.previous_rating = 1000
+  p.save
+
+  Game.find(gg.id).users << User.find(2)
+  n = GamesUser.where(game_id: gg.id).where(user_id: User.find(2).id)[0]
+  n.colour = 'black'
+  n.previous_rating = 1000
+  n.save
