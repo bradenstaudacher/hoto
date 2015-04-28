@@ -21,7 +21,9 @@ $(document).ready(function(){
       currentTurnstate = turnstate;
       currentPhase = phase;
       if (!gameActive){
+        debugger
         $('#player-turn-info').html("<h2 class ='game-over'> "+ winnerName +" wins!</h2>");
+        debugger
       }
     
       if (turnstate === currentUserColour) {
