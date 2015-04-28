@@ -187,7 +187,7 @@ rand_colour_array = ["black","white"]
   these_squares = qq.squares
   these_squares.each do |squarey|
     if squarey.x > 1 && squarey.x < 5 && squarey.y > 1 && squarey.y < 5
-      squarey.update(height: 3, colour: rand_colour)
+      squarey.update(height: 3, colour: rand_colour_array.sample)
     end
   end
 
@@ -225,7 +225,7 @@ rand_colour_array = ["black","white"]
   these_squares = ff.squares
   these_squares.each do |squarey|
     if squarey.y == 1 || squarey.y == 5 || squarey.x == 1 || squarey.x == 5
-      squarey.update(height: 3, colour: rand_colour)
+      squarey.update(height: 3, colour: rand_colour_array.sample)
     end
   end
 
