@@ -38,8 +38,17 @@ $(document).ready(function(){
     if (turnstate === currentUserColour) {
       console.log("In turnstate check");
       $('#turn-phase').text("Your turn to " + phase);
+      $('#resign-btn').removeClass('disabled');
+      if (phase === 'place') {
+        $('#end-turn-button').addClass('disabled');
+      } else {
+        $('#end-turn-button').removeClass('disabled');
+      }
+
     }else{
       $('#turn-phase').text("Waiting for opponent to " + phase);
+      $('#resign-btn').addClass('disabled');
+      $('#end-turn-button').addClass('disabled');
     }
 
     if (turn) {
