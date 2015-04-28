@@ -17,5 +17,16 @@ class User < ActiveRecord::Base
     return total_change
   end
 
+  def chart_rating_change
+    rating = 0
+    user = User.find(id)
+    chart_change = []
+    user.elo_changes.limit(10).each do |elo_change|
+      rating = elo_change.change
+      chart_change << rating
+    end
+    return chart_change.reverse
+  end
+
 
 end
