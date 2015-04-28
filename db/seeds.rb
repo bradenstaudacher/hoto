@@ -30,6 +30,16 @@ userc = 1
   userc += 1
 end
 
+
+
+12.times do
+  neg = [1,-1]
+  changec = rand(15) + rand(30) * neg.sample
+  EloChange.create(user_id: 1, change: changec)
+  changec = rand(10) + rand(20) * neg.sample
+  EloChange.create(user_id: 2, change: changec)
+end
+
 ########################### GAMES TO SPECTATE ###########################
 rand_colour_array = ["black","white"]
 game_id_counter = 1
@@ -57,10 +67,12 @@ user_counter = 1
   Game.find(game_id_counter).users << User.find(user_counter)
   p = GamesUser.where(game_id: game_id_counter).where(user_id: User.find(user_counter).id)[0]
   p.colour = 'white'
+  p.previous_rating = 1000
   p.save
   Game.find(game_id_counter).users << User.find(user_counter+1)
   n = GamesUser.where(game_id: game_id_counter).where(user_id: User.find(user_counter+1).id)[0]
   n.colour = 'black'
+  n.previous_rating = 1000
   n.save
   game_id_counter += 1
   user_counter += 1
@@ -88,6 +100,7 @@ x = Time.now
   Game.find(game_id_counter2).users << User.find(user_counter2)
   p = GamesUser.where(game_id: game_id_counter2).where(user_id: User.find(user_counter2).id)[0]
   p.colour = 'white'
+  p.previous_rating = 1000
   p.save
   game_id_counter2 += 1
   user_counter2 += 1
@@ -113,10 +126,12 @@ user_counter3 = 4
   Game.find(game_id_counter3).users << User.find(user_counter3)
   p = GamesUser.where(game_id: game_id_counter3).where(user_id: User.find(user_counter3).id)[0]
   p.colour = 'white'
+  p.previous_rating = 1000
   p.save
   Game.find(game_id_counter3).users << User.find(2)
   n = GamesUser.where(game_id: game_id_counter3).where(user_id: User.find(2).id)[0]
   n.colour = 'black'
+  n.previous_rating = 1000
   n.save
   game_id_counter3 += 1
   user_counter3 += 1
@@ -150,11 +165,13 @@ user_counter4 = 4
   Game.find(game_id_counter4).users << User.find(1)
   p = GamesUser.where(game_id: game_id_counter4).where(user_id: 1)[0]
   p.colour = 'white'
+  p.previous_rating = 1000
   p.save
 
   Game.find(game_id_counter4).users << User.find(2)
   n = GamesUser.where(game_id: game_id_counter4).where(user_id: 2)[0]
   n.colour = 'black'
+  n.previous_rating = 1000
   n.save
 
   game_id_counter4 += 1
@@ -194,11 +211,13 @@ rand_colour_array = ["black","white"]
   Game.find(qq.id).users << User.find(1)
   p = GamesUser.where(game_id: qq.id).where(user_id: User.find(1).id)[0]
   p.colour = 'white'
+  p.previous_rating = 1000
   p.save
 
   Game.find(qq.id).users << User.find(2)
   n = GamesUser.where(game_id: qq.id).where(user_id: User.find(2).id)[0]
   n.colour = 'black'
+  n.previous_rating = 1000
   n.save
 
 end
@@ -232,11 +251,13 @@ rand_colour_array = ["black","white"]
   Game.find(ff.id).users << User.find(1)
   p = GamesUser.where(game_id: ff.id).where(user_id: User.find(1).id)[0]
   p.colour = 'white'
+  p.previous_rating = 1000
   p.save
 
   Game.find(ff.id).users << User.find(2)
   n = GamesUser.where(game_id: ff.id).where(user_id: User.find(2).id)[0]
   n.colour = 'black'
+  n.previous_rating = 1000
   n.save
 
 
@@ -272,10 +293,56 @@ rand_colour_array = ["black","white"]
   Game.find(ff.id).users << User.find(1)
   p = GamesUser.where(game_id: ff.id).where(user_id: User.find(1).id)[0]
   p.colour = 'white'
+  p.previous_rating = 1000
   p.save
 
   Game.find(ff.id).users << User.find(2)
   n = GamesUser.where(game_id: ff.id).where(user_id: User.find(2).id)[0]
   n.colour = 'black'
+  n.previous_rating = 1000
   n.save
 
+####################################    Demo-day #####################
+
+
+gg = Game.create(turnstate: "white", active: true, phase: 'place', moves_counter: 111)
+rand_colour_array = ["black","white"]
+  counter = 1
+  
+   while counter <= 5
+    i = 1
+    while i <= 5
+      # rand_height = rand(4)
+      # if rand_height == 0
+      #   rand_colour = "empty"
+      # else
+        rand_colour = rand_colour_array.sample
+      # end
+      puts "i done did make a square!!"
+      Square.create(x: i, y: counter, height: 0, game_id: gg.id, colour: 'empty')
+      i += 1
+    end
+    counter += 1
+  end
+  these_squares = gg.squares
+  these_squares.each do |squarey|
+      Square.where(game_id: gg.id).where(x: 4).where(y: 1)[0].update(height: 1, colour: 'black')
+      Square.where(game_id: gg.id).where(x: 5).where(y: 2)[0].update(height: 1, colour: 'black')
+      Square.where(game_id: gg.id).where(x: 2).where(y: 4)[0].update(height: 1, colour: 'black')
+      Square.where(game_id: gg.id).where(x: 3).where(y: 4)[0].update(height: 1, colour: 'black')
+      Square.where(game_id: gg.id).where(x: 4).where(y: 4)[0].update(height: 1, colour: 'white')
+      Square.where(game_id: gg.id).where(x: 4).where(y: 2)[0].update(height: 1, colour: 'white')
+
+  end
+
+  Game.find(gg.id).users << User.find(1)
+  p = GamesUser.where(game_id: gg.id).where(user_id: User.find(1).id)[0]
+  p.colour = 'white'
+  p.previous_rating = 1000
+  p.save
+
+  Game.find(gg.id).users << User.find(2)
+  n = GamesUser.where(game_id: gg.id).where(user_id: User.find(2).id)[0]
+  n.colour = 'black'
+  n.previous_rating = 1000
+  n.save

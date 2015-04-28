@@ -1,24 +1,21 @@
-<div id="container">
+  <div id="container">
   <div id="welcome">
     <h1>Welcome to Hoto.</h1>
     <h3>Hoto is a zany board game that knows how to boogie.</h3>
   </div>
  
   <div id='options'>
-    
     <% if current_user %> 
-    <h3 id="host-button"> Start a game now!</h3>
-    <button id="create-game-button" class="btn btn-primary"> Create Game </button>
+      <h3 id="host-button"> Start a game now!</h3>
+      <button id="create-game-button" class="btn btn-primary"> Create Game </button>
     <% else %>
-    <%= link_to '<button type="button" id="log-in-button" class="btn btn-danger">Log In</button>'.html_safe, new_session_path %>
-    <%= link_to '<button type="button" id="sign-up-button" class="btn btn-success">Sign Up</button>'.html_safe, new_user_path %>
-    <%= link_to '<button type="button" id="rules-button" class="btn btn-info">Rules</button>'.html_safe, rules_path %>
+      <%= link_to '<button type="button" id="log-in-button" class="btn btn-danger">Log In</button>'.html_safe, new_session_path %>
+      <%= link_to '<button type="button" id="sign-up-button" class="btn btn-success">Sign Up</button>'.html_safe, new_user_path %>
+      <%= link_to '<button type="button" id="rules-button" class="btn btn-info">Rules</button>'.html_safe, rules_path %>
     <% end %>
-
   </div>
 </div>
 
-  <!-- <h2>Available Games</h2> -->
 <div id="table-container">
   <!-- stuff loaded in here -->
   <div class="progress progress-striped active" style="margin-top: 20%">
@@ -26,14 +23,13 @@
   </div>
 </div>
 
-
 <script>
-$(function () {
-  var poll = function () {
-    $('#table-container').load('available_games_refresh', function(){
-      setTimeout(poll, 1000);
-    });
-  };
-  poll();
-});
+  $(function () {
+    var poll = function () {
+      $('#table-container').load('available_games_refresh', function(){
+        setTimeout(poll, 1000);
+      });
+    };
+    poll();
+  });
 </script>
