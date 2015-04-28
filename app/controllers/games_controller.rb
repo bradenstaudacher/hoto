@@ -102,8 +102,8 @@ class GamesController < ApplicationController
     successful_place = @current_square.place(@the_right_game.turnstate, turn)
     if successful_place
       @updated_game = Game.find(params[:id])
-      @winner_name = User.find(@updated_game.winner_id).name if !@updated_game.active
       @updated_game.update_active
+      @winner_name = User.find(@updated_game.winner_id).name if !@updated_game.active
 
       Pusher['games'].trigger('refresh_squares', {
         :test => "placed square!",
@@ -147,8 +147,8 @@ class GamesController < ApplicationController
     
     if from_square.topple([dest_square.x - from_square.x, dest_square.y - from_square.y], turn)
       @updated_game = Game.find(params[:id])
-      @winner_name = User.find(@updated_game.winner_id).name if !@updated_game.active
       @updated_game.update_active
+      @winner_name = User.find(@updated_game.winner_id).name if !@updated_game.active
       
       Pusher['games'].trigger('refresh_squares', {
           :test => "placed square!",
