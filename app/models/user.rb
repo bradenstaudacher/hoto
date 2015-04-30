@@ -10,8 +10,9 @@ class User < ActiveRecord::Base
 
   def recent_rating_change
     total_change = 0
-    User.find(id).elo_changes.limit(5).each do |elo_change|
+    User.find(id).elo_changes.last(2).each do |elo_change|
       total_change += elo_change.change
+      puts elo_change.change
     end
     total_change > 0 ? total_change = "+" + total_change.to_s : total_change = "-" + total_change.to_s
     return total_change
@@ -19,13 +20,15 @@ class User < ActiveRecord::Base
 
   def chart_rating_change
     rating = 0
+    cr = current_rating
     user = User.find(id)
-    chart_change = []
-    user.elo_changes.limit(10).each do |elo_change|
-      rating = elo_change.change
-      chart_change << rating
+    chart_change = [cr]
+    user.elo_changes.each do |elo_change|
+      cr += elo_change.change
+      chart_change << cr
     end
-    return chart_change.reverse
+    binding.pry
+    return chart_change
   end
 
 
