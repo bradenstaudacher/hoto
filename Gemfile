@@ -36,6 +36,10 @@ gem 'googlecharts', '~> 1.6.10'
 
 gem 'lazy_high_charts'
 
+gem 'hiredis', '~> 0.6.0'
+
+gem 'redis', '~> 3.2.1'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

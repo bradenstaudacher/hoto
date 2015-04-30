@@ -4,7 +4,12 @@ Pusher.log = function(message) {
  }
 };
 
-var pusher = new Pusher('e6e3668b059767b856df');
+var pusher = new Pusher('e6e3668b059767b856df', {
+  wsHost: "0.0.0.0",
+  wsPort: "8080",
+  wssPort: "8080",
+  enabledTransports: ['ws', 'flash']
+});
 var channel = pusher.subscribe('games');
 
 $(document).ready(function(){
