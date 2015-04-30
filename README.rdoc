@@ -6,12 +6,13 @@ Hoto is a strategic boardgame, where two players attempt to conquer the board by
 The game originated as the brainchild of Braden Staudacher who developed it as an experimental new board game.
 The online version was built by Braden Staudacher, Ben Temple, Julian Orinyol, and Daniel Susetyo as a project for Lighthouse Labs bootcamp. 
 
-As the bootcamp focussed on rails and sql, we chose to stick with these for version 1 of Hoto.
+As the bootcamp focussed on rails and sql, we chose to use these for version 1 of Hoto.
 
-
-
-
-
+Future features:
+-replay last move
+-replay animation of entire games
+-puzzles
+-Simple AI using minimax algorithim and a/b pruning
 
 Technologies used:
 
