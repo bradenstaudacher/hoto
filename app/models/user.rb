@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
    rating = 0
    user = User.find(id)
    chart_change = []
-   user.elo_changes.limit(10).each do |elo_change|
+   user.elo_changes.each do |elo_change|
      rating += elo_change.change
      chart_change << rating
    end
