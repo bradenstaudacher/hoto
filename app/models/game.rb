@@ -123,7 +123,7 @@ class Game < ActiveRecord::Base
       row4 = []
       row5 = []
 
-      squares = Square.where(game_id: id)
+      squares = Square.where(game_id: id).order(:id)
       squares.each do |square, index|
         if row1.length < 5
           row1 << square
