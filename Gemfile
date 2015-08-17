@@ -36,6 +36,8 @@ gem 'googlecharts', '~> 1.6.10'
 
 gem 'lazy_high_charts'
 
+gem 'pg'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -63,6 +65,5 @@ end
 
 group :production do
  gem 'rails_12factor'
- gem 'pg'
 end
 

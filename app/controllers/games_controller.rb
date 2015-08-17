@@ -20,10 +20,18 @@ class GamesController < ApplicationController
     # @phase = Game.find(params[:id]).phase
     @current_colour = GamesUser.set_player_colour(session[:user_id], @id)
 
-    @all_users = @game.users
-    @user1 = @game.users[0]
-    @user2 = @game.users[1]
+    @all_users = GamesUser.where(game_id: params[:id])
+    
+    games_user_white = GamesUser.where(game_id: params[:id], colour: 'white')
+    @user1 = User.find(games_user_white[0].user_id)
+
+    if (@all_users.length > 1)
+      games_user_black = GamesUser.where(game_id: params[:id], colour: 'black')
+      @user2 = User.find(games_user_black[0].user_id)
+    end
+
     @user1_colour = GamesUser.get_colour_by_id(params[:id], @user1.id)
+   
     if @user2 != nil
       @user2_colour = GamesUser.get_colour_by_id(params[:id], @user2.id)
     else

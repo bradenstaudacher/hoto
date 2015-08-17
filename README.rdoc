@@ -1,8 +1,50 @@
 == HOTO
 
-Capture all of your opponent's pieces to win!
+
+Hoto is a strategic boardgame, where two players attempt to conquer the board by placing and toppling pieces. 
+
+The game originated as the brainchild of Braden Staudacher who developed it as an experimental new board game.
+The online version was built by Braden Staudacher, Ben Temple, Julian Orinyol, and Daniel Susetyo as a project for Lighthouse Labs bootcamp. 
+
+As the bootcamp focussed on rails and sql, we chose to use these for version 1 of Hoto.
+
+Future features:
+-replay last move
+-replay animation of entire games
+-puzzles
+-Simple AI using minimax algorithim and a/b pruning
+
+Technologies used:
 
 * Ruby version 2.1.3
 
 * Rails 4.0.0
+
+*jQuery, AJAX
+
+*Bootstrap
+
+*Websockets with Pusher as a javascript library and a third party service
+
+
+How to play Hoto
+
+Hoto is a turn-based board game played by two people.  Each turn has a place phase and a topple phase.
+
+Placing phase
+
+Players begin their turn by placing one piece on the board.  You can place on empty spaces or on pieces of your colour.  If a stack of pieces is two or greater, it can topple. If it is four high it will bloom. Once you have placed, you may begin toppling or end your turn.  Players must place, but they do not have to topple.
+
+Toppling phase
+
+Once you have placed, you may begin toppling.  Toppling is the movement aspect of Hoto.  Stacks that are higher than one can topple as long as they have an adjacent space.  When a piece topples, its pieces will spread out in a line in the direction that it toppled.  If it spreads across other stacks, the hieght of those stacks will be increased.  If it spreads across your opponent's stack, that stack will be captured and its colour will be changed to yours.  The stack now belongs to you!  You may topple as many times as you like before you end your turn.
+
+Blooming
+
+If the height of a stack reaches four, it will bloom.  This means that its four pieces will spread to the four adjacent squares, increasing the height of any stacks and capturing any opponent's pieces.  A bloom ends your turn automatically, so be wary when toppling onto stacks of three. Blooms can be chained, so be careful!
+
+How to win at Hoto
+
+You win by capturing all of your opponent's pieces.  This can be done by toppling or blooming onto your opponent's pieces.
+
 
