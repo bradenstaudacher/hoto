@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150426235734) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "elo_changes", force: true do |t|
     t.integer  "user_id"
     t.integer  "change"
@@ -48,7 +51,7 @@ ActiveRecord::Schema.define(version: 20150426235734) do
     t.integer  "game_id"
   end
 
-  add_index "squares", ["game_id"], name: "index_squares_on_game_id"
+  add_index "squares", ["game_id"], name: "index_squares_on_game_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
