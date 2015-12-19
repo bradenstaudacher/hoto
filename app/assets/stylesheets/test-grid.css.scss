@@ -1,0 +1,133 @@
+@import 'variables';
+
+/**
+ * Line Height Styles
+ */
+.test-lineheight {
+    position: relative;
+}
+
+.test-lineheight:after {
+    background-color: rgba(235,171,246,.3);
+    content: "";
+    left: 0;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    width: 100%;
+}
+
+/**
+ * Grid Styles
+ */
+
+.test-grid {
+    height: 100%;
+    left: 0;
+    padding: 0 $page-gutters;
+    pointer-events: none; /* allow inspecting of elements under the grid */
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.test-grid {
+    @media only screen and (min-width: $screen-sm) {
+        padding: 0 $screen-sm-page-gutters;
+    }
+    
+    @media only screen and (min-width: $screen-md) {
+        padding: 0 $screen-md-page-gutters;
+    }
+    
+    @media only screen and (min-width: $screen-lg) {
+        padding: 0 $screen-lg-page-gutters;
+    }
+}
+
+.test-grid::after,
+.test-grid::before {
+    background-color: rgba(121,249,249,.3);
+    content: '';
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: $page-gutters;
+
+}
+
+@media only screen and (min-width: 768px) {
+    .test-grid::after,
+    .test-grid::before {
+        width: $screen-sm-page-gutters;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .test-grid::after,
+    .test-grid::before {
+        width: $screen-md-page-gutters;
+    }
+}
+
+@media only screen and (min-width: 1360px) {
+    .test-grid::after,
+    .test-grid::before {
+        width: $screen-lg-page-gutters;
+    }
+}
+
+.test-grid::after {
+    right: 0;
+}
+
+.test-grid::before {
+    left: 0;
+}
+
+.test-grid_main {
+    display: flex;
+    height: 100%;
+}
+
+.test-grid_main .col {
+    background-color: rgba(235,171,246,.3);
+    height: 100%;
+    // margin-left: 16px;
+    margin-left: $column-gutter-width;
+    opacity: .6;
+    width: calc((100% - (#{column-gutter-width} * 11)) / 12);
+}
+
+.test-grid_main .col:first-child {
+    margin-left: 0;
+}
+
+.test-grid_main .col {
+    @media only screen and (min-width: $screen-sm) {
+        margin-left: $column-gutter-width-sm;
+        width: calc((100% - (24px * 11)) / 12);
+    }
+
+    @media only screen and (min-width: $screen-md) {
+        margin-left: $column-gutter-width-md;
+        width: calc((100% - (28px * 11)) / 12);
+    }
+
+    @media only screen and (min-width: $screen-lg) {
+        margin-left: $column-gutter-width-lg;
+        width: calc((100% - (32px * 11)) / 12);
+    }
+}
+
+#grid-overlay {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+#grid-overlay a {
+    display: block;
+    padding: 1em;
+}

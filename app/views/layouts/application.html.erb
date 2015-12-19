@@ -9,9 +9,12 @@
 </head>
 <body>
 <%= render 'layouts/header' %>
-
-<div class='container-fluid'>
 	<%= yield %>
-</div>
 </body>
+
+<ul id="grid-overlay">
+    <li><a href="javascript: (function(){try {GridOverlay.testgrid.toggleGrid(); } catch(err) {} })();">Toggle Grid</a></li>
+    <li><a href="javascript: (function(){try {GridOverlay.testlineheight.toggleLineHeight(); } catch(err) {} })();">Toggle Line Height</a></li>
+</ul>
+
 </html>
