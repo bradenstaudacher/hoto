@@ -12,5 +12,12 @@
 
 <%= yield %>
 
+	<!--  12 column grid visible in dev environment to aid in styling -->
+	<% if !Rails.env.production? %>
+	<ul id="grid-overlay">
+	    <li><a href="javascript: (function(){try {GridOverlay.testgrid.toggleGrid(); } catch(err) {} })();">Toggle Grid</a></li>
+	    <li><a href="javascript: (function(){try {GridOverlay.testlineheight.toggleLineHeight(); } catch(err) {} })();">Toggle Line Height</a></li>
+	</ul>
+	<% end  %>
 </body>
 </html>
