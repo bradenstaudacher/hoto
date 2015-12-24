@@ -1,3 +1,6 @@
+@import "bootstrap";
+@import "variables";
+
 // Place all the styles related to the game controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
@@ -10,6 +13,23 @@
 //   h1{
 //     margin-bottom: 0.5%;
 //   }
+// }
+$scale: 5;
+$game-board-width: 8em * $scale;
+$piece-diameter: 1.6rem * $scale;
+$piece-font-size: .66em * $scale;
+
+$table-row-height: 1.6em * $scale;
+$table-border-spacing: 3px;
+
+
+// development style to show where any grid-spanning elements are...
+// div[class="row"] {
+//     border: 1px dotted rgba(0, 0, 0, 0.5);
+// }
+
+// div[class^="col-"] {
+//     background-color: rgba(255, 0, 0, 0.2);
 // }
 
 
@@ -47,231 +67,162 @@
     color: #008080; } }
 //////
 
-.game-over{
-  -webkit-animation: 1s shift-foreground linear infinite;
-          animation: 1s shift-foreground linear infinite; }
+#gameplay-container {
+  .game-over{
+    -webkit-animation: 1s shift-foreground linear infinite;
+            animation: 1s shift-foreground linear infinite; }
 
-hr {
-  clear: both;
-}
-// table {
-//   width: 300px;
-//   margin: auto;
-// }
-#info-div{
-  float:left;
-  width: 20%;
-  margin-top: 10%;
-}
-
-.info-shove{
-  margin-left: 80px;
-}
-
-#white-circle{
-  float:left;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  background-color: white;
-  margin-top: 20px;
-  margin-left: 40px;
-}
-#black-circle{
-  float:left;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  background-color: #000000;
-  margin-top: 13px;
-  margin-left: 40px;
-}
-
-
-#game-board-encase{
-  float:left;
-  width:55%;
-  margin-top: 2%;
-  margin-bottom: 2%;
-}
-#game-board {
-  margin: 50px auto 0;
-  padding: 0.5px !important;
-  width: 40em;
-  border-collapse: separate;
-  border-spacing: 3px;
-  tr {
-    height: 8em;
-  }
-  td {
-    background: grey;
-    text-align: center;
-    position: relative;
-  }
-  .active {
-    background: lightgrey;
-  }
-}
-
-#player-turn-info{
-  float:left;
-  margin-top: 10%;
-  width: 20%;
-}
-
-#player-turn-info2{
-  float:left;
-  margin-top: 10%;
-  width: 20%;
-}
-
-.black span {
-  background-color: black;
-  color: white;
-  cursor: pointer; cursor: hand;
-
-}
-
-.white span{
-  background-color: white;
-  color: black;
-  cursor: pointer; cursor: hand;
-
-}
-
-.normal span {
-  color: yellow;
-}
-.empty span {
-  color: yellow;
-}
-
-.piece-numbers {
-  font-size: 210%;
-  font-family: Arial, Helvetica, sans-serif;
-}
-.game-square {
-  cursor: pointer; cursor: hand;
-}
-.pieces {
-  display: block;
-  width: 3.5em;
-  height: 3.5em;
-  position: absolute;
-  font-size: 1.5em;
-  margin: auto;
-  z-index: 5;
-  border-radius: 50%;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-
-}
-
-.fake-pieces {
-   display: block;
-  width: 3.5em;
-  height: 3.5em;
-  position: absolute;
-  margin: auto;
-  z-index: 6;
-  border-radius: 50%;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px
-}
-
-#button-container {
-// margin-left: 70%;
-  width: 30%;  
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.user-games {
-  width: 75%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.edit-link a {
-  // text-align: right;
-}
-
-.editbtn{
-  margin-left: 12.5%;
-}
-
-.chart{
-  width: 25%;
-  margin-left: 40%;
-}
-
-/*scrollable tables*/
-.header-fixed {
-    width: 100% 
-}
-
-.header-fixed > thead,
-.header-fixed > tbody,
-.header-fixed > thead > tr,
-.header-fixed > tbody > tr,
-.header-fixed > thead > tr > th,
-.header-fixed > tbody > tr > td {
-    display: block;
-}
-
-.header-fixed > tbody > tr:after,
-.header-fixed > thead > tr:after {
-    content: ' ';
-    display: block;
-    visibility: hidden;
+  hr {
     clear: both;
-}
+  }
+  // table {
+  //   width: 300px;
+  //   margin: auto;
+  // }
+  #info-div{
+    @extend .col-md-3;
+    // float:left;
+    position: relative;
+    // width: 20%;
+    @media (min-width: $screen-lg) {
+      margin-top: 10%;
+    }
 
-.header-fixed > tbody {
-    overflow-y: auto;
-    height: 150px;
-}
+    #white-circle{
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      background-color: white;
+      position: absolute;
+      left: 5rem;
+    }
 
-.header-fixed > .statistics{
-  height: auto;
-}
+    .info-shove{
+      margin-left: 80px;
+      margin-top: 0;
+    }
+    
+    #black-circle{
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      background-color: #000000;
+      position: relative;
+      top: 3rem;
+      left: 3.5rem;
+    }
+  }
 
-.header-fixed > tbody > tr > td,
-.header-fixed > thead > tr > th {
-    width: 25%;
-    float: left;
-}
+  #game-board-encase{
+    overflow:hidden;
+    // float:left;
+    // width:55%;
+    // margin-top: 2%;
+    // margin-bottom: 2%;
+  }
 
-.header-fixed > .gamejoin > tr > td,
-.header-fixed > .gamejoin > tr > th {
-    width: 33.33%;
-}
+  #game-board {
+    // margin: 50px auto 0;
+    // padding: 0.5px !important;
+    width: $game-board-width;
+    border-collapse: separate;
+    border-spacing: $table-border-spacing;
+    tr {
+      height: $table-row-height;
+    }
+    td {
+      background: grey;
+      text-align: center;
+      position: relative;
+    }
+    .active {
+      background: lightgrey;
+    }
+  }
 
-.header-fixed > .statistics > tr > td,
-.header-fixed > .statistics > tr > th {
-    width: 25%;
-}
+  #player-turn-info{
+  }
 
-.header-fixed > .activegames > tr > td,
-.header-fixed > .activegames > tr > th {
-    width: 16.66%%;
-}
+  #player-turn-info2{
+  }
 
-.header-fixed > .pastgames > tr > td,
-.header-fixed > .pastgames > tr > th {
-    width: 20%;
-}
-/*#join-game-list > .header-fixed > tbody > tr > td,
-#join-game-list > .header-fixed > thead > tr > th {
- 
-    width: 33%;
+  .black span {
+    background-color: black;
+    color: white;
+    cursor: pointer; cursor: hand;
 
-}*/
-.game-list > .header-fixed > tbody > tr > td,
-.game-list > .header-fixed > thead > tr > th {
-    width: 33%;
+  }
+
+  .white span{
+    background-color: white;
+    color: black;
+    cursor: pointer; cursor: hand;
+
+  }
+
+  .normal span {
+    color: yellow;
+  }
+  .empty span {
+    color: yellow;
+  }
+
+  .piece-numbers {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .game-square {
+    cursor: pointer; cursor: hand;
+  }
+
+  .pieces {
+    display: block;
+    width: $piece-diameter;
+    height: $piece-diameter;
+    position: absolute;
+    font-size: $piece-font-size;
+    margin: auto;
+    z-index: 5;
+    border-radius: 50%;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+
+  }
+
+  .fake-pieces {
+    display: block;
+    width: $piece-diameter;
+    height: $piece-diameter;
+    position: absolute;
+    margin: auto;
+    z-index: 6;
+    border-radius: 50%;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px
+  }
+
+  #button-container {
+  // margin-left: 70%;
+    width: 30%;  
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .user-games {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .edit-link a {
+    // text-align: right;
+  }
+
+  .editbtn{
+    margin-left: 12.5%;
+  }
+
 }
