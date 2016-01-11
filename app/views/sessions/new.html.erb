@@ -1,15 +1,15 @@
 <div>
-  <h1 style="margin-left: 3%">Log In</h1>
+  <h1>Log In</h1>
   <%= form_tag sessions_path do %>
-    <div style="margin-left: 3%">
+    <div>
       <%= label_tag "email" %></br>
       <%= text_field_tag "email" %>
     </div>
-    <div style="margin-left: 3%">
+    <div>
       <%= label_tag :password %></br>
       <%= password_field_tag :password %>
 
     </div>
-    <div style="margin-left: 3%; margin-top: 1%"><%= submit_tag "Log In", :class => "btn btn-danger" %></div>
+    <div><%= submit_tag "Log In", :class => "btn btn-danger" %></div>
   <% end %>
 </div>

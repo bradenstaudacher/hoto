@@ -1,6 +1,16 @@
 // $transparent-grey: hsla(33, 11%, 50%, .1);
+@import 'bootstrap';
+@import 'variables';
 
-#container{
+body,
+html {
+  font-size: 10px;
+}
+#home-page-container {
+  @extend .container-fluid;
+}
+
+#info-container {
   width: 48%;
   float: left;
   margin-top: 8%;
@@ -9,9 +19,11 @@
 #log-in-button{
   margin: 1%;
 }
+
 #sign-up-button{
   margin: 1%;
 }
+
 #rules-button{
   margin: 1%;
 }
@@ -21,6 +33,11 @@
   width: 49%;
   float: left;
   margin-top: 8%;
+
+  td,
+  th {
+    float: left;
+  }
 }
 
 .game-list {
@@ -128,3 +145,4 @@
 .game-list > .header-fixed > thead > tr > th {
     width: 33%;
 }
+
