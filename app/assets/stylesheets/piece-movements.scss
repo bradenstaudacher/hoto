@@ -1,0 +1,165 @@
+/*
+p {
+  animation-duration: 3s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%; 
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+*/
+
+$distance: 120px;
+
+@mixin slide($direction,$length, $dis) {
+	@if $direction == 'up' {
+		transform: translate3d(0, -$dis * $length, 0);
+	} @else if $direction == 'right' {
+		transform: translate3d($dis * $length, 0, 0);
+	} @else if $direction == 'down' {
+		transform: translate3d(0, $dis * $length, 0);
+	} @else if $direction == 'left' {
+		transform: translate3d(-$dis * $length, 0, 0);
+	}
+}
+
+.up-1 {
+	@include slide(up, 1, $distance);
+	transition: transform 1s;
+}
+
+.up-2 {
+	@include slide(up, 2, $distance);
+	transition: transform 1s;
+}
+
+.up-3 {
+	@include slide(up, 3, $distance);
+	transition: transform 1s;
+}
+
+.right-1 {
+	@include slide(right, 1, $distance);
+	transition: transform 1s;
+}
+
+.right-2 {
+	@include slide(right, 2, $distance);
+	transition: transform 1s;
+}
+
+.right-3 {
+	@include slide(right, 3, $distance);
+	transition: transform 1s;
+}
+
+.down-1 {
+	@include slide(down, 1, $distance);
+	transition: transform 1s;
+}
+
+.down-2 {
+	@include slide(down, 2, $distance);
+	transition: transform 1s;
+}
+
+.down-3 {
+	@include slide(down, 3, $distance);
+	transition: transform 1s;
+}
+
+.left-1 {
+	@include slide(left, 1, $distance);
+	transition: transform 1s;
+}
+
+.left-2 {
+	@include slide(left, 2, $distance);
+	transition: transform 1s;
+}
+
+.left-3 {
+	@include slide(left, 3, $distance);
+	transition: transform 1s;
+}
+
+// .1-up {
+// 	transform: translate3d(0, $distance, 0);
+// 	animation-duration: 1s;
+// 	animation-name:  ;
+// }
+
+// .2-up {
+// 	transform: translate3d(0, $distance * 2, 0);
+// 	animation-duration: 1s;
+// 	animation-name:  ;
+// }
+
+// .3-up {
+// 	transform: translate3d(0, $distance * 3, 0);
+// 	animation-duration: 1s;
+// 	animation-name:  ;
+// }
+
+// .1-down {
+// 	transform: translate3d(0, -$distance, 0);
+// 	animation-duration: 1s;
+// 	animation-name:  ;
+// }
+
+// .2-down {
+// 	transform: translate3d(0, -$distance * 2, 0);
+// 	animation-duration: 1s;
+// 	animation-name:  ;
+// }
+
+// .3-down {
+// 	transform: translate3d(0, -$distance * 3, 0);
+// 	animation-duration: 1s;
+// 	animation-name:  ;
+// }
+
+// .1-right {
+// 	transform: translate3d($distance, 0, 0);
+// 	animation-duration: 1s;
+// 	animation-name:  ;
+// }
+
+// .2-right {
+// 	transform: translate3d($distance * 2, 0, 0);
+// 	animation-duration: 1s;
+// 	animation-name:  ;
+// }
+
+// .3-right {
+// 	transform: translate3d($distance * 3, 0, 0);
+// 	animation-duration: 1s;
+// 	animation-name:  ;
+// }
+
+// .1-left {
+// 	transform: translate3d(-$distance, 0, 0);
+// 	animation-duration: 1s;
+// 	animation-name:  ;
+// }
+
+// .2-left {
+// 	transform: translate3d(-$distance * 2, 0, 0);
+// 	animation-duration: 1s;
+// 	animation-name:  ;
+// }
+
+// .3-left {
+// 	transform: translate3d(-$distance * 3, 0, 0);
+// 	animation-duration: 1s;
+// 	animation-name:  ;
+// }
+

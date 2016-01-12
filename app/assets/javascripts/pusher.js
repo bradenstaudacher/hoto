@@ -63,31 +63,36 @@ $(document).ready(function(){
               console.log('right');
               var counter = 1;
               var amountArray = [0, 140, 260, 380];
+
+                // Runs 3 times regardless of whether the third is there or not.
                 while (counter <= 3) {
                   var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
                   thing.addClass('fake-pieces');
-                  thing.animate({ 
-                    left: "+=" + amountArray[counter]
-                  }, {
-                  duration: 1000,
-                    complete: function(){
-                      if(turn.actions.length > 1){
-                        toppleAction = getArrayOfTopples()
-                        originSquare = {x: toppleAction[0].coord.x, y: toppleAction[0].coord.y, height: toppleAction[0].coord.height, colour: turn.colour}
-                        arr = [originSquare]
-                        destinationArray = toppleAction[0].destination_coords
-                        for(var i = 0; i < destinationArray.length; i++){
-                          arr = affectedToppleSquaresBuild(destinationArray[i].x, destinationArray[i].y, destinationArray[i].height, turn.colour, arr)
-                        }
-                        changeAffectedSquares(arr)
-                        setTimeout(function(){
-                          bloomer();
-                        },500)
+                  thing.addClass(direction + '-' + counter);
+
+                  //****Figure out how to change the below callback, into a version where i can just add and remove classes as opposed to 
+                  //using jquery animate. 
+                  setTimeout(function() {
+                      
+                    if(turn.actions.length > 1){
+                      // does getArrayOfTopples make any damn sense!? why would there ever be more then one?
+                      toppleAction = getArrayOfTopples()
+                      originSquare = {x: toppleAction[0].coord.x, y: toppleAction[0].coord.y, height: toppleAction[0].coord.height, colour: turn.colour}
+                      arr = [originSquare]
+                      destinationArray = toppleAction[0].destination_coords
+
+                      for(var i = 0; i < destinationArray.length; i++){
+                        arr = affectedToppleSquaresBuild(destinationArray[i].x, destinationArray[i].y, destinationArray[i].height, turn.colour, arr)
                       }
+
+                      changeAffectedSquares(arr);
+                      setTimeout(function() {
+                        bloomer();
+                      },500)
+                      counter += 1;
                     }
-                  });
-                  counter += 1;
-                }
+                  },1000)
+                } 
 
               if(turn.actions.length === 1) { 
                 setTimeout(function(){
@@ -97,12 +102,17 @@ $(document).ready(function(){
             } else if (direction === 'left') {
               console.log('left');
               var counter = 1;
-              var amountArray = [0, 240, 480, 720];
+              // var amountArray = [0, 240, 480, 720];
+              var amountArray = [0, 120, 240, 360];
+
               while (counter <= 3) {
                 var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
                 thing.addClass('fake-pieces');
                 thing.animate({ 
-                  left: "-=" + amountArray[counter]
+                  // left: "-=" + amountArray[counter]
+                  // transform: translate3d(-120px,0,0)
+                    transform: "translate3d(-" + amountArray[counter] + 'px, 0, 0 )'
+
                 }, {
                 duration: 1000,
                   complete: function(){
@@ -132,12 +142,15 @@ $(document).ready(function(){
             } else if(direction === 'up') {
               console.log('up');
               var counter = 1;
-              var amountArray = [0, 244, 485, 727];
+              // var amountArray = [0, 244, 485, 727];
+              var amountArray = [0, 120, 240, 360];              
+
               while (counter <= 3) {
                 var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
                 thing.addClass('fake-pieces');
                 thing.animate({ 
-                  top: "-=" + amountArray[counter]
+                  // top: "-=" + amountArray[counter]
+                  transform: "translate3d(0, " + amountArray[counter] + 'px, 0 )'
                 }, {
                   duration: 1000,
                   complete: function(){
@@ -166,12 +179,16 @@ $(document).ready(function(){
             } else {
               console.log('down');
               var counter = 1;
-              var amountArray = [0, 242, 484, 726];
+              // var amountArray = [0, 242, 484, 726];
+              var amountArray = [0, 120, 240, 360];              
+
               while (counter <= 3) {
                 var thing = $('td.game-square[data-x="'+ squareX +'"][data-y="'+ squareY +'"] span:nth-child('+ counter +')');
                 thing.addClass('fake-pieces');
                 thing.animate({ 
-                "top" : "+=" + amountArray[counter]
+                // "top" : "+=" + amountArray[counter]
+                // transform: translate3d(0, amountArray[counter], 0 );
+                  transform: "translate3d(0, -" + amountArray[counter] + 'px, 0 )'
                 }, {
                   duration: 1000,
                   complete: function(){
@@ -202,6 +219,7 @@ $(document).ready(function(){
         }
       }
     }
+
     function changeGameBoard(squares){
       for(var i = 0; i < squares.length ; i++){
         $('td.game-square[data-x="'+squares[i].x+'"][data-y="'+squares[i].y +'"]').removeClass('black white empty');
@@ -222,6 +240,7 @@ $(document).ready(function(){
       x = "<span class='pieces'><p class='piece-numbers'>" + number + "</p></span>";
       return Array(number + 1).join(x);
     }
+
     function getDirection(from_coords, to_coords){
       var direction ='';
       switch ([from_coords.x - to_coords.x,from_coords.y - to_coords.y].toString()) {
