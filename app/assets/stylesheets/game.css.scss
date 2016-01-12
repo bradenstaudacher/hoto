@@ -75,15 +75,10 @@ $table-border-spacing: 3px;
   hr {
     clear: both;
   }
-  // table {
-  //   width: 300px;
-  //   margin: auto;
-  // }
-  #info-div{
+
+  #info-div {
     @extend .col-md-3;
-    // float:left;
     position: relative;
-    // width: 20%;
     @media (min-width: $screen-lg) {
       margin-top: 10%;
     }
@@ -114,19 +109,15 @@ $table-border-spacing: 3px;
   }
 
   #game-board-encase{
+    @extend .col-md-6;
     overflow:hidden;
-    // float:left;
-    // width:55%;
-    // margin-top: 2%;
-    // margin-bottom: 2%;
   }
 
   #game-board {
-    // margin: 50px auto 0;
-    // padding: 0.5px !important;
     width: $game-board-width;
     border-collapse: separate;
     border-spacing: $table-border-spacing;
+
     tr {
       height: $table-row-height;
     }
@@ -141,9 +132,13 @@ $table-border-spacing: 3px;
   }
 
   #player-turn-info{
-  }
+    @extend .col-md-3;
 
-  #player-turn-info2{
+    // these are temporary styles to fix a bug until the gameboard can be shrunk and scaled..
+    @media (min-width: $screen-lg) {
+      margin-left: -45px;
+      margin-top: 50px;
+    }
   }
 
   .black span {
@@ -163,6 +158,7 @@ $table-border-spacing: 3px;
   .normal span {
     color: yellow;
   }
+  
   .empty span {
     color: yellow;
   }
@@ -170,6 +166,7 @@ $table-border-spacing: 3px;
   .piece-numbers {
     font-family: Arial, Helvetica, sans-serif;
   }
+  
   .game-square {
     cursor: pointer; cursor: hand;
   }
@@ -205,24 +202,17 @@ $table-border-spacing: 3px;
   }
 
   #button-container {
-  // margin-left: 70%;
     width: 30%;  
     margin-left: auto;
     margin-right: auto;
   }
 
   .user-games {
-    // width: 75%;
     margin-left: auto;
     margin-right: auto;
-  }
-
-  .edit-link a {
-    // text-align: right;
   }
 
   .editbtn{
     margin-left: 12.5%;
   }
-
 }

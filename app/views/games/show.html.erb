@@ -30,7 +30,7 @@
       </div> 
     </div>
 
-    <div id="game-board-encase" class='col-md-7'>
+    <div id="game-board-encase">
       <table id='game-board'>  
         <% @board.each_with_index do |row, y|  %>
         <tr>
@@ -52,7 +52,7 @@
     </div>
 
     <% if @game.active %>
-      <div id="player-turn-info" class='col-md-3'>
+      <div id="player-turn-info">
         <% if @game.turnstate == @current_colour %>
           <h4 id="turn-phase">Your turn to <%=@game.phase  %></h4>
         <% else %>
